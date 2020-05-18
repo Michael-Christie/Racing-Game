@@ -5,6 +5,7 @@ using UnityEngine;
 public class TrackGenerator : MonoBehaviour
 {
     public TrackShape Shape;
+    public GameObject Node;
 
     public List<NodePoint> Nodes = new List<NodePoint>();
 
@@ -14,6 +15,8 @@ public class TrackGenerator : MonoBehaviour
     GameObject points;
 
     public Material TrackMaterial;
+
+    public List<GameObject> trackSegements = new List<GameObject>();
 
     private void Start()
     {
@@ -92,6 +95,8 @@ public class TrackGenerator : MonoBehaviour
         mFilter.mesh = m;
 
         mRenderer.material = TrackMaterial;
+
+        trackSegements.Insert(nodeIndex, newTrack);
     }
 
     OrientedBezier GetOrientedBezierData(NodePoint a, NodePoint b, float t)
@@ -127,7 +132,7 @@ public class TrackGenerator : MonoBehaviour
 
     public void AddNewNode(Vector3 pos)
     {
-        GameObject g = new GameObject();
+        GameObject g = Instantiate(Node);
         g.transform.position = pos;
         
         //calculates the angle between the new point and the last point?
@@ -140,9 +145,7 @@ public class TrackGenerator : MonoBehaviour
 
         g.transform.parent = points.transform;
 
-        NodePoint p = g.AddComponent<NodePoint>();
-
-        Nodes.Add(p);
+        Nodes.Add(g.GetComponent<NodePoint>());
         DeleteAllSegments();
         GenerateAllSegments();
     }
@@ -152,16 +155,38 @@ public class TrackGenerator : MonoBehaviour
 
     }
 
+    public void UpdateNode(NodePoint NP)
+    {
+        for (int i = 0; i < Nodes.Count; i++)
+        {
+            if(Nodes[i] == NP)
+            {
+                if (i != Nodes.Count - 1)
+                {
+                    DeleteSegment(i);
+                    GenerateSegement(i);
+                }
+
+                if (i != 0)
+                {
+                    DeleteSegment(i - 1);
+                    GenerateSegement(i - 1);
+                }
+            }
+        }
+    }
+
     public void DeleteAllSegments()
     {
-        foreach(Transform child in tracks.transform)
-        {
-            DestroyImmediate(child.gameObject);
-        }
+        for (int i = tracks.transform.childCount - 1; i >= 0; i--)
+            DestroyImmediate(tracks.transform.GetChild(i).gameObject);
+        trackSegements.Clear();
     }
 
     public void DeleteSegment(int i)
     {
-
+        GameObject g = trackSegements[i];
+        trackSegements.RemoveAt(i);
+        DestroyImmediate(g);
     }
 }

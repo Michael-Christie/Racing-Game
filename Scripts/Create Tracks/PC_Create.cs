@@ -5,6 +5,9 @@ using UnityEngine;
 public class PC_Create : MonoBehaviour
 {
     public TrackGenerator TG;
+    public LayerMask nodeLayer;
+
+    public GameObject MovingObject = null;
 
     public enum zoomLevel
     {
@@ -20,12 +23,38 @@ public class PC_Create : MonoBehaviour
     void Update()
     {
         //adds a new road segment
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             AddPoint();
         }
         //zooms in and out
         Zoom();
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 100f, nodeLayer))
+        {
+            Debug.Log(hit.collider.gameObject);
+            NodePoint p = hit.collider.gameObject.GetComponent<NodePoint>();
+            if (Input.GetMouseButtonDown(0))
+            {
+                p.Select(true);
+                MovingObject = p.gameObject;
+            }
+
+            if (Input.GetMouseButtonUp(0) && p.isSelected)
+            {
+                p.Select(false);
+                MovingObject = null;
+            }
+        }
+
+        if (MovingObject)
+        {
+            Vector3 newPos = Camera.main.ScreenToWorldPoint(Input.mousePosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
+            MovingObject.transform.position = newPos;
+            TG.UpdateNode(MovingObject.GetComponent<NodePoint>());
+        }
     }
 
     private void FixedUpdate()
@@ -40,6 +69,11 @@ public class PC_Create : MonoBehaviour
         Vector3 newPos = Camera.main.ScreenToWorldPoint(Input.mousePosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
         Debug.Log(newPos);
         TG.AddNewNode(newPos);
+    }
+
+    void MovePoint()
+    {
+
     }
 
     void Zoom()
