@@ -52,6 +52,7 @@ public class PC_Create : MonoBehaviour
         if (MovingObject)
         {
             Vector3 newPos = Camera.main.ScreenToWorldPoint(Input.mousePosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
+            newPos = new Vector3(Mathf.RoundToInt(newPos.x), Mathf.RoundToInt(newPos.y), Mathf.RoundToInt(newPos.z));
             MovingObject.transform.position = newPos;
             TG.UpdateNode(MovingObject.GetComponent<NodePoint>());
         }
