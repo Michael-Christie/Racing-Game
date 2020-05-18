@@ -67,7 +67,7 @@ public class PC_Create : MonoBehaviour
     void AddPoint()
     {
         Vector3 newPos = Camera.main.ScreenToWorldPoint(Input.mousePosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
-        Debug.Log(newPos);
+        newPos = new Vector3(Mathf.RoundToInt(newPos.x), Mathf.RoundToInt(newPos.y), Mathf.RoundToInt(newPos.z));
         TG.AddNewNode(newPos);
     }
 

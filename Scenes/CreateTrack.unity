@@ -166,6 +166,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TG: {fileID: 1223799105}
+  nodeLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  MovingObject: {fileID: 0}
   ZoomLevel: 3
 --- !u!1 &161509919
 GameObject:
@@ -337,7 +341,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203523781}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -466,8 +470,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Shape: {fileID: 11400000, guid: aec2a1d94e1f7704a83db8d73e54a446, type: 2}
+  Node: {fileID: 5991019031626833409, guid: e8b6014aa74f82c4096377e8fd37f3a5, type: 3}
   Nodes: []
   LoopTrack: 0
+  TrackMaterial: {fileID: 2100000, guid: af97645d63b5ddd40bf601518fa6cf8c, type: 2}
+  trackSegements: []
 --- !u!4 &1223799106
 Transform:
   m_ObjectHideFlags: 0

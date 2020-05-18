@@ -141,6 +141,12 @@ public class TrackGenerator : MonoBehaviour
             //pos back = last index.forward + pos * .5f
             Vector3 backpos = (Nodes[Nodes.Count - 1].Forward + pos) * .5f;
             g.transform.LookAt(pos * 2 - backpos, Vector3.up);
+            float y = g.transform.rotation.eulerAngles.y;
+            y /= 15;
+            int iy = Mathf.RoundToInt(y);
+            iy *= 15;
+            Debug.Log(iy);
+            g.transform.rotation = Quaternion.Euler(new Vector3(0,iy,0));
         }
 
         g.transform.parent = points.transform;
@@ -150,7 +156,7 @@ public class TrackGenerator : MonoBehaviour
         GenerateAllSegments();
     }
 
-    public void RemoveNode()
+    public void RemoveNode(int nodeIndex)
     {
 
     }
