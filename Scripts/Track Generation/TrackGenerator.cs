@@ -125,7 +125,15 @@ public class TrackGenerator : MonoBehaviour
     {
         GameObject g = new GameObject();
         g.transform.position = pos;
-        //dot product from the last point to this one to give a rought angle?
+        
+        //calculates the angle between the new point and the last point?
+        if (Nodes.Count > 0)
+        {
+            //pos back = last index.forward + pos * .5f
+            Vector3 backpos = (Nodes[Nodes.Count - 1].Forward + pos) * .5f;
+            g.transform.LookAt(pos * 2 - backpos, Vector3.up);
+        }
+
         g.transform.parent = points.transform;
 
         NodePoint p = g.AddComponent<NodePoint>();
@@ -142,7 +150,10 @@ public class TrackGenerator : MonoBehaviour
 
     public void DeleteAllSegments()
     {
-
+        foreach(Transform child in tracks.transform)
+        {
+            DestroyImmediate(child.gameObject);
+        }
     }
 
     public void DeleteSegment(int i)
