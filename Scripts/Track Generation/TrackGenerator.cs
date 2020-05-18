@@ -10,14 +10,25 @@ public class TrackGenerator : MonoBehaviour
 
     public bool LoopTrack = false;
 
+    GameObject tracks;
+    GameObject points;
+
     private void Start()
     {
+        tracks = new GameObject();
+        tracks.transform.parent = transform;
+        tracks.name = "Tracks";
+        points = new GameObject();
+        points.transform.parent = transform;
+        points.name = "Points";
         GenerateAllSegments();
     }
 
     //Generates all road Segements
     public void GenerateAllSegments()
     {
+        if (Nodes.Count < 2)
+            return;
         for (int i = 0; i < Nodes.Count - (LoopTrack ? 0 : 1); i++)
             GenerateSegement(i);
     }
@@ -27,7 +38,7 @@ public class TrackGenerator : MonoBehaviour
     {
         //sets up the track segment game object
         GameObject newTrack = new GameObject();
-        newTrack.transform.parent = transform;
+        newTrack.transform.parent = tracks.transform;
 
         MeshFilter mFilter = newTrack.AddComponent<MeshFilter>();
         MeshRenderer mRenderer = newTrack.AddComponent<MeshRenderer>();
@@ -110,4 +121,32 @@ public class TrackGenerator : MonoBehaviour
         }
     }
 
+    public void AddNewNode(Vector3 pos)
+    {
+        GameObject g = new GameObject();
+        g.transform.position = pos;
+        //dot product from the last point to this one to give a rought angle?
+        g.transform.parent = points.transform;
+
+        NodePoint p = g.AddComponent<NodePoint>();
+
+        Nodes.Add(p);
+        DeleteAllSegments();
+        GenerateAllSegments();
+    }
+
+    public void RemoveNode()
+    {
+
+    }
+
+    public void DeleteAllSegments()
+    {
+
+    }
+
+    public void DeleteSegment(int i)
+    {
+
+    }
 }
