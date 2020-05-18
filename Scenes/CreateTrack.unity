@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TG: {fileID: 1223799105}
-  ZoomLevel: 0
+  ZoomLevel: 3
 --- !u!1 &161509919
 GameObject:
   m_ObjectHideFlags: 0

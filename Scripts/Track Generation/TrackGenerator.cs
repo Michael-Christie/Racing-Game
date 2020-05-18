@@ -13,6 +13,8 @@ public class TrackGenerator : MonoBehaviour
     GameObject tracks;
     GameObject points;
 
+    public Material TrackMaterial;
+
     private void Start()
     {
         tracks = new GameObject();
@@ -88,6 +90,8 @@ public class TrackGenerator : MonoBehaviour
         m.SetNormals(normal.ToArray());
 
         mFilter.mesh = m;
+
+        mRenderer.material = TrackMaterial;
     }
 
     OrientedBezier GetOrientedBezierData(NodePoint a, NodePoint b, float t)
