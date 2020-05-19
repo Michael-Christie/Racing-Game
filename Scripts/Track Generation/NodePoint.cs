@@ -11,15 +11,15 @@ public class NodePoint : MonoBehaviour
     bool MouseOver = false;
 
     Vector3 pos() { return transform.position; }
-    Vector3 forw() { return transform.position + transform.forward * 4f; }
-    Vector3 bac() { return transform.position - transform.forward * 4f; }
+    Vector3 forw() { return transform.position + transform.forward * 6f; }
+    Vector3 bac() { return transform.position - transform.forward * 6f; }
 
     public Material Normal;
     public Material Hovered;
     public Material Selected;
 
-    private void OnMouseEnter() { MouseOver = true; }
-    private void OnMouseExit() { MouseOver = false; }
+    //private void OnMouseEnter() { MouseOver = true; }
+    //private void OnMouseExit() { MouseOver = false; }
 
     private void Update()
     {

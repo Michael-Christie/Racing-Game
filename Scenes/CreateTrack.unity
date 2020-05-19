@@ -131,6 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 150994348}
   - component: {fileID: 150994349}
+  - component: {fileID: 150994350}
   m_Layer: 0
   m_Name: PlayerInteraction
   m_TagString: Untagged
@@ -171,6 +172,72 @@ MonoBehaviour:
     m_Bits: 256
   MovingObject: {fileID: 0}
   ZoomLevel: 3
+--- !u!114 &150994350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150994347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: f13efcb02a241a847898166c35e2f7d0,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 150994349}
+        m_MethodName: AddPoint
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 39084e4d-dded-4eb1-9e09-c26d0223a663
+    m_ActionName: TrackCreating/PlaceNode[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8de4b36a-5510-4e9f-95fd-65f43a8b8445
+    m_ActionName: TrackCreating/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: db7bf927-9399-4a93-8ab9-8955cbfad303
+    m_ActionName: TrackCreating/Cursor[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 19db7538-316b-43f2-8e46-993b9b347e4f
+    m_ActionName: TrackCreating/RotateLeft[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 66daa3d6-e735-4b1d-9c33-cacbd3cf3844
+    m_ActionName: TrackCreating/RotateRight[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e2cdcfc6-be38-4c8e-9f24-cf896bb20094
+    m_ActionName: TrackCreating/Drag[/Mouse/leftButton]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard
+  m_DefaultActionMap: TrackCreating
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &161509919
 GameObject:
   m_ObjectHideFlags: 0

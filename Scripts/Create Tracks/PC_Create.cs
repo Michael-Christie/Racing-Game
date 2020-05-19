@@ -9,6 +9,10 @@ public class PC_Create : MonoBehaviour
 
     public GameObject MovingObject = null;
 
+    private Controlls controls = null;
+
+    bool addNode;
+
     public enum zoomLevel
     {
         x1,
@@ -19,19 +23,27 @@ public class PC_Create : MonoBehaviour
 
     public zoomLevel ZoomLevel;
 
+    private void OnEnable()
+    {
+        controls = new Controlls();
+        controls.TrackCreating.Enable();
+    }
+
     // Update is called once per frame
     void Update()
     {
         //adds a new road segment
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
+        if (controls.TrackCreating.PlaceNode.triggered)
+        { 
             AddPoint();
+            addNode = false;
         }
+
         //zooms in and out
         Zoom();
 
         //finds out if we're hovering over a node
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(GetCursorPos());
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 100f, nodeLayer))
         {
@@ -39,27 +51,27 @@ public class PC_Create : MonoBehaviour
             NodePoint p = hit.collider.gameObject.GetComponent<NodePoint>();
 
             //if we select the node to move it
-            if (Input.GetMouseButtonDown(0))
+            if (controls.TrackCreating.Drag.triggered && !p.isSelected)
             {
+                Debug.Log("hm");
                 p.Select(true);
                 MovingObject = p.gameObject;
             }
-
             //when we deselect a node
-            if (Input.GetMouseButtonUp(0) && p.isSelected)
+            else if (controls.TrackCreating.Drag.triggered && p.isSelected)
             {
                 p.Select(false);
                 MovingObject = null;
             }
 
             //rotating the nodes around
-            if (Input.GetKeyDown(KeyCode.E))
+            if (controls.TrackCreating.RotateRight.triggered)
             {
                 p.GetComponent<NodePoint>().RotateRight();
                 TG.UpdateNode(p);
             }
 
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (controls.TrackCreating.RotateLeft.triggered)
             {
                 p.GetComponent<NodePoint>().RotateLeft();
                 TG.UpdateNode(p);
@@ -69,7 +81,7 @@ public class PC_Create : MonoBehaviour
         //moving a nodes position
         if (MovingObject)
         {
-            Vector3 newPos = Camera.main.ScreenToWorldPoint(Input.mousePosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
+            Vector3 newPos = Camera.main.ScreenToWorldPoint(GetCursorPos() + new Vector3(0, 0, Camera.main.transform.position.y - 1));
             newPos = new Vector3(Mathf.RoundToInt(newPos.x), Mathf.RoundToInt(newPos.y), Mathf.RoundToInt(newPos.z));
             MovingObject.transform.position = newPos;
             TG.UpdateNode(MovingObject.GetComponent<NodePoint>());
@@ -79,15 +91,23 @@ public class PC_Create : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Vector2 pm = controls.TrackCreating.Move.ReadValue<Vector2>();
         //moves the player around
-        Vector3 dir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        Vector3 dir = new Vector3(pm.x,0, pm.y).normalized;
         transform.Translate(dir, Space.World);
     }
 
-    void AddPoint()
+    Vector3 GetCursorPos()
+    {
+        Vector3 d = controls.TrackCreating.Cursor.ReadValue<Vector2>();
+
+        return d;
+    }
+
+    public void AddPoint()
     {
         //adds a new node point to the Track Generator
-        Vector3 newPos = Camera.main.ScreenToWorldPoint(Input.mousePosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
+        Vector3 newPos = Camera.main.ScreenToWorldPoint(GetCursorPos() + new Vector3(0, 0, Camera.main.transform.position.y - 1));
         newPos = new Vector3(Mathf.RoundToInt(newPos.x), Mathf.RoundToInt(newPos.y), Mathf.RoundToInt(newPos.z));
         TG.AddNewNode(newPos);
     }

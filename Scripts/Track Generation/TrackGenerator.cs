@@ -134,6 +134,9 @@ public class TrackGenerator : MonoBehaviour
     {
         GameObject g = Instantiate(Node);
         g.transform.position = pos;
+
+        //for each nodes, make sure its x amount away from it?
+
         
         //calculates the direction of the point from the forward position of the last node to the new node
         if (Nodes.Count > 0)
@@ -203,8 +206,11 @@ public class TrackGenerator : MonoBehaviour
 
     public void DeleteSegment(int i)
     {
-        GameObject g = trackSegements[i];
-        trackSegements.RemoveAt(i);
-        DestroyImmediate(g);
+        if (i < trackSegements.Count)
+        {
+            GameObject g = trackSegements[i];
+            trackSegements.RemoveAt(i);
+            DestroyImmediate(g);
+        }
     }
 }
