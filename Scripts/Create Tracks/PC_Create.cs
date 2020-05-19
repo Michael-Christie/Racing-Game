@@ -33,7 +33,7 @@ public class PC_Create : MonoBehaviour
     void Update()
     {
         //adds a new road segment
-        if (controls.TrackCreating.PlaceNode.triggered)
+        if (controls.TrackCreating.PlaceNode.triggered && !MovingObject)
         { 
             AddPoint();
             addNode = false;

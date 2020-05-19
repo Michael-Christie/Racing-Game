@@ -222,7 +222,11 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e2cdcfc6-be38-4c8e-9f24-cf896bb20094
     m_ActionName: TrackCreating/Drag[/Mouse/leftButton]
-  m_NeverAutoSwitchControlSchemes: 1
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 09b3b74f-9394-40c0-9788-f7f120791afb
+    m_ActionName: TrackCreating/Zoom[/Keyboard/downArrow,/Keyboard/upArrow]
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: TrackCreating
   m_SplitScreenIndex: -1
