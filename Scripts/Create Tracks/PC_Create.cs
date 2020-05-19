@@ -32,8 +32,10 @@ public class PC_Create : MonoBehaviour
         float v = 200 * d.y * Time.deltaTime;
 
         // add the changes to the actual cursor position
-        cursorPosition.x += h;
-        cursorPosition.y += v;
+        if(cursorPosition.x + h < Screen.width - 10 && cursorPosition.x + h > 0)
+            cursorPosition.x += h;
+        if (cursorPosition.y + v < Screen.height && cursorPosition.y + v > 10)
+            cursorPosition.y += v;
 
         GUI.DrawTexture(new Rect(cursorPosition.x, Screen.height - cursorPosition.y, 10, 10), cursorImage);
     }
