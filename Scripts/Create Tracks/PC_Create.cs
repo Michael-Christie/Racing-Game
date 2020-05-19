@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PC_Create : MonoBehaviour
 {
@@ -10,6 +11,32 @@ public class PC_Create : MonoBehaviour
     public GameObject MovingObject = null;
 
     private Controlls controls = null;
+
+    private Vector2 cursorPosition;
+    public Texture cursorImage;
+
+    private void Start()
+    {
+        Cursor.visible = false;
+
+        // optional place it in the center on start
+        cursorPosition = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void OnGUI()
+    {
+        Vector2 d = GetCursorPos();
+        // these are not actual positions but the change between last frame and now
+        float h = 200 * d.x * Time.deltaTime;
+        float v = 200 * d.y * Time.deltaTime;
+
+        // add the changes to the actual cursor position
+        cursorPosition.x += h;
+        cursorPosition.y += v;
+
+        GUI.DrawTexture(new Rect(cursorPosition.x, Screen.height - cursorPosition.y, 10, 10), cursorImage);
+    }
 
     bool addNode;
 
@@ -32,6 +59,7 @@ public class PC_Create : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //adds a new road segment
         if (controls.TrackCreating.PlaceNode.triggered && !MovingObject)
         { 
@@ -52,7 +80,7 @@ public class PC_Create : MonoBehaviour
 
 
         //finds out if we're hovering over a node
-        Ray ray = Camera.main.ScreenPointToRay(GetCursorPos());
+        Ray ray = Camera.main.ScreenPointToRay(cursorPosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 100f, nodeLayer))
         {
@@ -88,7 +116,7 @@ public class PC_Create : MonoBehaviour
         //moving a nodes position
         if (MovingObject)
         {
-            Vector3 newPos = Camera.main.ScreenToWorldPoint(GetCursorPos() + new Vector3(0, 0, Camera.main.transform.position.y - 1));
+            Vector3 newPos = Camera.main.ScreenToWorldPoint((Vector3)cursorPosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
             newPos = new Vector3(Mathf.RoundToInt(newPos.x), Mathf.RoundToInt(newPos.y), Mathf.RoundToInt(newPos.z));
             MovingObject.transform.position = newPos;
             TG.UpdateNode(MovingObject.GetComponent<NodePoint>());
@@ -109,7 +137,7 @@ public class PC_Create : MonoBehaviour
     public void AddPoint()
     {
         //adds a new node point to the Track Generator
-        Vector3 newPos = Camera.main.ScreenToWorldPoint(GetCursorPos() + new Vector3(0, 0, Camera.main.transform.position.y - 1));
+        Vector3 newPos = Camera.main.ScreenToWorldPoint((Vector3)cursorPosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
         newPos = new Vector3(Mathf.RoundToInt(newPos.x), Mathf.RoundToInt(newPos.y), Mathf.RoundToInt(newPos.z));
         TG.AddNewNode(newPos);
     }

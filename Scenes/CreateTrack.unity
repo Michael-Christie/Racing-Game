@@ -171,6 +171,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   MovingObject: {fileID: 0}
+  cursorImage: {fileID: 2800000, guid: b8e7f9f1548843c45a7189e1cabe3a0a, type: 3}
   ZoomLevel: 3
 --- !u!114 &150994350
 MonoBehaviour:
