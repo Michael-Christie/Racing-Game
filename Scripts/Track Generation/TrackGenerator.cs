@@ -20,6 +20,7 @@ public class TrackGenerator : MonoBehaviour
 
     private void Start()
     {
+        //sets up the track and point empty game object for readability
         tracks = new GameObject();
         tracks.transform.parent = transform;
         tracks.name = "Tracks";
@@ -32,8 +33,10 @@ public class TrackGenerator : MonoBehaviour
     //Generates all road Segements
     public void GenerateAllSegments()
     {
+        //makes sure they'res more then two tack sections
         if (Nodes.Count < 2)
             return;
+
         for (int i = 0; i < Nodes.Count - (LoopTrack ? 0 : 1); i++)
             GenerateSegement(i);
     }
@@ -86,6 +89,7 @@ public class TrackGenerator : MonoBehaviour
             }
         }
 
+        //applies it to the mesh filter
         Mesh m = new Mesh();
         m.SetVertices(vertices.ToArray());
         m.SetTriangles(triangles.ToArray(), 0);
@@ -94,11 +98,14 @@ public class TrackGenerator : MonoBehaviour
 
         mFilter.mesh = m;
 
+        //assigns the track material **TEMPORARY MATERIAL I NEED A NEW ONE WITH SPECTUAL LIGHTS
         mRenderer.material = TrackMaterial;
 
+        //adds it to the list of track sections for later use
         trackSegements.Insert(nodeIndex, newTrack);
     }
 
+    //returns the point location and orientation of the point
     OrientedBezier GetOrientedBezierData(NodePoint a, NodePoint b, float t)
     {
         OrientedBezier OB = new OrientedBezier();
@@ -122,36 +129,33 @@ public class TrackGenerator : MonoBehaviour
         public Vector3 position;
     }
 
-    private void OnDrawGizmos()
-    {
-        foreach (TrackShape.point point in Shape.trackPoints)
-        {
-            Gizmos.DrawSphere(point.location, .1f);
-        }
-    }
-
+    //adds a new node at location 
     public void AddNewNode(Vector3 pos)
     {
         GameObject g = Instantiate(Node);
         g.transform.position = pos;
         
-        //calculates the angle between the new point and the last point?
+        //calculates the direction of the point from the forward position of the last node to the new node
         if (Nodes.Count > 0)
         {
             //pos back = last index.forward + pos * .5f
             Vector3 backpos = (Nodes[Nodes.Count - 1].Forward + pos) * .5f;
             g.transform.LookAt(pos * 2 - backpos, Vector3.up);
             float y = g.transform.rotation.eulerAngles.y;
+
+            //clamps the angle to the nearest 15 degrees
             y /= 15;
             int iy = Mathf.RoundToInt(y);
             iy *= 15;
-            Debug.Log(iy);
+            //applies the rotation
             g.transform.rotation = Quaternion.Euler(new Vector3(0,iy,0));
         }
 
         g.transform.parent = points.transform;
 
         Nodes.Add(g.GetComponent<NodePoint>());
+        
+        ///**THIS SHOULD BE UPDATING ONLY THE NEW MESHES NOT ALL OF THEM
         DeleteAllSegments();
         GenerateAllSegments();
     }
@@ -161,13 +165,14 @@ public class TrackGenerator : MonoBehaviour
 
     }
 
+    //updates a mesh based upon a node
     public void UpdateNode(NodePoint NP)
     {
         for (int i = 0; i < Nodes.Count; i++)
         {
             if(Nodes[i] == NP)
             {
-                if (i != Nodes.Count - 1)
+                if ((i != Nodes.Count - 1) || (LoopTrack && i == Nodes.Count - 1))
                 {
                     DeleteSegment(i);
                     GenerateSegement(i);
@@ -178,6 +183,13 @@ public class TrackGenerator : MonoBehaviour
                     DeleteSegment(i - 1);
                     GenerateSegement(i - 1);
                 }
+
+                if (LoopTrack && i == 0)
+                {
+                    DeleteSegment(trackSegements.Count - 1);
+                    GenerateSegement(Nodes.Count - 1);
+                }
+
             }
         }
     }

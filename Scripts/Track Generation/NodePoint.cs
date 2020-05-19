@@ -41,4 +41,18 @@ public class NodePoint : MonoBehaviour
     {
         isSelected = b;
     }
+    
+    public void RotateRight()
+    {
+        Vector3 euler = transform.rotation.eulerAngles;
+        euler += new Vector3(0, 15, 0);
+        transform.rotation = Quaternion.Euler(euler);
+    }
+
+    public void RotateLeft()
+    {
+        Vector3 euler = transform.rotation.eulerAngles;
+        euler -= new Vector3(0, 15, 0);
+        transform.rotation = Quaternion.Euler(euler);
+    }
 }
