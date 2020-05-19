@@ -15,7 +15,7 @@ public class PC_Create : MonoBehaviour
 
     public enum zoomLevel
     {
-        x1,
+        x1 = 1,
         x2,
         x3,
         x4,
@@ -40,20 +40,27 @@ public class PC_Create : MonoBehaviour
         }
 
         //zooms in and out
-        Zoom();
+        if (controls.TrackCreating.Zoom.triggered)
+        {
+            int value = (int)controls.TrackCreating.Zoom.ReadValue<float>();
+            if ((int)ZoomLevel + value <= 4 && (int)ZoomLevel + value >= 1)
+            {
+                ZoomLevel = ZoomLevel + value;
+                Zoom();
+            }
+        }
+
 
         //finds out if we're hovering over a node
         Ray ray = Camera.main.ScreenPointToRay(GetCursorPos());
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 100f, nodeLayer))
         {
-            Debug.Log(hit.collider.gameObject);
             NodePoint p = hit.collider.gameObject.GetComponent<NodePoint>();
 
             //if we select the node to move it
             if (controls.TrackCreating.Drag.triggered && !p.isSelected)
             {
-                Debug.Log("hm");
                 p.Select(true);
                 MovingObject = p.gameObject;
             }
@@ -97,12 +104,7 @@ public class PC_Create : MonoBehaviour
         transform.Translate(dir, Space.World);
     }
 
-    Vector3 GetCursorPos()
-    {
-        Vector3 d = controls.TrackCreating.Cursor.ReadValue<Vector2>();
-
-        return d;
-    }
+    Vector3 GetCursorPos() { return controls.TrackCreating.Cursor.ReadValue<Vector2>(); }
 
     public void AddPoint()
     {
@@ -112,10 +114,6 @@ public class PC_Create : MonoBehaviour
         TG.AddNewNode(newPos);
     }
 
-
-    void Zoom()
-    {
-        //changes the zoom level, needs a lerp to smooth it out!
-        transform.position = new Vector3(transform.position.x, (int)ZoomLevel * 10f, transform.position.z);
-    }
+    //changes the zoom level, needs a lerp to smooth it out!
+    void Zoom() { Camera.main.orthographicSize = (int)ZoomLevel * 10f; } 
 }

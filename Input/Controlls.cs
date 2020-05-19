@@ -20,7 +20,7 @@ public class @Controlls : IInputActionCollection, IDisposable
             ""actions"": [
                 {
                     ""name"": ""PlaceNode"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""39084e4d-dded-4eb1-9e09-c26d0223a663"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -63,6 +63,14 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""e2cdcfc6-be38-4c8e-9f24-cf896bb20094"",
                     ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Value"",
+                    ""id"": ""09b3b74f-9394-40c0-9788-f7f120791afb"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -188,6 +196,39 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""action"": ""Drag"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""id"": ""b68d3b0b-ef68-4cc7-8392-9d3e0648a07d"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""1026eb88-3386-42ac-9be8-8c0e7324eea6"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""2cda1611-d9a7-46ad-9504-490e1a03a400"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -230,6 +271,7 @@ public class @Controlls : IInputActionCollection, IDisposable
         m_TrackCreating_RotateLeft = m_TrackCreating.FindAction("RotateLeft", throwIfNotFound: true);
         m_TrackCreating_RotateRight = m_TrackCreating.FindAction("RotateRight", throwIfNotFound: true);
         m_TrackCreating_Drag = m_TrackCreating.FindAction("Drag", throwIfNotFound: true);
+        m_TrackCreating_Zoom = m_TrackCreating.FindAction("Zoom", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -285,6 +327,7 @@ public class @Controlls : IInputActionCollection, IDisposable
     private readonly InputAction m_TrackCreating_RotateLeft;
     private readonly InputAction m_TrackCreating_RotateRight;
     private readonly InputAction m_TrackCreating_Drag;
+    private readonly InputAction m_TrackCreating_Zoom;
     public struct TrackCreatingActions
     {
         private @Controlls m_Wrapper;
@@ -295,6 +338,7 @@ public class @Controlls : IInputActionCollection, IDisposable
         public InputAction @RotateLeft => m_Wrapper.m_TrackCreating_RotateLeft;
         public InputAction @RotateRight => m_Wrapper.m_TrackCreating_RotateRight;
         public InputAction @Drag => m_Wrapper.m_TrackCreating_Drag;
+        public InputAction @Zoom => m_Wrapper.m_TrackCreating_Zoom;
         public InputActionMap Get() { return m_Wrapper.m_TrackCreating; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -322,6 +366,9 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @Drag.started -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnDrag;
                 @Drag.performed -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnDrag;
                 @Drag.canceled -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnDrag;
+                @Zoom.started -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnZoom;
+                @Zoom.performed -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnZoom;
+                @Zoom.canceled -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnZoom;
             }
             m_Wrapper.m_TrackCreatingActionsCallbackInterface = instance;
             if (instance != null)
@@ -344,6 +391,9 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @Drag.started += instance.OnDrag;
                 @Drag.performed += instance.OnDrag;
                 @Drag.canceled += instance.OnDrag;
+                @Zoom.started += instance.OnZoom;
+                @Zoom.performed += instance.OnZoom;
+                @Zoom.canceled += instance.OnZoom;
             }
         }
     }
@@ -374,5 +424,6 @@ public class @Controlls : IInputActionCollection, IDisposable
         void OnRotateLeft(InputAction.CallbackContext context);
         void OnRotateRight(InputAction.CallbackContext context);
         void OnDrag(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
     }
 }

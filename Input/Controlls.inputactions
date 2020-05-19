@@ -7,7 +7,7 @@
             "actions": [
                 {
                     "name": "PlaceNode",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "39084e4d-dded-4eb1-9e09-c26d0223a663",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -50,6 +50,14 @@
                     "type": "Button",
                     "id": "e2cdcfc6-be38-4c8e-9f24-cf896bb20094",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Zoom",
+                    "type": "Value",
+                    "id": "09b3b74f-9394-40c0-9788-f7f120791afb",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": ""
                 }
@@ -175,6 +183,39 @@
                     "action": "Drag",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "Zoom",
+                    "id": "b68d3b0b-ef68-4cc7-8392-9d3e0648a07d",
+                    "path": "1DAxis",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "1026eb88-3386-42ac-9be8-8c0e7324eea6",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "2cda1611-d9a7-46ad-9504-490e1a03a400",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
