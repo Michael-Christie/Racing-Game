@@ -22,6 +22,8 @@ public class PC_Create : MonoBehaviour
         // optional place it in the center on start
         cursorPosition = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Cursor.lockState = CursorLockMode.Locked;
+
+        Zoom();
     }
 
     private void OnGUI()
@@ -124,7 +126,15 @@ public class PC_Create : MonoBehaviour
             TG.UpdateNode(MovingObject.GetComponent<NodePoint>());
         }
 
+        if(controls.TrackCreating.TempReorder.triggered)
+        {
+            if (MovingObject)
+                TG.ReOrder(MovingObject.GetComponent<NodePoint>(), (int)controls.TrackCreating.TempReorder.ReadValue<float>());
+        }
+
     }
+
+    
 
     private void FixedUpdate()
     {

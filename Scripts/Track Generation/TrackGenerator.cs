@@ -213,4 +213,26 @@ public class TrackGenerator : MonoBehaviour
             DestroyImmediate(g);
         }
     }
+
+    public void ReOrder(NodePoint N, int Dir)
+    {
+        for (int i = 0; i < Nodes.Count; i++)
+        {
+            if (Nodes[i] == N)
+            {
+                if ((i + Dir) >= 0 && (i + Dir) < Nodes.Count)
+                {
+                    Debug.Log(Dir + " " + i);
+                    NodePoint temp = Nodes[i];
+                    Nodes.RemoveAt(i);
+                    Nodes.Insert((i + Dir), temp);
+
+                    DeleteAllSegments();
+                    GenerateAllSegments();
+
+                    return;
+                }
+            }
+        }
+    }
 }

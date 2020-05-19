@@ -73,6 +73,14 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Temp Reorder"",
+                    ""type"": ""Button"",
+                    ""id"": ""f10a77df-efd3-486d-905b-932cf0047252"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -317,6 +325,39 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""438cfa5a-7b11-4301-a5c4-66464a7133c5"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Temp Reorder"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""750d37c2-9874-43b1-8926-ab78e81daad1"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Temp Reorder"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""d481d2fc-e231-438d-94e6-4b8bcaa698d2"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Temp Reorder"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -360,6 +401,7 @@ public class @Controlls : IInputActionCollection, IDisposable
         m_TrackCreating_RotateRight = m_TrackCreating.FindAction("RotateRight", throwIfNotFound: true);
         m_TrackCreating_Drag = m_TrackCreating.FindAction("Drag", throwIfNotFound: true);
         m_TrackCreating_Zoom = m_TrackCreating.FindAction("Zoom", throwIfNotFound: true);
+        m_TrackCreating_TempReorder = m_TrackCreating.FindAction("Temp Reorder", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -416,6 +458,7 @@ public class @Controlls : IInputActionCollection, IDisposable
     private readonly InputAction m_TrackCreating_RotateRight;
     private readonly InputAction m_TrackCreating_Drag;
     private readonly InputAction m_TrackCreating_Zoom;
+    private readonly InputAction m_TrackCreating_TempReorder;
     public struct TrackCreatingActions
     {
         private @Controlls m_Wrapper;
@@ -427,6 +470,7 @@ public class @Controlls : IInputActionCollection, IDisposable
         public InputAction @RotateRight => m_Wrapper.m_TrackCreating_RotateRight;
         public InputAction @Drag => m_Wrapper.m_TrackCreating_Drag;
         public InputAction @Zoom => m_Wrapper.m_TrackCreating_Zoom;
+        public InputAction @TempReorder => m_Wrapper.m_TrackCreating_TempReorder;
         public InputActionMap Get() { return m_Wrapper.m_TrackCreating; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -457,6 +501,9 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @Zoom.started -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnZoom;
                 @Zoom.performed -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnZoom;
                 @Zoom.canceled -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnZoom;
+                @TempReorder.started -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnTempReorder;
+                @TempReorder.performed -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnTempReorder;
+                @TempReorder.canceled -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnTempReorder;
             }
             m_Wrapper.m_TrackCreatingActionsCallbackInterface = instance;
             if (instance != null)
@@ -482,6 +529,9 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @Zoom.started += instance.OnZoom;
                 @Zoom.performed += instance.OnZoom;
                 @Zoom.canceled += instance.OnZoom;
+                @TempReorder.started += instance.OnTempReorder;
+                @TempReorder.performed += instance.OnTempReorder;
+                @TempReorder.canceled += instance.OnTempReorder;
             }
         }
     }
@@ -513,5 +563,6 @@ public class @Controlls : IInputActionCollection, IDisposable
         void OnRotateRight(InputAction.CallbackContext context);
         void OnDrag(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
+        void OnTempReorder(InputAction.CallbackContext context);
     }
 }

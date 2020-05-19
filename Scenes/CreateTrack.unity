@@ -172,7 +172,7 @@ MonoBehaviour:
     m_Bits: 256
   MovingObject: {fileID: 0}
   cursorImage: {fileID: 2800000, guid: 0760691bc096ced489ffa629e8b9b076, type: 3}
-  ZoomLevel: 3
+  ZoomLevel: 1
 --- !u!114 &150994350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +227,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 09b3b74f-9394-40c0-9788-f7f120791afb
     m_ActionName: TrackCreating/Zoom[/Keyboard/downArrow,/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f10a77df-efd3-486d-905b-932cf0047252
+    m_ActionName: TrackCreating/Temp Reorder[/Keyboard/leftArrow,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: TrackCreating
