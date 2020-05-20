@@ -121,7 +121,7 @@ public class PC_Create : MonoBehaviour
         if (MovingObject)
         {
             Vector3 newPos = Camera.main.ScreenToWorldPoint((Vector3)cursorPosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
-            newPos = new Vector3(Mathf.RoundToInt(newPos.x), Mathf.RoundToInt(newPos.y), Mathf.RoundToInt(newPos.z));
+            newPos = new Vector3(RoundTo(newPos.x), RoundTo(newPos.y, 1), RoundTo(newPos.z));
             MovingObject.transform.position = newPos;
             TG.UpdateNode(MovingObject.GetComponent<NodePoint>());
         }
@@ -150,8 +150,15 @@ public class PC_Create : MonoBehaviour
     {
         //adds a new node point to the Track Generator
         Vector3 newPos = Camera.main.ScreenToWorldPoint((Vector3)cursorPosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
-        newPos = new Vector3(Mathf.RoundToInt(newPos.x), Mathf.RoundToInt(newPos.y), Mathf.RoundToInt(newPos.z));
+        newPos = new Vector3(RoundTo(newPos.x), RoundTo(newPos.y,1), RoundTo(newPos.z));
         TG.AddNewNode(newPos);
+    }
+
+    int RoundTo(float value, int roundValue = 10)
+    {
+        float v = value / roundValue;
+        int i = Mathf.RoundToInt(v);
+        return i *roundValue;
     }
 
     //changes the zoom level, needs a lerp to smooth it out!

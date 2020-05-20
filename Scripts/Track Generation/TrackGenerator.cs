@@ -132,12 +132,17 @@ public class TrackGenerator : MonoBehaviour
     //adds a new node at location 
     public void AddNewNode(Vector3 pos)
     {
+        //for each nodes, make sure its x amount away from it?
+        foreach (NodePoint n in Nodes)
+        {
+            if ((pos - n.Posistion).magnitude < 8f)
+                return;
+        }
+
+
         GameObject g = Instantiate(Node);
         g.transform.position = pos;
-
-        //for each nodes, make sure its x amount away from it?
-
-        
+      
         //calculates the direction of the point from the forward position of the last node to the new node
         if (Nodes.Count > 0)
         {
@@ -152,6 +157,7 @@ public class TrackGenerator : MonoBehaviour
             iy *= 15;
             //applies the rotation
             g.transform.rotation = Quaternion.Euler(new Vector3(0,iy,0));
+
         }
 
         g.transform.parent = points.transform;
