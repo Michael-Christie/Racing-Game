@@ -14,6 +14,7 @@ public class PC_Create : MonoBehaviour
 
     private Vector2 cursorPosition;
     public Texture cursorImage;
+    public Vector2 movementConfineBox;
 
     private void Start()
     {
@@ -152,6 +153,7 @@ public class PC_Create : MonoBehaviour
         Vector2 pm = controls.TrackCreating.Move.ReadValue<Vector2>();
         //moves the player around
         Vector3 dir = new Vector3(pm.x,0, pm.y).normalized;
+        if((dir + transform.position).x <= movementConfineBox.x && (dir + transform.position).x >= -movementConfineBox.x && (dir + transform.position).z <= movementConfineBox.y && (dir + transform.position).z >= -movementConfineBox.y)
         transform.Translate(dir, Space.World);
     }
 

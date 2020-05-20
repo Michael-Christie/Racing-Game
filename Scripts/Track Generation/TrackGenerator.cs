@@ -207,14 +207,20 @@ public class TrackGenerator : MonoBehaviour
 
         //makes sure a node is in front of the current node
         int index = Nodes.IndexOf(NP);
-        Vector3 direction = (pos - Nodes[index - 1].Posistion).normalized;
-        //find the forward vector of the last node
-        Vector3 forward = Nodes[index - 1].transform.forward;
-        //if the direction > forward vector?
-        float angle = Vector3.Dot(direction, forward);
-        Debug.Log(angle);
-        if (angle < -.01f)
-            return;
+
+        ///THIS NEEDS TO CHANGE TO INCLUDE WRAPPING FOR LOOPED TRACKS
+        if (index != 0)
+        {
+            Vector3 direction = (pos - Nodes[index - 1].Posistion).normalized;
+            //find the forward vector of the last node
+            Vector3 forward = Nodes[index - 1].transform.forward;
+            //if the direction > forward vector?
+            float angle = Vector3.Dot(direction, forward);
+            Debug.Log(angle);
+            if (angle < -.01f)
+                return;
+
+        }
 
         //need to add code to limit the angle it can be turned.
 
