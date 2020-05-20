@@ -138,6 +138,21 @@ public class TrackGenerator : MonoBehaviour
             if ((pos - n.Posistion).magnitude < 8f)
                 return;
         }
+        //check the node direction
+        //work out the direction of the new node from the old one
+        if (Nodes.Count > 0)
+        {
+            Vector3 direction = (pos - Nodes[Nodes.Count - 1].Posistion).normalized;
+            //find the forward vector of the last node
+            Vector3 forward = Nodes[Nodes.Count - 1].transform.forward;
+            //if the direction > forward vector?
+            float angle = Vector3.Dot(direction, forward);
+            Debug.Log(angle);
+            if (angle < -.01f)
+                return;
+
+        }
+
 
 
         GameObject g = Instantiate(Node);
