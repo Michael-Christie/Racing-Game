@@ -192,6 +192,15 @@ public class TrackGenerator : MonoBehaviour
     //updates a mesh based upon a node
     public void UpdateNode(NodePoint NP)
     {
+        foreach (NodePoint n in Nodes)
+        {
+            if (NP == n)
+                continue;
+
+            if ((NP.Posistion - n.Posistion).magnitude < 8f)
+                return;
+        }
+
         for (int i = 0; i < Nodes.Count; i++)
         {
             if(Nodes[i] == NP)
