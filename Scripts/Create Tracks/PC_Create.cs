@@ -107,13 +107,13 @@ public class PC_Create : MonoBehaviour
             if (controls.TrackCreating.RotateRight.triggered)
             {
                 p.GetComponent<NodePoint>().RotateRight();
-                TG.UpdateNode(p);
+                TG.UpdateNode(p, p.Posistion);
             }
 
             if (controls.TrackCreating.RotateLeft.triggered)
             {
                 p.GetComponent<NodePoint>().RotateLeft();
-                TG.UpdateNode(p);
+                TG.UpdateNode(p, p.Posistion);
             }
         }
 
@@ -122,8 +122,8 @@ public class PC_Create : MonoBehaviour
         {
             Vector3 newPos = Camera.main.ScreenToWorldPoint((Vector3)cursorPosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
             newPos = new Vector3(RoundTo(newPos.x), RoundTo(newPos.y, 1), RoundTo(newPos.z));
-            MovingObject.transform.position = newPos;
-            TG.UpdateNode(MovingObject.GetComponent<NodePoint>());
+            //MovingObject.transform.position = newPos;
+            TG.UpdateNode(MovingObject.GetComponent<NodePoint>(), newPos);
         }
 
         if(controls.TrackCreating.TempReorder.triggered)

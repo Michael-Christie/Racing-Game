@@ -190,16 +190,35 @@ public class TrackGenerator : MonoBehaviour
     }
 
     //updates a mesh based upon a node
-    public void UpdateNode(NodePoint NP)
+    public void UpdateNode(NodePoint NP, Vector3 pos)
     {
+        //makes sure nodes are far enough away from each other
         foreach (NodePoint n in Nodes)
         {
             if (NP == n)
                 continue;
 
-            if ((NP.Posistion - n.Posistion).magnitude < 8f)
+            if ((pos - n.Posistion).magnitude < 8f)
+            {
+                Debug.Log("Too Close");
                 return;
+            }
         }
+
+        //makes sure a node is in front of the current node
+        int index = Nodes.IndexOf(NP);
+        Vector3 direction = (pos - Nodes[index - 1].Posistion).normalized;
+        //find the forward vector of the last node
+        Vector3 forward = Nodes[index - 1].transform.forward;
+        //if the direction > forward vector?
+        float angle = Vector3.Dot(direction, forward);
+        Debug.Log(angle);
+        if (angle < -.01f)
+            return;
+
+        //need to add code to limit the angle it can be turned.
+
+        NP.SetPosition(pos);
 
         for (int i = 0; i < Nodes.Count; i++)
         {

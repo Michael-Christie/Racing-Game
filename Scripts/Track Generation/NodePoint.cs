@@ -55,4 +55,6 @@ public class NodePoint : MonoBehaviour
         euler -= new Vector3(0, 15, 0);
         transform.rotation = Quaternion.Euler(euler);
     }
+
+    public void SetPosition(Vector3 v) { transform.position = v; }
 }
