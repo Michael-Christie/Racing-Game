@@ -24,6 +24,8 @@ public class PC_Create : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         Zoom();
+
+
     }
 
     private void OnGUI()
@@ -34,7 +36,7 @@ public class PC_Create : MonoBehaviour
         float v = 200 * d.y * Time.deltaTime;
 
         // add the changes to the actual cursor position
-        if(cursorPosition.x + h < Screen.width - 10 && cursorPosition.x + h > 0)
+        if (cursorPosition.x + h < Screen.width - 10 && cursorPosition.x + h > 0)
             cursorPosition.x += h;
         if (cursorPosition.y + v < Screen.height && cursorPosition.y + v > 10)
             cursorPosition.y += v;
@@ -53,6 +55,15 @@ public class PC_Create : MonoBehaviour
     }
 
     public zoomLevel ZoomLevel;
+
+    public enum GridSize{
+     Gridx1 = 1,
+     Gridx2 = 2,
+     Gridx4 = 4
+
+    }
+
+    public GridSize gridSize;
 
     private void OnEnable()
     {
@@ -121,7 +132,7 @@ public class PC_Create : MonoBehaviour
         if (MovingObject)
         {
             Vector3 newPos = Camera.main.ScreenToWorldPoint((Vector3)cursorPosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
-            newPos = new Vector3(RoundTo(newPos.x), RoundTo(newPos.y, 1), RoundTo(newPos.z));
+            newPos = new Vector3(RoundTo(newPos.x, 2.5f * (int)gridSize), RoundTo(newPos.y, 1), RoundTo(newPos.z, 2.5f * (int)gridSize));
             //MovingObject.transform.position = newPos;
             TG.UpdateNode(MovingObject.GetComponent<NodePoint>(), newPos);
         }
@@ -150,15 +161,15 @@ public class PC_Create : MonoBehaviour
     {
         //adds a new node point to the Track Generator
         Vector3 newPos = Camera.main.ScreenToWorldPoint((Vector3)cursorPosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
-        newPos = new Vector3(RoundTo(newPos.x), RoundTo(newPos.y,1), RoundTo(newPos.z));
+        newPos = new Vector3(RoundTo(newPos.x, 2.5f * (int)gridSize), RoundTo(newPos.y,1), RoundTo(newPos.z, 2.5f * (int)gridSize));
         TG.AddNewNode(newPos);
     }
 
-    int RoundTo(float value, int roundValue = 10)
+    float RoundTo(float value, float roundValue = 10)
     {
         float v = value / roundValue;
         int i = Mathf.RoundToInt(v);
-        return i *roundValue;
+        return i * roundValue;
     }
 
     //changes the zoom level, needs a lerp to smooth it out!
