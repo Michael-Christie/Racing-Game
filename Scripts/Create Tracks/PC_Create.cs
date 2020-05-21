@@ -120,14 +120,12 @@ public class PC_Create : MonoBehaviour
             //rotating the nodes around
             if (controls.TrackCreating.RotateRight.triggered)
             {
-                p.GetComponent<NodePoint>().RotateRight();
-                NodeManager.instance.UpdateNode(p, p.Posistion);
+                NodeManager.instance.Rotate(p.GetComponent<NodePoint>(), true);
             }
 
             if (controls.TrackCreating.RotateLeft.triggered)
             {
-                p.GetComponent<NodePoint>().RotateLeft();
-                NodeManager.instance.UpdateNode(p, p.Posistion);
+                NodeManager.instance.Rotate(p.GetComponent<NodePoint>(), false);
             }
 
             if (controls.TrackCreating.Delete.triggered)

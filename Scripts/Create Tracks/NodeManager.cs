@@ -188,4 +188,16 @@ public class NodeManager : MonoBehaviour
         Debug.Log("Couldn't find node");
     }
 
+    public void Rotate(NodePoint node, bool rotateRight)
+    {
+        //add some kinda restaint in here for the angle it can rotate to
+
+        if (rotateRight)
+            node.RotateRight();
+        else
+            node.RotateLeft();
+
+        UpdateNode(node, node.Posistion);
+    }
+
 }
