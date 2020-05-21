@@ -81,6 +81,14 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Delete"",
+                    ""type"": ""Button"",
+                    ""id"": ""b66f0f3f-c5f5-425b-a450-bb74b87e3b9c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -358,6 +366,28 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""action"": ""Temp Reorder"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6687b5cc-3e1a-42b4-a222-709a9ff4416a"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Delete"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""deead9f6-b69a-44d5-bb4d-d7a187dcc8cd"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""JoyPad"",
+                    ""action"": ""Delete"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -402,6 +432,7 @@ public class @Controlls : IInputActionCollection, IDisposable
         m_TrackCreating_Drag = m_TrackCreating.FindAction("Drag", throwIfNotFound: true);
         m_TrackCreating_Zoom = m_TrackCreating.FindAction("Zoom", throwIfNotFound: true);
         m_TrackCreating_TempReorder = m_TrackCreating.FindAction("Temp Reorder", throwIfNotFound: true);
+        m_TrackCreating_Delete = m_TrackCreating.FindAction("Delete", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -459,6 +490,7 @@ public class @Controlls : IInputActionCollection, IDisposable
     private readonly InputAction m_TrackCreating_Drag;
     private readonly InputAction m_TrackCreating_Zoom;
     private readonly InputAction m_TrackCreating_TempReorder;
+    private readonly InputAction m_TrackCreating_Delete;
     public struct TrackCreatingActions
     {
         private @Controlls m_Wrapper;
@@ -471,6 +503,7 @@ public class @Controlls : IInputActionCollection, IDisposable
         public InputAction @Drag => m_Wrapper.m_TrackCreating_Drag;
         public InputAction @Zoom => m_Wrapper.m_TrackCreating_Zoom;
         public InputAction @TempReorder => m_Wrapper.m_TrackCreating_TempReorder;
+        public InputAction @Delete => m_Wrapper.m_TrackCreating_Delete;
         public InputActionMap Get() { return m_Wrapper.m_TrackCreating; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -504,6 +537,9 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @TempReorder.started -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnTempReorder;
                 @TempReorder.performed -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnTempReorder;
                 @TempReorder.canceled -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnTempReorder;
+                @Delete.started -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnDelete;
+                @Delete.performed -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnDelete;
+                @Delete.canceled -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnDelete;
             }
             m_Wrapper.m_TrackCreatingActionsCallbackInterface = instance;
             if (instance != null)
@@ -532,6 +568,9 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @TempReorder.started += instance.OnTempReorder;
                 @TempReorder.performed += instance.OnTempReorder;
                 @TempReorder.canceled += instance.OnTempReorder;
+                @Delete.started += instance.OnDelete;
+                @Delete.performed += instance.OnDelete;
+                @Delete.canceled += instance.OnDelete;
             }
         }
     }
@@ -564,5 +603,6 @@ public class @Controlls : IInputActionCollection, IDisposable
         void OnDrag(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
         void OnTempReorder(InputAction.CallbackContext context);
+        void OnDelete(InputAction.CallbackContext context);
     }
 }

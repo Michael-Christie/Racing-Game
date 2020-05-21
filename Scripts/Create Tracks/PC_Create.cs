@@ -121,13 +121,18 @@ public class PC_Create : MonoBehaviour
             if (controls.TrackCreating.RotateRight.triggered)
             {
                 p.GetComponent<NodePoint>().RotateRight();
-                TG.UpdateNode(p, p.Posistion);
+                NodeManager.instance.UpdateNode(p, p.Posistion);
             }
 
             if (controls.TrackCreating.RotateLeft.triggered)
             {
                 p.GetComponent<NodePoint>().RotateLeft();
-                TG.UpdateNode(p, p.Posistion);
+                NodeManager.instance.UpdateNode(p, p.Posistion);
+            }
+
+            if (controls.TrackCreating.Delete.triggered)
+            {
+                NodeManager.instance.RemoveNode(p.GetComponent<NodePoint>());
             }
         }
 
@@ -137,13 +142,13 @@ public class PC_Create : MonoBehaviour
             Vector3 newPos = Camera.main.ScreenToWorldPoint((Vector3)cursorPosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
             newPos = new Vector3(RoundTo(newPos.x, 2.5f * (int)gridSize), RoundTo(newPos.y, 1), RoundTo(newPos.z, 2.5f * (int)gridSize));
             //MovingObject.transform.position = newPos;
-            TG.UpdateNode(MovingObject.GetComponent<NodePoint>(), newPos);
+            NodeManager.instance.UpdateNode(MovingObject.GetComponent<NodePoint>(), newPos);
         }
 
         if(controls.TrackCreating.TempReorder.triggered)
         {
             if (MovingObject)
-                TG.ReOrder(MovingObject.GetComponent<NodePoint>(), (int)controls.TrackCreating.TempReorder.ReadValue<float>());
+                NodeManager.instance.ReOrder(MovingObject.GetComponent<NodePoint>(), (int)controls.TrackCreating.TempReorder.ReadValue<float>());
         }
 
     }
@@ -166,7 +171,7 @@ public class PC_Create : MonoBehaviour
         //adds a new node point to the Track Generator
         Vector3 newPos = Camera.main.ScreenToWorldPoint((Vector3)cursorPosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
         newPos = new Vector3(RoundTo(newPos.x, 2.5f * (int)gridSize), RoundTo(newPos.y,1), RoundTo(newPos.z, 2.5f * (int)gridSize));
-        TG.AddNewNode(newPos);
+        NodeManager.instance.AddNewNode(newPos);
     }
 
     float RoundTo(float value, float roundValue = 10)

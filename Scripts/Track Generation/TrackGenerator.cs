@@ -7,12 +7,12 @@ public class TrackGenerator : MonoBehaviour
     public TrackShape Shape;
     public GameObject Node;
 
-    public List<NodePoint> Nodes = new List<NodePoint>();
+    public List<NodePoint> Nodes => NodeManager.instance.Nodes;
 
     public bool LoopTrack = false;
 
     GameObject tracks;
-    GameObject points;
+    public GameObject points;
 
     public Material TrackMaterial;
 
@@ -42,7 +42,7 @@ public class TrackGenerator : MonoBehaviour
     }
 
     //generates a segement from the index of the node, and the next node after it
-    void GenerateSegement(int nodeIndex, int resolution = 16)
+    public void GenerateSegement(int nodeIndex, int resolution = 16)
     {
         //sets up the track segment game object
         GameObject newTrack = new GameObject();
@@ -129,129 +129,6 @@ public class TrackGenerator : MonoBehaviour
         public Vector3 position;
     }
 
-    //adds a new node at location 
-    public void AddNewNode(Vector3 pos)
-    {
-        //for each nodes, make sure its x amount away from it?
-        foreach (NodePoint n in Nodes)
-        {
-            if ((pos - n.Posistion).magnitude < 8f)
-                return;
-        }
-        //check the node direction
-        //work out the direction of the new node from the old one
-        if (Nodes.Count > 0)
-        {
-            Vector3 direction = (pos - Nodes[Nodes.Count - 1].Posistion).normalized;
-            //find the forward vector of the last node
-            Vector3 forward = Nodes[Nodes.Count - 1].transform.forward;
-            //if the direction > forward vector?
-            float angle = Vector3.Dot(direction, forward);
-            Debug.Log(angle);
-            if (angle < -.01f)
-                return;
-
-        }
-
-
-
-        GameObject g = Instantiate(Node);
-        g.transform.position = pos;
-      
-        //calculates the direction of the point from the forward position of the last node to the new node
-        if (Nodes.Count > 0)
-        {
-            //pos back = last index.forward + pos * .5f
-            Vector3 backpos = (Nodes[Nodes.Count - 1].Forward + pos) * .5f;
-            g.transform.LookAt(pos * 2 - backpos, Vector3.up);
-            float y = g.transform.rotation.eulerAngles.y;
-
-            //clamps the angle to the nearest 15 degrees
-            y /= 15;
-            int iy = Mathf.RoundToInt(y);
-            iy *= 15;
-            //applies the rotation
-            g.transform.rotation = Quaternion.Euler(new Vector3(0,iy,0));
-
-        }
-
-        g.transform.parent = points.transform;
-
-        Nodes.Add(g.GetComponent<NodePoint>());
-        
-        ///**THIS SHOULD BE UPDATING ONLY THE NEW MESHES NOT ALL OF THEM
-        DeleteAllSegments();
-        GenerateAllSegments();
-    }
-
-    public void RemoveNode(int nodeIndex)
-    {
-
-    }
-
-    //updates a mesh based upon a node
-    public void UpdateNode(NodePoint NP, Vector3 pos)
-    {
-        //makes sure nodes are far enough away from each other
-        foreach (NodePoint n in Nodes)
-        {
-            if (NP == n)
-                continue;
-
-            if ((pos - n.Posistion).magnitude < 8f)
-            {
-                Debug.Log("Too Close");
-                return;
-            }
-        }
-
-        //makes sure a node is in front of the current node
-        int index = Nodes.IndexOf(NP);
-
-        ///THIS NEEDS TO CHANGE TO INCLUDE WRAPPING FOR LOOPED TRACKS
-        if (index != 0)
-        {
-            Vector3 direction = (pos - Nodes[index - 1].Posistion).normalized;
-            //find the forward vector of the last node
-            Vector3 forward = Nodes[index - 1].transform.forward;
-            //if the direction > forward vector?
-            float angle = Vector3.Dot(direction, forward);
-            Debug.Log(angle);
-            if (angle < -.01f)
-                return;
-
-        }
-
-        //need to add code to limit the angle it can be turned.
-
-        NP.SetPosition(pos);
-
-        for (int i = 0; i < Nodes.Count; i++)
-        {
-            if(Nodes[i] == NP)
-            {
-                if ((i != Nodes.Count - 1) || (LoopTrack && i == Nodes.Count - 1))
-                {
-                    DeleteSegment(i);
-                    GenerateSegement(i);
-                }
-
-                if (i != 0)
-                {
-                    DeleteSegment(i - 1);
-                    GenerateSegement(i - 1);
-                }
-
-                if (LoopTrack && i == 0)
-                {
-                    DeleteSegment(trackSegements.Count - 1);
-                    GenerateSegement(Nodes.Count - 1);
-                }
-
-            }
-        }
-    }
-
     public void DeleteAllSegments()
     {
         for (int i = tracks.transform.childCount - 1; i >= 0; i--)
@@ -269,25 +146,4 @@ public class TrackGenerator : MonoBehaviour
         }
     }
 
-    public void ReOrder(NodePoint N, int Dir)
-    {
-        for (int i = 0; i < Nodes.Count; i++)
-        {
-            if (Nodes[i] == N)
-            {
-                if ((i + Dir) >= 0 && (i + Dir) < Nodes.Count)
-                {
-                    Debug.Log(Dir + " " + i);
-                    NodePoint temp = Nodes[i];
-                    Nodes.RemoveAt(i);
-                    Nodes.Insert((i + Dir), temp);
-
-                    DeleteAllSegments();
-                    GenerateAllSegments();
-
-                    return;
-                }
-            }
-        }
-    }
 }
