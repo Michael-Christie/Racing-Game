@@ -42,6 +42,7 @@ public class PC_Create : MonoBehaviour
         if (cursorPosition.y + v < Screen.height && cursorPosition.y + v > 10)
             cursorPosition.y += v;
 
+
         GUI.DrawTexture(new Rect(cursorPosition.x, Screen.height - cursorPosition.y, 10, 10), cursorImage);
     }
 
@@ -97,6 +98,7 @@ public class PC_Create : MonoBehaviour
 
         //finds out if we're hovering over a node
         Ray ray = Camera.main.ScreenPointToRay(cursorPosition);
+        ray.origin = new Vector3(RoundTo(ray.origin.x, 2.5f * (int)gridSize), RoundTo(ray.origin.y, 1), RoundTo(ray.origin.z, 2.5f * (int)gridSize));
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 100f, nodeLayer))
         {
