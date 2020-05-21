@@ -89,6 +89,14 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ToogleLoop"",
+                    ""type"": ""Button"",
+                    ""id"": ""6caa1acb-e4f1-4eab-bcc2-b64127d37b25"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -388,6 +396,28 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""action"": ""Delete"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9903b867-3fa1-41f3-8c7e-2fba99b80194"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ToogleLoop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bcf9125c-16fc-40e3-93a5-9a97cae9e258"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""JoyPad"",
+                    ""action"": ""ToogleLoop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -433,6 +463,7 @@ public class @Controlls : IInputActionCollection, IDisposable
         m_TrackCreating_Zoom = m_TrackCreating.FindAction("Zoom", throwIfNotFound: true);
         m_TrackCreating_TempReorder = m_TrackCreating.FindAction("Temp Reorder", throwIfNotFound: true);
         m_TrackCreating_Delete = m_TrackCreating.FindAction("Delete", throwIfNotFound: true);
+        m_TrackCreating_ToogleLoop = m_TrackCreating.FindAction("ToogleLoop", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -491,6 +522,7 @@ public class @Controlls : IInputActionCollection, IDisposable
     private readonly InputAction m_TrackCreating_Zoom;
     private readonly InputAction m_TrackCreating_TempReorder;
     private readonly InputAction m_TrackCreating_Delete;
+    private readonly InputAction m_TrackCreating_ToogleLoop;
     public struct TrackCreatingActions
     {
         private @Controlls m_Wrapper;
@@ -504,6 +536,7 @@ public class @Controlls : IInputActionCollection, IDisposable
         public InputAction @Zoom => m_Wrapper.m_TrackCreating_Zoom;
         public InputAction @TempReorder => m_Wrapper.m_TrackCreating_TempReorder;
         public InputAction @Delete => m_Wrapper.m_TrackCreating_Delete;
+        public InputAction @ToogleLoop => m_Wrapper.m_TrackCreating_ToogleLoop;
         public InputActionMap Get() { return m_Wrapper.m_TrackCreating; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -540,6 +573,9 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @Delete.started -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnDelete;
                 @Delete.performed -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnDelete;
                 @Delete.canceled -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnDelete;
+                @ToogleLoop.started -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnToogleLoop;
+                @ToogleLoop.performed -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnToogleLoop;
+                @ToogleLoop.canceled -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnToogleLoop;
             }
             m_Wrapper.m_TrackCreatingActionsCallbackInterface = instance;
             if (instance != null)
@@ -571,6 +607,9 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @Delete.started += instance.OnDelete;
                 @Delete.performed += instance.OnDelete;
                 @Delete.canceled += instance.OnDelete;
+                @ToogleLoop.started += instance.OnToogleLoop;
+                @ToogleLoop.performed += instance.OnToogleLoop;
+                @ToogleLoop.canceled += instance.OnToogleLoop;
             }
         }
     }
@@ -604,5 +643,6 @@ public class @Controlls : IInputActionCollection, IDisposable
         void OnZoom(InputAction.CallbackContext context);
         void OnTempReorder(InputAction.CallbackContext context);
         void OnDelete(InputAction.CallbackContext context);
+        void OnToogleLoop(InputAction.CallbackContext context);
     }
 }

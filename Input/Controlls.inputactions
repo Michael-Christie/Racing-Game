@@ -76,6 +76,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ToogleLoop",
+                    "type": "Button",
+                    "id": "6caa1acb-e4f1-4eab-bcc2-b64127d37b25",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -373,6 +381,28 @@
                     "processors": "",
                     "groups": "JoyPad",
                     "action": "Delete",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9903b867-3fa1-41f3-8c7e-2fba99b80194",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "ToogleLoop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bcf9125c-16fc-40e3-93a5-9a97cae9e258",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "JoyPad",
+                    "action": "ToogleLoop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

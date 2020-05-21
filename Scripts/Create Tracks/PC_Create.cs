@@ -149,6 +149,11 @@ public class PC_Create : MonoBehaviour
                 NodeManager.instance.ReOrder(MovingObject.GetComponent<NodePoint>(), (int)controls.TrackCreating.TempReorder.ReadValue<float>());
         }
 
+        if (controls.TrackCreating.ToogleLoop.triggered)
+        {
+            TG.ToggleLoop();
+        }
+
     }
 
     

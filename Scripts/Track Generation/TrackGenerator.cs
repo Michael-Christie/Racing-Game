@@ -146,4 +146,14 @@ public class TrackGenerator : MonoBehaviour
         }
     }
 
+    public void ToggleLoop()
+    {
+        LoopTrack = !LoopTrack;
+
+        if (LoopTrack)
+            GenerateSegement(Nodes.Count - 1);
+        else
+            DeleteSegment(trackSegements.Count - 1);
+    }
+
 }
