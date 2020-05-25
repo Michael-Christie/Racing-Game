@@ -440,6 +440,14 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Drift"",
+                    ""type"": ""Button"",
+                    ""id"": ""7c6531c0-720c-40f2-9ba5-cbae07914b2e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -460,7 +468,7 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""JoyPad"",
                     ""action"": ""Accelerate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -471,8 +479,19 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/leftStick/x"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""JoyPad"",
                     ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7c853c51-6ce7-4acb-907b-ff3d29d0b586"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""JoyPad"",
+                    ""action"": ""Drift"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -525,6 +544,7 @@ public class @Controlls : IInputActionCollection, IDisposable
         m_CarController = asset.FindActionMap("CarController", throwIfNotFound: true);
         m_CarController_Move = m_CarController.FindAction("Move", throwIfNotFound: true);
         m_CarController_Accelerate = m_CarController.FindAction("Accelerate", throwIfNotFound: true);
+        m_CarController_Drift = m_CarController.FindAction("Drift", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -681,12 +701,14 @@ public class @Controlls : IInputActionCollection, IDisposable
     private ICarControllerActions m_CarControllerActionsCallbackInterface;
     private readonly InputAction m_CarController_Move;
     private readonly InputAction m_CarController_Accelerate;
+    private readonly InputAction m_CarController_Drift;
     public struct CarControllerActions
     {
         private @Controlls m_Wrapper;
         public CarControllerActions(@Controlls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_CarController_Move;
         public InputAction @Accelerate => m_Wrapper.m_CarController_Accelerate;
+        public InputAction @Drift => m_Wrapper.m_CarController_Drift;
         public InputActionMap Get() { return m_Wrapper.m_CarController; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -702,6 +724,9 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @Accelerate.started -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnAccelerate;
                 @Accelerate.performed -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnAccelerate;
                 @Accelerate.canceled -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnAccelerate;
+                @Drift.started -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnDrift;
+                @Drift.performed -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnDrift;
+                @Drift.canceled -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnDrift;
             }
             m_Wrapper.m_CarControllerActionsCallbackInterface = instance;
             if (instance != null)
@@ -712,6 +737,9 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @Accelerate.started += instance.OnAccelerate;
                 @Accelerate.performed += instance.OnAccelerate;
                 @Accelerate.canceled += instance.OnAccelerate;
+                @Drift.started += instance.OnDrift;
+                @Drift.performed += instance.OnDrift;
+                @Drift.canceled += instance.OnDrift;
             }
         }
     }
@@ -751,5 +779,6 @@ public class @Controlls : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnAccelerate(InputAction.CallbackContext context);
+        void OnDrift(InputAction.CallbackContext context);
     }
 }

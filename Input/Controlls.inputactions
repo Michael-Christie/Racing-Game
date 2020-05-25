@@ -427,6 +427,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Drift",
+                    "type": "Button",
+                    "id": "7c6531c0-720c-40f2-9ba5-cbae07914b2e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -447,7 +455,7 @@
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "JoyPad",
                     "action": "Accelerate",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -458,8 +466,19 @@
                     "path": "<Gamepad>/leftStick/x",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "JoyPad",
                     "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7c853c51-6ce7-4acb-907b-ff3d29d0b586",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "JoyPad",
+                    "action": "Drift",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

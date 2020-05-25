@@ -10,10 +10,16 @@ public class CarController : MonoBehaviour
     float currentSpeed = 0;
     float currentRotate, rotate = 0;
 
+    public bool drifting = false;
+    int driftDir = 0;
+
+
     private void OnEnable()
     {
         controls = new Controlls();
         controls.CarController.Enable();
+        controls.CarController.Drift.canceled += ctx => { drifting = false; driftDir = 0; };
+        controls.CarController.Drift.started += ctx => { drifting = true; driftDir = controls.CarController.Move.ReadValue<float>() > 0 ? 1 : -1; };
         //rb.maxAngularVelocity = 30f;
     }
 
@@ -21,6 +27,7 @@ public class CarController : MonoBehaviour
     {
         //moves the car forward
         rb.AddForce(model.transform.forward * currentSpeed, ForceMode.Acceleration);
+
 
         rb.AddForce(Vector3.down * 10, ForceMode.Acceleration);
         //rotation
@@ -46,6 +53,13 @@ public class CarController : MonoBehaviour
             Steer(dir, amount);
         }
 
+        if (drifting)
+        {
+            float control = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 0, 2) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 2, 0);
+            float powerControl = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, .2f, 1) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 1, .2f);
+            Steer(driftDir, control);
+        }
+
         currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * 12f);
         currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * 4f);
         rotate = 0;
@@ -54,5 +68,10 @@ public class CarController : MonoBehaviour
     void Steer(int dir, float amount)
     {
         rotate = (30f * dir) * amount;
+    }
+
+    float Remap(float s, float a1, float a2, float b1, float b2)
+    {
+        return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
     }
 }
