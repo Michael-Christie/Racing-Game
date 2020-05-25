@@ -448,6 +448,14 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reverse"",
+                    ""type"": ""Button"",
+                    ""id"": ""aca8793a-a721-47b8-ac2b-7068edbdc220"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -492,6 +500,17 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""JoyPad"",
                     ""action"": ""Drift"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f58df786-54f3-4d44-b32c-a8e01b719678"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""JoyPad"",
+                    ""action"": ""Reverse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -545,6 +564,7 @@ public class @Controlls : IInputActionCollection, IDisposable
         m_CarController_Move = m_CarController.FindAction("Move", throwIfNotFound: true);
         m_CarController_Accelerate = m_CarController.FindAction("Accelerate", throwIfNotFound: true);
         m_CarController_Drift = m_CarController.FindAction("Drift", throwIfNotFound: true);
+        m_CarController_Reverse = m_CarController.FindAction("Reverse", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -702,6 +722,7 @@ public class @Controlls : IInputActionCollection, IDisposable
     private readonly InputAction m_CarController_Move;
     private readonly InputAction m_CarController_Accelerate;
     private readonly InputAction m_CarController_Drift;
+    private readonly InputAction m_CarController_Reverse;
     public struct CarControllerActions
     {
         private @Controlls m_Wrapper;
@@ -709,6 +730,7 @@ public class @Controlls : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_CarController_Move;
         public InputAction @Accelerate => m_Wrapper.m_CarController_Accelerate;
         public InputAction @Drift => m_Wrapper.m_CarController_Drift;
+        public InputAction @Reverse => m_Wrapper.m_CarController_Reverse;
         public InputActionMap Get() { return m_Wrapper.m_CarController; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -727,6 +749,9 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @Drift.started -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnDrift;
                 @Drift.performed -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnDrift;
                 @Drift.canceled -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnDrift;
+                @Reverse.started -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnReverse;
+                @Reverse.performed -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnReverse;
+                @Reverse.canceled -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnReverse;
             }
             m_Wrapper.m_CarControllerActionsCallbackInterface = instance;
             if (instance != null)
@@ -740,6 +765,9 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @Drift.started += instance.OnDrift;
                 @Drift.performed += instance.OnDrift;
                 @Drift.canceled += instance.OnDrift;
+                @Reverse.started += instance.OnReverse;
+                @Reverse.performed += instance.OnReverse;
+                @Reverse.canceled += instance.OnReverse;
             }
         }
     }
@@ -780,5 +808,6 @@ public class @Controlls : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnAccelerate(InputAction.CallbackContext context);
         void OnDrift(InputAction.CallbackContext context);
+        void OnReverse(InputAction.CallbackContext context);
     }
 }

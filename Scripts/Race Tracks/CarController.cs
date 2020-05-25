@@ -49,6 +49,9 @@ public class CarController : MonoBehaviour
         if (controls.CarController.Accelerate.ReadValue<float>() > 0)
             speed = 80f;
 
+        if (controls.CarController.Reverse.ReadValue<float>() > 0)
+            speed += -40;
+
         if(controls.CarController.Move.ReadValue<float>() != 0)
         {
             float value = controls.CarController.Move.ReadValue<float>();
@@ -73,7 +76,7 @@ public class CarController : MonoBehaviour
 
     void Steer(int dir, float amount)
     {
-        if(currentSpeed > 5f)
+        if (currentSpeed > 7.5f || currentSpeed < -5f) 
             rotate = (20f * dir) * amount;
     }
 

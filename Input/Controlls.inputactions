@@ -435,6 +435,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Reverse",
+                    "type": "Button",
+                    "id": "aca8793a-a721-47b8-ac2b-7068edbdc220",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -479,6 +487,17 @@
                     "processors": "",
                     "groups": "JoyPad",
                     "action": "Drift",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f58df786-54f3-4d44-b32c-a8e01b719678",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "JoyPad",
+                    "action": "Reverse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
