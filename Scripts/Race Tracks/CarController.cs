@@ -13,10 +13,11 @@ public class CarController : MonoBehaviour
     public bool drifting = false;
     int driftDir = 0;
 
+    public LayerMask floor;
 
     private void OnEnable()
     {
-        if(controls == null)
+        if (controls == null)
             controls = new Controlls();
         controls.CarController.Enable();
         controls.CarController.Drift.canceled += ctx => { drifting = false; driftDir = 0; };
@@ -32,12 +33,18 @@ public class CarController : MonoBehaviour
     private void FixedUpdate()
     {
         //moves the car forward
-        rb.AddForce(model.transform.forward * currentSpeed, ForceMode.Acceleration);
-
-
-        rb.AddForce(Vector3.down * 10, ForceMode.Acceleration);
+        rb.AddForce(transform.forward * currentSpeed, ForceMode.Acceleration);
+        //gravity
+        rb.AddForce(Vector3.down * 20, ForceMode.Acceleration);
         //rotation
-        model.transform.eulerAngles = Vector3.Lerp(model.transform.eulerAngles, new Vector3(0, model.transform.eulerAngles.y + currentRotate, 0), Time.deltaTime * 5f);
+        transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y + currentRotate, 0), Time.deltaTime * 5f);
+
+        RaycastHit hit;
+        Debug.DrawRay(model.transform.position, Vector3.down, Color.red, 2f);
+        Physics.Raycast(model.transform.position, Vector3.down, out hit, 3, floor);
+
+        model.transform.up = Vector3.Lerp(model.transform.up, hit.normal, Time.deltaTime * 8.0f);
+        model.transform.Rotate(0, transform.eulerAngles.y, 0);
     }
 
     private void Update()
@@ -52,7 +59,7 @@ public class CarController : MonoBehaviour
         if (controls.CarController.Reverse.ReadValue<float>() > 0)
             speed += -40;
 
-        if(controls.CarController.Move.ReadValue<float>() != 0)
+        if (controls.CarController.Move.ReadValue<float>() != 0)
         {
             float value = controls.CarController.Move.ReadValue<float>();
             int dir = value > 0 ? 1 : -1;
@@ -76,7 +83,7 @@ public class CarController : MonoBehaviour
 
     void Steer(int dir, float amount)
     {
-        if (currentSpeed > 7.5f || currentSpeed < -5f) 
+        if (currentSpeed > 7.5f || currentSpeed < -5f)
             rotate = (20f * dir) * amount;
     }
 
