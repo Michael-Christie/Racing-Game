@@ -67,7 +67,7 @@ public class CarController : MonoBehaviour
 
     void Steer(int dir, float amount)
     {
-        rotate = (30f * dir) * amount;
+        rotate = (20f * dir) * amount;
     }
 
     float Remap(float s, float a1, float a2, float b1, float b2)
