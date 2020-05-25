@@ -456,6 +456,17 @@ public class @Controlls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""69958ebe-2753-4b16-a670-ce2b8bea6699"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""b37bd493-a313-4244-8ea8-6136a4f76c01"",
                     ""path"": ""<Gamepad>/leftStick/x"",
                     ""interactions"": """",

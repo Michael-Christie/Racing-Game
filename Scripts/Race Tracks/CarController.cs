@@ -14,12 +14,15 @@ public class CarController : MonoBehaviour
     {
         controls = new Controlls();
         controls.CarController.Enable();
+        //rb.maxAngularVelocity = 30f;
     }
 
     private void FixedUpdate()
     {
         //moves the car forward
         rb.AddForce(model.transform.forward * currentSpeed, ForceMode.Acceleration);
+
+        rb.AddForce(Vector3.down * 10, ForceMode.Acceleration);
         //rotation
         model.transform.eulerAngles = Vector3.Lerp(model.transform.eulerAngles, new Vector3(0, model.transform.eulerAngles.y + currentRotate, 0), Time.deltaTime * 5f);
     }
@@ -28,11 +31,11 @@ public class CarController : MonoBehaviour
     {
         float speed = 0;
         //put the model at the spheres position
-        model.transform.position = sphere.position - new Vector3(0f, 1f, 0f);
+        model.transform.position = sphere.position - new Vector3(0f, .8f, 0f);
 
         //is the car accellerating
         if (controls.CarController.Accelerate.ReadValue<float>() > 0)
-            speed = 30;
+            speed = 80f;
 
         if(controls.CarController.Move.ReadValue<float>() != 0)
         {
@@ -43,14 +46,13 @@ public class CarController : MonoBehaviour
             Steer(dir, amount);
         }
 
-        currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * .4f);
-        currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * .4f);
+        currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * 12f);
+        currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * 4f);
         rotate = 0;
-        speed = 0;
     }
 
     void Steer(int dir, float amount)
     {
-        rotate = (80f * dir) * amount;
+        rotate = (30f * dir) * amount;
     }
 }
