@@ -420,6 +420,52 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""CarController"",
+            ""id"": ""86616802-5f94-40b9-8cb0-934a6cb9bae3"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""e98a8402-7c4c-4384-b129-26ea8c7f2c90"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Accelerate"",
+                    ""type"": ""Button"",
+                    ""id"": ""590c370c-cb2d-4948-ab95-038367d13f05"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""30ecdaba-9591-4f4b-acb7-7574208ed4a8"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b37bd493-a313-4244-8ea8-6136a4f76c01"",
+                    ""path"": ""<Gamepad>/leftStick/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -464,6 +510,10 @@ public class @Controlls : IInputActionCollection, IDisposable
         m_TrackCreating_TempReorder = m_TrackCreating.FindAction("Temp Reorder", throwIfNotFound: true);
         m_TrackCreating_Delete = m_TrackCreating.FindAction("Delete", throwIfNotFound: true);
         m_TrackCreating_ToogleLoop = m_TrackCreating.FindAction("ToogleLoop", throwIfNotFound: true);
+        // CarController
+        m_CarController = asset.FindActionMap("CarController", throwIfNotFound: true);
+        m_CarController_Move = m_CarController.FindAction("Move", throwIfNotFound: true);
+        m_CarController_Accelerate = m_CarController.FindAction("Accelerate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -614,6 +664,47 @@ public class @Controlls : IInputActionCollection, IDisposable
         }
     }
     public TrackCreatingActions @TrackCreating => new TrackCreatingActions(this);
+
+    // CarController
+    private readonly InputActionMap m_CarController;
+    private ICarControllerActions m_CarControllerActionsCallbackInterface;
+    private readonly InputAction m_CarController_Move;
+    private readonly InputAction m_CarController_Accelerate;
+    public struct CarControllerActions
+    {
+        private @Controlls m_Wrapper;
+        public CarControllerActions(@Controlls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_CarController_Move;
+        public InputAction @Accelerate => m_Wrapper.m_CarController_Accelerate;
+        public InputActionMap Get() { return m_Wrapper.m_CarController; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CarControllerActions set) { return set.Get(); }
+        public void SetCallbacks(ICarControllerActions instance)
+        {
+            if (m_Wrapper.m_CarControllerActionsCallbackInterface != null)
+            {
+                @Move.started -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnMove;
+                @Accelerate.started -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnAccelerate;
+                @Accelerate.performed -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnAccelerate;
+                @Accelerate.canceled -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnAccelerate;
+            }
+            m_Wrapper.m_CarControllerActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+                @Accelerate.started += instance.OnAccelerate;
+                @Accelerate.performed += instance.OnAccelerate;
+                @Accelerate.canceled += instance.OnAccelerate;
+            }
+        }
+    }
+    public CarControllerActions @CarController => new CarControllerActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -644,5 +735,10 @@ public class @Controlls : IInputActionCollection, IDisposable
         void OnTempReorder(InputAction.CallbackContext context);
         void OnDelete(InputAction.CallbackContext context);
         void OnToogleLoop(InputAction.CallbackContext context);
+    }
+    public interface ICarControllerActions
+    {
+        void OnMove(InputAction.CallbackContext context);
+        void OnAccelerate(InputAction.CallbackContext context);
     }
 }
