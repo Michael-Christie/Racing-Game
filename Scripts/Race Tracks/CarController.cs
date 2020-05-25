@@ -7,7 +7,7 @@ public class CarController : MonoBehaviour
     public GameObject model;
     public Transform sphere;
 
-    float currentSpeed = 0;
+    float currentSpeed = 0, speed = 0;
     float currentRotate, rotate = 0;
 
     public bool drifting = false;
@@ -16,11 +16,17 @@ public class CarController : MonoBehaviour
 
     private void OnEnable()
     {
-        controls = new Controlls();
+        if(controls == null)
+            controls = new Controlls();
         controls.CarController.Enable();
         controls.CarController.Drift.canceled += ctx => { drifting = false; driftDir = 0; };
         controls.CarController.Drift.started += ctx => { drifting = true; driftDir = controls.CarController.Move.ReadValue<float>() > 0 ? 1 : -1; };
         //rb.maxAngularVelocity = 30f;
+    }
+
+    private void OnDisable()
+    {
+        controls.CarController.Disable();
     }
 
     private void FixedUpdate()
@@ -36,7 +42,6 @@ public class CarController : MonoBehaviour
 
     private void Update()
     {
-        float speed = 0;
         //put the model at the spheres position
         model.transform.position = sphere.position - new Vector3(0f, .8f, 0f);
 
@@ -63,11 +68,13 @@ public class CarController : MonoBehaviour
         currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * 12f);
         currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * 4f);
         rotate = 0;
+        speed = 0;
     }
 
     void Steer(int dir, float amount)
     {
-        rotate = (20f * dir) * amount;
+        if(currentSpeed > 5f)
+            rotate = (20f * dir) * amount;
     }
 
     float Remap(float s, float a1, float a2, float b1, float b2)

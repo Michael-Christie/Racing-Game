@@ -50,6 +50,7 @@ public class TrackGenerator : MonoBehaviour
 
         MeshFilter mFilter = newTrack.AddComponent<MeshFilter>();
         MeshRenderer mRenderer = newTrack.AddComponent<MeshRenderer>();
+        MeshCollider mCollider = newTrack.AddComponent<MeshCollider>();
 
         //the mesh data
         List<Vector3> vertices = new List<Vector3>();
@@ -100,6 +101,8 @@ public class TrackGenerator : MonoBehaviour
 
         //assigns the track material **TEMPORARY MATERIAL I NEED A NEW ONE WITH SPECTUAL LIGHTS
         mRenderer.material = TrackMaterial;
+
+        mCollider.sharedMesh = mFilter.mesh;
 
         //adds it to the list of track sections for later use
         trackSegements.Insert(nodeIndex, newTrack);

@@ -69,8 +69,14 @@ public class PC_Create : MonoBehaviour
 
     private void OnEnable()
     {
-        controls = new Controlls();
+        if(controls == null)
+            controls = new Controlls();
         controls.TrackCreating.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.TrackCreating.Disable();
     }
 
     // Update is called once per frame
