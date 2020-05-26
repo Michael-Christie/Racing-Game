@@ -17,7 +17,8 @@ public class CarController : MonoBehaviour
     public LayerMask floor;
 
     [Header("Particals")]
-    public ParticleSystem PS;
+    public PSystem leftDrift;
+    public PSystem rightDrift;
 
     private void OnEnable()
     {
@@ -26,8 +27,8 @@ public class CarController : MonoBehaviour
         {
             controls = new Controlls();
             //sets up the drifting controlls
-            controls.CarController.Drift.canceled += ctx => { drifting = false; driftDir = 0; };
-            controls.CarController.Drift.started += ctx => { drifting = true; driftDir = controls.CarController.Move.ReadValue<float>() > 0 ? 1 : -1; };
+            controls.CarController.Drift.canceled += ctx => { StopDrifting(); };
+            controls.CarController.Drift.started += ctx => { StartDrifting(); };
         }
         controls.CarController.Enable();
     }
@@ -59,7 +60,7 @@ public class CarController : MonoBehaviour
     private void Update()
     {
         //put the model at the spheres position
-        model.transform.position = sphere.position - new Vector3(0f, .8f, 0f);
+        model.transform.position = sphere.position - new Vector3(0f, .9f, 0f);
 
         //is the car accellerating
         if (controls.CarController.Accelerate.ReadValue<float>() > 0)
@@ -105,5 +106,27 @@ public class CarController : MonoBehaviour
     float Remap(float s, float a1, float a2, float b1, float b2)
     {
         return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
+    }
+
+    void StartDrifting()
+    {
+        drifting = true;
+        driftDir = controls.CarController.Move.ReadValue<float>() > 0 ? 1 : -1;
+
+        if (driftDir == -1)
+            leftDrift.PlayParticals();
+        else
+            rightDrift.PlayParticals();
+    }
+
+    void StopDrifting()
+    {
+        drifting = false;
+        if (driftDir == -1)
+            leftDrift.StopParticals();
+        else
+            rightDrift.StopParticals();
+
+        driftDir = 0;
     }
 }
