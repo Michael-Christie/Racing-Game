@@ -93,6 +93,7 @@ public class CarController : MonoBehaviour
         //lerp between the old and new possitions
         currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * 12f);
         currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * 4f);
+
         rotate = 0;
         speed = 0;
     }
