@@ -85,7 +85,7 @@ public class CarController : MonoBehaviour
         if (drifting)
         {
             //remap the input to be weighted more for tighter drifts
-            float control = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 0, 2) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 2, 0);
+            float control = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 0, 1.5f) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 1.5f, 0);
             float powerControl = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, .2f, 1) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 1, .2f);
             Steer(driftDir, control);
         }
@@ -101,7 +101,7 @@ public class CarController : MonoBehaviour
     void Steer(int dir, float amount)
     {
         if (currentSpeed > 7.5f || currentSpeed < -5f)
-            rotate = (20f * dir) * amount;
+            rotate = (30f * dir) * amount; //dunno if this movement 30 should be lower
     }
 
     float Remap(float s, float a1, float a2, float b1, float b2)
