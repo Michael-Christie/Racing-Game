@@ -2,29 +2,37 @@
 
 public class CarController : MonoBehaviour
 {
+    [Header("Car Set Up")]
     public Rigidbody rb;
     private Controlls controls = null;
     public GameObject model;
     public Transform sphere;
 
     float currentSpeed = 0, speed = 0;
-    float currentRotate, rotate = 0;
-
+    float currentRotate = 0, rotate = 0;
     public bool drifting = false;
     int driftDir = 0;
 
+    [Header("")]
     public LayerMask floor;
+
+    [Header("Particals")]
+    public ParticleSystem PS;
 
     private void OnEnable()
     {
+        //sets up the car controller
         if (controls == null)
+        {
             controls = new Controlls();
+            //sets up the drifting controlls
+            controls.CarController.Drift.canceled += ctx => { drifting = false; driftDir = 0; };
+            controls.CarController.Drift.started += ctx => { drifting = true; driftDir = controls.CarController.Move.ReadValue<float>() > 0 ? 1 : -1; };
+        }
         controls.CarController.Enable();
-        controls.CarController.Drift.canceled += ctx => { drifting = false; driftDir = 0; };
-        controls.CarController.Drift.started += ctx => { drifting = true; driftDir = controls.CarController.Move.ReadValue<float>() > 0 ? 1 : -1; };
-        //rb.maxAngularVelocity = 30f;
     }
 
+    //disable the controller
     private void OnDisable()
     {
         controls.CarController.Disable();
@@ -39,6 +47,7 @@ public class CarController : MonoBehaviour
         //rotation
         transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y + currentRotate, 0), Time.deltaTime * 5f);
 
+        //rotate the car based upon the floor normal
         RaycastHit hit;
         Debug.DrawRay(model.transform.position, Vector3.down, Color.red, 2f);
         Physics.Raycast(model.transform.position, Vector3.down, out hit, 3, floor);
@@ -56,11 +65,14 @@ public class CarController : MonoBehaviour
         if (controls.CarController.Accelerate.ReadValue<float>() > 0)
             speed = 80f;
 
+        //if the car is reversing
         if (controls.CarController.Reverse.ReadValue<float>() > 0)
             speed += -40;
 
+        //if the player is moving
         if (controls.CarController.Move.ReadValue<float>() != 0)
         {
+            //find the direction and steer amount
             float value = controls.CarController.Move.ReadValue<float>();
             int dir = value > 0 ? 1 : -1;
             float amount = Mathf.Abs(value);
@@ -68,13 +80,16 @@ public class CarController : MonoBehaviour
             Steer(dir, amount);
         }
 
+        //if drifting
         if (drifting)
         {
+            //remap the input to be weighted more for tighter drifts
             float control = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 0, 2) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 2, 0);
             float powerControl = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, .2f, 1) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 1, .2f);
             Steer(driftDir, control);
         }
 
+        //lerp between the old and new possitions
         currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * 12f);
         currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * 4f);
         rotate = 0;
