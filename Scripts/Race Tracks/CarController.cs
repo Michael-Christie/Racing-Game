@@ -6,6 +6,7 @@ public class CarController : MonoBehaviour
     public Rigidbody rb;
     private Controlls controls = null;
     public GameObject model;
+    public GameObject kart;
     public Transform sphere;
 
     float currentSpeed = 0, speed = 0;
@@ -19,6 +20,11 @@ public class CarController : MonoBehaviour
     [Header("Particals")]
     public PSystem leftDrift;
     public PSystem rightDrift;
+
+    [Header("Animations")]
+    public GameObject[] Wheels;
+    public GameObject[] Shaft;
+    public GameObject SteeringWheel;
 
     private void OnEnable()
     {
@@ -53,14 +59,14 @@ public class CarController : MonoBehaviour
         Debug.DrawRay(model.transform.position, Vector3.down, Color.red, 2f);
         Physics.Raycast(model.transform.position, Vector3.down, out hit, 3, floor);
 
-        model.transform.up = Vector3.Lerp(model.transform.up, hit.normal, Time.deltaTime * 8.0f);
-        model.transform.Rotate(0, transform.eulerAngles.y, 0);
+        //model.transform.up = Vector3.Lerp(model.transform.up, hit.normal, Time.deltaTime * 8.0f);
+        //model.transform.Rotate(0, transform.eulerAngles.y, 0);
     }
 
     private void Update()
     {
         //put the model at the spheres position
-        model.transform.position = sphere.position - new Vector3(0f, .9f, 0f);
+        model.transform.position = sphere.position - new Vector3(0f, .92f, 0f);
 
         //is the car accellerating
         if (controls.CarController.Accelerate.ReadValue<float>() > 0)
@@ -68,7 +74,7 @@ public class CarController : MonoBehaviour
 
         //if the car is reversing
         if (controls.CarController.Reverse.ReadValue<float>() > 0)
-            speed += -40;
+            speed = 0;
 
         //if the player is moving
         if (controls.CarController.Move.ReadValue<float>() != 0)
@@ -96,6 +102,25 @@ public class CarController : MonoBehaviour
 
         rotate = 0;
         speed = 0;
+
+        if (drifting)
+        {
+            float value = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, .25f, 1.5f) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 1.5f, .25f);
+            kart.transform.localEulerAngles = new Vector3(-90, Mathf.LerpAngle(kart.transform.localEulerAngles.y, driftDir * (value * 15f), .2f), 0);
+        }
+        else
+        {
+            kart.transform.localEulerAngles = new Vector3(-90, Mathf.LerpAngle(kart.transform.localEulerAngles.y, 0, .2f), 0);
+        }
+
+        foreach (GameObject w in Wheels)
+        {
+            w.transform.localEulerAngles = new Vector3(w.transform.localEulerAngles.x, 0, (controls.CarController.Move.ReadValue<float>() * 25));
+        }
+
+        SteeringWheel.transform.localEulerAngles = new Vector3(-35, ((controls.CarController.Move.ReadValue<float>() * 45)), 0);
+        //frontWheels.localEulerAngles += new Vector3(0, 0, sphere.velocity.magnitude / 2);
+        //backWheels.localEulerAngles += new Vector3(0, 0, sphere.velocity.magnitude / 2);
     }
 
     void Steer(int dir, float amount)
