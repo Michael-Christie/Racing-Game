@@ -20,6 +20,9 @@ public class CarController : MonoBehaviour
     [Header("Particals")]
     public PSystem leftDrift;
     public PSystem rightDrift;
+    public ParticleSystem leftSmoke;
+    public ParticleSystem rightSmoke;
+    bool particalsPlaying = false;
 
     [Header("Animations")]
     public GameObject[] Wheels;
@@ -106,27 +109,46 @@ public class CarController : MonoBehaviour
         if (drifting)
         {
             float value = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, .25f, 1.5f) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 1.5f, .25f);
-            kart.transform.localEulerAngles = new Vector3(-90, Mathf.LerpAngle(kart.transform.localEulerAngles.y, driftDir * (value * 15f), .2f), 0);
+            kart.transform.localEulerAngles = new Vector3(0, Mathf.LerpAngle(kart.transform.localEulerAngles.y, driftDir * (value * 15f), .2f), 0);
         }
         else
         {
-            kart.transform.localEulerAngles = new Vector3(-90, Mathf.LerpAngle(kart.transform.localEulerAngles.y, 0, .2f), 0);
+            kart.transform.localEulerAngles = new Vector3(0, Mathf.LerpAngle(kart.transform.localEulerAngles.y, 0, .2f), 0);
         }
 
-        foreach (GameObject w in Wheels)
+        //front wheels
+        //left
+        Wheels[0].transform.localEulerAngles = new Vector3(0, -90 + (controls.CarController.Move.ReadValue<float>() * 25), Wheels[0].transform.localEulerAngles.z - (rb.velocity.magnitude / 2));
+        //right
+        Wheels[1].transform.localEulerAngles = new Vector3(0, 90 + (controls.CarController.Move.ReadValue<float>() * 25), Wheels[1].transform.localEulerAngles.z + (rb.velocity.magnitude / 2));
+        //back wheels
+        Wheels[2].transform.localEulerAngles = new Vector3(0, -90, Wheels[2].transform.localEulerAngles.z - (rb.velocity.magnitude / 2));
+        //right
+        Wheels[3].transform.localEulerAngles = new Vector3(0, 90 , Wheels[3].transform.localEulerAngles.z + (rb.velocity.magnitude / 2));
+
+        SteeringWheel.transform.localEulerAngles = new Vector3(-121.285f, 1.088989f,(-90 + (controls.CarController.Move.ReadValue<float>() * 45)));
+
+        if(rb.velocity.magnitude > 1.5f)
         {
-            w.transform.localEulerAngles = new Vector3(w.transform.localEulerAngles.x, 0, (controls.CarController.Move.ReadValue<float>() * 25));
+            if (!particalsPlaying)
+            {
+                rightSmoke.Play();
+                leftSmoke.Play();
+                particalsPlaying = true;
+            }
         }
-
-        SteeringWheel.transform.localEulerAngles = new Vector3(-35, ((controls.CarController.Move.ReadValue<float>() * 45)), 0);
-        //frontWheels.localEulerAngles += new Vector3(0, 0, sphere.velocity.magnitude / 2);
-        //backWheels.localEulerAngles += new Vector3(0, 0, sphere.velocity.magnitude / 2);
+        else if(particalsPlaying)
+        {
+            rightSmoke.Stop();
+            leftSmoke.Stop();
+            particalsPlaying = false;
+        }
     }
 
     void Steer(int dir, float amount)
     {
         if (currentSpeed > 7.5f || currentSpeed < -5f)
-            rotate = (30f * dir) * amount; //dunno if this movement 30 should be lower
+            rotate = (20f * dir) * amount; //dunno if this movement 30 should be lower
     }
 
     float Remap(float s, float a1, float a2, float b1, float b2)
