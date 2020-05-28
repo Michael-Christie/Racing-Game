@@ -46,7 +46,7 @@ public class PC_Create : MonoBehaviour
         GUI.DrawTexture(new Rect(cursorPosition.x, Screen.height - cursorPosition.y, 10, 10), cursorImage);
     }
 
-    bool addNode;
+   // bool addNode;
 
     public enum zoomLevel
     {
@@ -87,7 +87,7 @@ public class PC_Create : MonoBehaviour
         if (controls.TrackCreating.PlaceNode.triggered && !MovingObject)
         { 
             AddPoint();
-            addNode = false;
+            //addNode = false;
         }
 
         //zooms in and out

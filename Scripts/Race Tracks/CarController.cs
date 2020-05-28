@@ -28,6 +28,11 @@ public class CarController : MonoBehaviour
     public GameObject[] Wheels;
     public GameObject[] Shaft;
     public GameObject SteeringWheel;
+    public Color[] driftColor;
+    public float cameraFOV = 0;
+    public Camera cam;
+
+    float driftPower = 0;
 
     private void OnEnable()
     {
@@ -62,8 +67,8 @@ public class CarController : MonoBehaviour
         Debug.DrawRay(model.transform.position, Vector3.down, Color.red, 2f);
         Physics.Raycast(model.transform.position, Vector3.down, out hit, 3, floor);
 
-        //model.transform.up = Vector3.Lerp(model.transform.up, hit.normal, Time.deltaTime * 8.0f);
-        //model.transform.Rotate(0, transform.eulerAngles.y, 0);
+        model.transform.up = Vector3.Lerp(model.transform.up, hit.normal, Time.deltaTime * 8.0f);
+        model.transform.Rotate(0, transform.eulerAngles.y, 0);
     }
 
     private void Update()
@@ -97,6 +102,10 @@ public class CarController : MonoBehaviour
             float control = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 0, 1.5f) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 1.5f, 0);
             float powerControl = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, .2f, 1) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 1, .2f);
             Steer(driftDir, control);
+
+            driftPower += powerControl;
+
+            SetColor();
         }
 
         //lerp between the old and new possitions
@@ -143,6 +152,12 @@ public class CarController : MonoBehaviour
             leftSmoke.Stop();
             particalsPlaying = false;
         }
+
+        cam.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60 + cameraFOV, Time.deltaTime * 4f);
+        if (cameraFOV > 0)
+            cameraFOV -= Time.deltaTime * 20f;
+        if (cameraFOV < 0)
+            cameraFOV = 0;
     }
 
     void Steer(int dir, float amount)
@@ -154,6 +169,16 @@ public class CarController : MonoBehaviour
     float Remap(float s, float a1, float a2, float b1, float b2)
     {
         return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
+    }
+
+    void SetColor()
+    {
+        Color c = driftPower > 100 ? (driftPower > 250 ? driftColor[2] : driftColor[1]) : driftColor[0];
+        bool b = driftPower > 100 ? true : false;
+        if(driftDir == -1)
+            leftDrift.SetColor(c,b);
+        else
+            rightDrift.SetColor(c,b);
     }
 
     void StartDrifting()
@@ -175,6 +200,12 @@ public class CarController : MonoBehaviour
         else
             rightDrift.StopParticals();
 
+        float v = driftPower > 250 ? 250 : driftPower;
+
+        currentSpeed += v;
+        cameraFOV = 30;
+
         driftDir = 0;
+        driftPower = 0;
     }
 }
