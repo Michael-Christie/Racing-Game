@@ -84,6 +84,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Press",
+                    "type": "Button",
+                    "id": "20577c44-f911-4611-87ba-e1e665f1b952",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Mouse",
+                    "type": "Value",
+                    "id": "d0a8d0b2-c443-445a-be99-484ad05ecea9",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -403,6 +419,39 @@
                     "processors": "",
                     "groups": "JoyPad",
                     "action": "ToogleLoop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7d06208b-1a6e-4a4a-b74c-acb4cd749f30",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "38a82a39-95bb-476f-a734-d3ca2699cd44",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "01e4475a-fcd3-4290-bfe9-0fd2118a6562",
+                    "path": "<VirtualMouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard;JoyPad",
+                    "action": "Mouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

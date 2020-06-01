@@ -106,7 +106,7 @@ public class NodeManager : MonoBehaviour
     }
 
     //adds a new node at location 
-    public void AddNewNode(Vector3 pos)
+    public void AddNewNode(Vector3 pos, bool calculateRotation = true, float rotation = 0)
     {
         //for each nodes, make sure its x amount away from it?
         foreach (NodePoint n in Nodes)
@@ -137,17 +137,24 @@ public class NodeManager : MonoBehaviour
         //calculates the direction of the point from the forward position of the last node to the new node
         if (Nodes.Count > 0)
         {
-            //pos back = last index.forward + pos * .5f
-            Vector3 backpos = (Nodes[Nodes.Count - 1].Forward + pos) * .5f;
-            g.transform.LookAt(pos * 2 - backpos, Vector3.up);
-            float y = g.transform.rotation.eulerAngles.y;
+            if (calculateRotation)
+            {
+                //pos back = last index.forward + pos * .5f
+                Vector3 backpos = (Nodes[Nodes.Count - 1].Forward + pos) * .5f;
+                g.transform.LookAt(pos * 2 - backpos, Vector3.up);
+                float y = g.transform.rotation.eulerAngles.y;
 
-            //clamps the angle to the nearest 15 degrees
-            y /= 15;
-            int iy = Mathf.RoundToInt(y);
-            iy *= 15;
-            //applies the rotation
-            g.transform.rotation = Quaternion.Euler(new Vector3(0, iy, 0));
+                //clamps the angle to the nearest 15 degrees
+                y /= 15;
+                int iy = Mathf.RoundToInt(y);
+                iy *= 15;
+                //applies the rotation
+                g.transform.rotation = Quaternion.Euler(new Vector3(0, iy, 0));
+            }
+            else
+            {
+                g.transform.rotation = Quaternion.Euler(new Vector3(0, rotation, 0));
+            }
 
         }
 
@@ -162,7 +169,9 @@ public class NodeManager : MonoBehaviour
 
     public void RemoveNode(int nodeIndex)
     {
+        GameObject n = Nodes[nodeIndex].gameObject;
         Nodes.RemoveAt(nodeIndex);
+        Destroy(n);
         ///**THIS SHOULD BE UPDATING ONLY THE NEW MESHES NOT ALL OF THEM
         TG.DeleteAllSegments();
         TG.GenerateAllSegments();
@@ -198,6 +207,14 @@ public class NodeManager : MonoBehaviour
             node.RotateLeft();
 
         UpdateNode(node, node.Posistion);
+    }
+
+    public void clearNM()
+    {
+        for (int i = Nodes.Count - 1; i >= 0; i--)
+        {
+            RemoveNode(i);
+        }
     }
 
 }

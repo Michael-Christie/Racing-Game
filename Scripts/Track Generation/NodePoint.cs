@@ -7,6 +7,7 @@ public class NodePoint : MonoBehaviour
     public Vector3 Posistion => pos();
     public Vector3 Forward => forw();
     public Vector3 Back => bac();
+    public Vector3 Rotation => transform.eulerAngles;
     public bool isSelected = false;
     bool MouseOver = false;
 

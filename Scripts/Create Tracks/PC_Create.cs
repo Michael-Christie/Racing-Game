@@ -18,11 +18,11 @@ public class PC_Create : MonoBehaviour
 
     private void Start()
     {
-        Cursor.visible = false;
+        //Cursor.visible = false;
 
         // optional place it in the center on start
         cursorPosition = new Vector2(Screen.width / 2f, Screen.height / 2f);
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;        
 
         Zoom();
 
@@ -33,15 +33,27 @@ public class PC_Create : MonoBehaviour
     {
         Vector2 d = GetCursorPos();
         // these are not actual positions but the change between last frame and now
-        float h = 200 * d.x * Time.deltaTime;
-        float v = 200 * d.y * Time.deltaTime;
+        //float h = 200 * d.x * Time.deltaTime;
+        cursorPosition.x = d.x + Screen.width / 2;
+        cursorPosition.y = d.y + Screen.height / 2;
+        //float v = 200 * d.y * Time.deltaTime;
+
+        if (cursorPosition.x > Screen.width - 10)
+            cursorPosition.x = Screen.width - 10;
+        if (cursorPosition.x < 0)
+            cursorPosition.x = 0;
+
+        if (cursorPosition.y > Screen.height)
+            cursorPosition.y = Screen.height;
+        if (cursorPosition.y < 10)
+            cursorPosition.y = 10;
+
 
         // add the changes to the actual cursor position
-        if (cursorPosition.x + h < Screen.width - 10 && cursorPosition.x + h > 0)
-            cursorPosition.x += h;
-        if (cursorPosition.y + v < Screen.height && cursorPosition.y + v > 10)
-            cursorPosition.y += v;
-
+        //if (cursorPosition.x + h < Screen.width - 10 && cursorPosition.x + h > 0)
+        //    cursorPosition.x += h;
+        //if (cursorPosition.y + v < Screen.height && cursorPosition.y + v > 10)
+        //    cursorPosition.y += v;
 
         GUI.DrawTexture(new Rect(cursorPosition.x, Screen.height - cursorPosition.y, 10, 10), cursorImage);
     }
@@ -173,7 +185,7 @@ public class PC_Create : MonoBehaviour
         transform.Translate(dir, Space.World);
     }
 
-    Vector3 GetCursorPos() { return controls.TrackCreating.Cursor.ReadValue<Vector2>(); }
+    Vector3 GetCursorPos() { return controls.TrackCreating.Mouse.ReadValue<Vector2>(); }
 
     public void AddPoint()
     {

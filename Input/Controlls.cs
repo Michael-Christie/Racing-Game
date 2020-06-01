@@ -97,6 +97,22 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Press"",
+                    ""type"": ""Button"",
+                    ""id"": ""20577c44-f911-4611-87ba-e1e665f1b952"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Mouse"",
+                    ""type"": ""Value"",
+                    ""id"": ""d0a8d0b2-c443-445a-be99-484ad05ecea9"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -418,6 +434,39 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""action"": ""ToogleLoop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d06208b-1a6e-4a4a-b74c-acb4cd749f30"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Press"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38a82a39-95bb-476f-a734-d3ca2699cd44"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Press"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""01e4475a-fcd3-4290-bfe9-0fd2118a6562"",
+                    ""path"": ""<VirtualMouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard;JoyPad"",
+                    ""action"": ""Mouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -559,6 +608,8 @@ public class @Controlls : IInputActionCollection, IDisposable
         m_TrackCreating_TempReorder = m_TrackCreating.FindAction("Temp Reorder", throwIfNotFound: true);
         m_TrackCreating_Delete = m_TrackCreating.FindAction("Delete", throwIfNotFound: true);
         m_TrackCreating_ToogleLoop = m_TrackCreating.FindAction("ToogleLoop", throwIfNotFound: true);
+        m_TrackCreating_Press = m_TrackCreating.FindAction("Press", throwIfNotFound: true);
+        m_TrackCreating_Mouse = m_TrackCreating.FindAction("Mouse", throwIfNotFound: true);
         // CarController
         m_CarController = asset.FindActionMap("CarController", throwIfNotFound: true);
         m_CarController_Move = m_CarController.FindAction("Move", throwIfNotFound: true);
@@ -624,6 +675,8 @@ public class @Controlls : IInputActionCollection, IDisposable
     private readonly InputAction m_TrackCreating_TempReorder;
     private readonly InputAction m_TrackCreating_Delete;
     private readonly InputAction m_TrackCreating_ToogleLoop;
+    private readonly InputAction m_TrackCreating_Press;
+    private readonly InputAction m_TrackCreating_Mouse;
     public struct TrackCreatingActions
     {
         private @Controlls m_Wrapper;
@@ -638,6 +691,8 @@ public class @Controlls : IInputActionCollection, IDisposable
         public InputAction @TempReorder => m_Wrapper.m_TrackCreating_TempReorder;
         public InputAction @Delete => m_Wrapper.m_TrackCreating_Delete;
         public InputAction @ToogleLoop => m_Wrapper.m_TrackCreating_ToogleLoop;
+        public InputAction @Press => m_Wrapper.m_TrackCreating_Press;
+        public InputAction @Mouse => m_Wrapper.m_TrackCreating_Mouse;
         public InputActionMap Get() { return m_Wrapper.m_TrackCreating; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -677,6 +732,12 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @ToogleLoop.started -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnToogleLoop;
                 @ToogleLoop.performed -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnToogleLoop;
                 @ToogleLoop.canceled -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnToogleLoop;
+                @Press.started -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnPress;
+                @Press.performed -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnPress;
+                @Press.canceled -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnPress;
+                @Mouse.started -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnMouse;
+                @Mouse.performed -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnMouse;
+                @Mouse.canceled -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnMouse;
             }
             m_Wrapper.m_TrackCreatingActionsCallbackInterface = instance;
             if (instance != null)
@@ -711,6 +772,12 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @ToogleLoop.started += instance.OnToogleLoop;
                 @ToogleLoop.performed += instance.OnToogleLoop;
                 @ToogleLoop.canceled += instance.OnToogleLoop;
+                @Press.started += instance.OnPress;
+                @Press.performed += instance.OnPress;
+                @Press.canceled += instance.OnPress;
+                @Mouse.started += instance.OnMouse;
+                @Mouse.performed += instance.OnMouse;
+                @Mouse.canceled += instance.OnMouse;
             }
         }
     }
@@ -802,6 +869,8 @@ public class @Controlls : IInputActionCollection, IDisposable
         void OnTempReorder(InputAction.CallbackContext context);
         void OnDelete(InputAction.CallbackContext context);
         void OnToogleLoop(InputAction.CallbackContext context);
+        void OnPress(InputAction.CallbackContext context);
+        void OnMouse(InputAction.CallbackContext context);
     }
     public interface ICarControllerActions
     {
