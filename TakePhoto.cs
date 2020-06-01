@@ -16,7 +16,7 @@ public class TakePhoto : MonoBehaviour
     {
         if (Keyboard.current.yKey.wasPressedThisFrame)
         {
-            ScreenCapture.CaptureScreenshot("CoverImage.png");
+            ScreenCapture.CaptureScreenshot("CoverImage2.png");
         }
     }
 }
