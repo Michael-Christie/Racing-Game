@@ -77,6 +77,7 @@ public class TrackGenerator : MonoBehaviour
             {
                 vertices.Add(ob.position + ob.rotation * Shape.trackPoints[j].location);
                 color.Add(Shape.trackPoints[j].color);
+                normal.Add(ob.rotation * Shape.trackPoints[j].normal);
             }
             //set up the triangles
             if (i != resolution)

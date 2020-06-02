@@ -14,51 +14,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trackPoints:
   - location: {x: -4, y: 0, z: 0}
-    normal: {x: 0, y: 0, z: 0}
+    normal: {x: 0, y: 1, z: 0}
     color: {r: 0.43832323, g: 0.46915385, b: 0.4716981, a: 1}
   - location: {x: 4, y: 0, z: 0}
-    normal: {x: 0, y: 0, z: 0}
+    normal: {x: 0, y: 1, z: 0}
     color: {r: 0.43921572, g: 0.47058827, b: 0.47058827, a: 1}
   - location: {x: 4, y: 0, z: 0}
-    normal: {x: 0, y: 0, z: 0}
+    normal: {x: -1, y: 1, z: 0}
     color: {r: 0.5754717, g: 0.42084894, b: 0.3936009, a: 1}
   - location: {x: 4.2, y: 0.2, z: 0}
-    normal: {x: 0, y: 0, z: 0}
+    normal: {x: -1, y: 1, z: 0}
     color: {r: 0.5764706, g: 0.41960788, b: 0.3921569, a: 1}
   - location: {x: 4.2, y: 0.2, z: 0}
-    normal: {x: 0, y: 0, z: 0}
+    normal: {x: 0, y: 1, z: 0}
     color: {r: 0.5764706, g: 0.5367005, b: 0.39215687, a: 1}
   - location: {x: 5, y: 0.2, z: 0}
-    normal: {x: 0, y: 0, z: 0}
+    normal: {x: 0, y: 1, z: 0}
     color: {r: 0.5764706, g: 0.5372549, b: 0.3921569, a: 1}
   - location: {x: 5, y: 0.2, z: 0}
-    normal: {x: 0, y: 0, z: 0}
+    normal: {x: 1, y: 0, z: 0}
     color: {r: 0.6612239, g: 0.627047, b: 0.7264151, a: 1}
   - location: {x: 5, y: -0.5, z: 0}
-    normal: {x: 0, y: 0, z: 0}
+    normal: {x: 1, y: 0, z: 0}
     color: {r: 0.6627451, g: 0.627451, b: 0.7254902, a: 1}
   - location: {x: 5, y: -0.5, z: 0}
-    normal: {x: 0, y: 0, z: 0}
+    normal: {x: 0, y: -1, z: 0}
     color: {r: 0.6627451, g: 0.627451, b: 0.7254902, a: 1}
   - location: {x: -5, y: -0.5, z: 0}
-    normal: {x: 0, y: 0, z: 0}
+    normal: {x: 0, y: -1, z: 0}
     color: {r: 0.6627451, g: 0.627451, b: 0.7254902, a: 1}
   - location: {x: -5, y: -0.5, z: 0}
-    normal: {x: 0, y: 0, z: 0}
+    normal: {x: -1, y: 0, z: 0}
     color: {r: 0.6627451, g: 0.627451, b: 0.7254902, a: 1}
   - location: {x: -5, y: 0.2, z: 0}
-    normal: {x: 0, y: 0, z: 0}
+    normal: {x: -1, y: 0, z: 0}
     color: {r: 0.6627451, g: 0.627451, b: 0.7254902, a: 1}
   - location: {x: -5, y: 0.2, z: 0}
-    normal: {x: 0, y: 0, z: 0}
+    normal: {x: 0, y: 1, z: 0}
     color: {r: 0.5764706, g: 0.5372549, b: 0.3921569, a: 1}
   - location: {x: -4.2, y: 0.2, z: 0}
-    normal: {x: 0, y: 0, z: 0}
+    normal: {x: 0, y: 1, z: 0}
     color: {r: 0.5764706, g: 0.5372549, b: 0.3921569, a: 1}
   - location: {x: -4.2, y: 0.2, z: 0}
-    normal: {x: 0, y: 0, z: 0}
+    normal: {x: 1, y: 1, z: 0}
     color: {r: 0.5764706, g: 0.41960788, b: 0.3921569, a: 1}
   - location: {x: -4, y: 0, z: 0}
-    normal: {x: 0, y: 0, z: 0}
+    normal: {x: 1, y: 1, z: 0}
     color: {r: 0.5764706, g: 0.41960788, b: 0.3921569, a: 1}
   triangles: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000
