@@ -8,10 +8,6 @@ public static class LoadData
     {
         string path = "../Maps.td";
 
-        System.Diagnostics.Process p = new System.Diagnostics.Process();
-        p.StartInfo = new System.Diagnostics.ProcessStartInfo("explorer.exe");
-        p.Start();
-
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();

@@ -6,6 +6,7 @@ public class NodeManager : MonoBehaviour
 {
     public static NodeManager instance;
     public TrackGenerator TG;
+    const float minDist = 14f;
 
     private void Awake()
     {
@@ -51,7 +52,7 @@ public class NodeManager : MonoBehaviour
             if (NP == n)
                 continue;
 
-            if ((pos - n.Posistion).magnitude < 8f)
+            if ((pos - n.Posistion).magnitude < minDist)
             {
                 Debug.Log("Too Close");
                 return;
@@ -111,7 +112,7 @@ public class NodeManager : MonoBehaviour
         //for each nodes, make sure its x amount away from it?
         foreach (NodePoint n in Nodes)
         {
-            if ((pos - n.Posistion).magnitude < 8f)
+            if ((pos - n.Posistion).magnitude < minDist)
                 return;
         }
         //check the node direction

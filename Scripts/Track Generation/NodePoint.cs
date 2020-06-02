@@ -12,8 +12,8 @@ public class NodePoint : MonoBehaviour
     bool MouseOver = false;
 
     Vector3 pos() { return transform.position; }
-    Vector3 forw() { return transform.position + transform.forward * 6f; }
-    Vector3 bac() { return transform.position - transform.forward * 6f; }
+    Vector3 forw() { return transform.position + transform.forward * 10f; }
+    Vector3 bac() { return transform.position - transform.forward * 10f; }
 
     public Material Normal;
     public Material Hovered;

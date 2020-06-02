@@ -18,7 +18,7 @@ public class TrackGenerator : MonoBehaviour
 
     public List<GameObject> trackSegements = new List<GameObject>();
 
-    private void Start()
+    private void Awake()
     {
         //sets up the track and point empty game object for readability
         tracks = new GameObject();
@@ -27,6 +27,10 @@ public class TrackGenerator : MonoBehaviour
         points = new GameObject();
         points.transform.parent = transform;
         points.name = "Points";
+    }
+
+    private void Start()
+    {
         GenerateAllSegments();
     }
 

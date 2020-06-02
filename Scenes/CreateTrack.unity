@@ -620,7 +620,7 @@ MonoBehaviour:
     m_ActionId: d0a8d0b2-c443-445a-be99-484ad05ecea9
     m_ActionName: TrackCreating/Mouse
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: JoyPad
+  m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: TrackCreating
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -3272,7 +3272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2073d9b11f440640a38236f3851f713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Shape: {fileID: 11400000, guid: aec2a1d94e1f7704a83db8d73e54a446, type: 2}
+  Shape: {fileID: 11400000, guid: 7890c40740b4e054fa895d013c15b8d2, type: 2}
   Node: {fileID: 5991019031626833409, guid: e8b6014aa74f82c4096377e8fd37f3a5, type: 3}
   LoopTrack: 0
   points: {fileID: 0}
@@ -3926,7 +3926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1493725830
 RectTransform:
   m_ObjectHideFlags: 0

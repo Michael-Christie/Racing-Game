@@ -34,8 +34,8 @@ public class PC_Create : MonoBehaviour
         Vector2 d = GetCursorPos();
         // these are not actual positions but the change between last frame and now
         //float h = 200 * d.x * Time.deltaTime;
-        cursorPosition.x = d.x + Screen.width / 2;
-        cursorPosition.y = d.y + Screen.height / 2;
+        cursorPosition.x = d.x /*+ Screen.width / 2*/;
+        cursorPosition.y = d.y /*+ Screen.height / 2*/;
         //float v = 200 * d.y * Time.deltaTime;
 
         if (cursorPosition.x > Screen.width - 10)
