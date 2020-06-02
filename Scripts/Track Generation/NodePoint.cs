@@ -11,6 +11,8 @@ public class NodePoint : MonoBehaviour
     public bool isSelected = false;
     bool MouseOver = false;
 
+    public bool LockedNode = false;
+
     Vector3 pos() { return transform.position; }
     Vector3 forw() { return transform.position + transform.forward * 10f; }
     Vector3 bac() { return transform.position - transform.forward * 10f; }
@@ -29,12 +31,19 @@ public class NodePoint : MonoBehaviour
 
     void UpdateVisuals()
     {
-        if (isSelected)
-            gameObject.GetComponent<MeshRenderer>().material = Selected;
-        else if (MouseOver)
-            gameObject.GetComponent<MeshRenderer>().material = Hovered;
+        if (!LockedNode)
+        {
+            if (isSelected)
+                gameObject.GetComponent<MeshRenderer>().material = Selected;
+            else if (MouseOver)
+                gameObject.GetComponent<MeshRenderer>().material = Hovered;
+            else
+                gameObject.GetComponent<MeshRenderer>().material = Normal;
+        }
         else
-            gameObject.GetComponent<MeshRenderer>().material = Normal;
+        {
+
+        }
 
     }
 
@@ -44,7 +53,7 @@ public class NodePoint : MonoBehaviour
     }
     
     public void RotateRight()
-    {
+    { 
         Vector3 euler = transform.rotation.eulerAngles;
         euler += new Vector3(0, 15, 0);
         transform.rotation = Quaternion.Euler(euler);

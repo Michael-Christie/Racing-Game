@@ -23,6 +23,9 @@ public class NodeManager : MonoBehaviour
 
     public void ReOrder(NodePoint N, int Dir)
     {
+        if (N.LockedNode)
+            return;
+
         for (int i = 0; i < Nodes.Count; i++)
         {
             if (Nodes[i] == N)
@@ -46,6 +49,8 @@ public class NodeManager : MonoBehaviour
     //updates a mesh based upon a node
     public void UpdateNode(NodePoint NP, Vector3 pos)
     {
+        if (NP.LockedNode)
+            return;
         //makes sure nodes are far enough away from each other
         foreach (NodePoint n in Nodes)
         {
@@ -171,6 +176,8 @@ public class NodeManager : MonoBehaviour
     public void RemoveNode(int nodeIndex)
     {
         GameObject n = Nodes[nodeIndex].gameObject;
+        if (n.GetComponent<NodePoint>().LockedNode)
+            return;
         Nodes.RemoveAt(nodeIndex);
         Destroy(n);
         ///**THIS SHOULD BE UPDATING ONLY THE NEW MESHES NOT ALL OF THEM
@@ -180,6 +187,9 @@ public class NodeManager : MonoBehaviour
 
     public void RemoveNode(NodePoint node)
     {
+        if (node.LockedNode)
+            return;
+
         Debug.Log("Destroying Node");
 
         for (int i = 0; i < Nodes.Count; i++)
@@ -200,6 +210,8 @@ public class NodeManager : MonoBehaviour
 
     public void Rotate(NodePoint node, bool rotateRight)
     {
+        if (node.LockedNode)
+            return;
         //add some kinda restaint in here for the angle it can rotate to
 
         if (rotateRight)

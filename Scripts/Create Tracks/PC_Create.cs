@@ -122,17 +122,22 @@ public class PC_Create : MonoBehaviour
         {
             NodePoint p = hit.collider.gameObject.GetComponent<NodePoint>();
 
-            //if we select the node to move it
-            if (controls.TrackCreating.Drag.triggered && !p.isSelected)
+            if (!p.LockedNode)
             {
-                p.Select(true);
-                MovingObject = p.gameObject;
-            }
-            //when we deselect a node
-            else if (controls.TrackCreating.Drag.triggered && p.isSelected)
-            {
-                p.Select(false);
-                MovingObject = null;
+
+                //if we select the node to move it
+                if (controls.TrackCreating.Drag.triggered && !p.isSelected)
+                {
+                    p.Select(true);
+                    MovingObject = p.gameObject;
+                }
+                //when we deselect a node
+                else if (controls.TrackCreating.Drag.triggered && p.isSelected)
+                {
+                    p.Select(false);
+                    MovingObject = null;
+                }
+
             }
 
             //rotating the nodes around
@@ -150,6 +155,7 @@ public class PC_Create : MonoBehaviour
             {
                 NodeManager.instance.RemoveNode(p.GetComponent<NodePoint>());
             }
+           
         }
 
         //moving a nodes position
