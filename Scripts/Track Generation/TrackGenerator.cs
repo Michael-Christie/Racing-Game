@@ -58,6 +58,7 @@ public class TrackGenerator : MonoBehaviour
 
         //the mesh data
         List<Vector3> vertices = new List<Vector3>();
+        List<Vector2> uv = new List<Vector2>();
         List<Vector3> normal = new List<Vector3>();
         List<Color> color = new List<Color>();
         List<int> triangles = new List<int>();
@@ -78,6 +79,7 @@ public class TrackGenerator : MonoBehaviour
                 vertices.Add(ob.position + ob.rotation * Shape.trackPoints[j].location);
                 color.Add(Shape.trackPoints[j].color);
                 normal.Add(ob.rotation * Shape.trackPoints[j].normal);
+                uv.Add(new Vector2((ob.position + ob.rotation * Shape.trackPoints[j].location).x, (ob.position + ob.rotation * Shape.trackPoints[j].location).z) * .02f);
             }
             //set up the triangles
             if (i != resolution)
@@ -101,6 +103,7 @@ public class TrackGenerator : MonoBehaviour
         m.SetTriangles(triangles.ToArray(), 0);
         m.SetColors(color.ToArray());
         m.SetNormals(normal.ToArray());
+        m.SetUVs(0, uv.ToArray());
 
         mFilter.mesh = m;
 

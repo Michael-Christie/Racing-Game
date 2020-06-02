@@ -73,6 +73,7 @@ public class CarController : MonoBehaviour
 
     private void Update()
     {
+        speed = currentSpeed * .5f;
         //put the model at the spheres position
         model.transform.position = sphere.position - new Vector3(0f, .92f, 0f);
 
@@ -82,7 +83,7 @@ public class CarController : MonoBehaviour
 
         //if the car is reversing
         if (controls.CarController.Reverse.ReadValue<float>() > 0)
-            speed = currentSpeed * .5f;
+            speed = 0;
 
         //if the player is moving
         if (controls.CarController.Move.ReadValue<float>() != 0)
