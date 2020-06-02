@@ -78,11 +78,11 @@ public class CarController : MonoBehaviour
 
         //is the car accellerating
         if (controls.CarController.Accelerate.ReadValue<float>() > 0)
-            speed = 80f;
+            speed = 130f;
 
         //if the car is reversing
         if (controls.CarController.Reverse.ReadValue<float>() > 0)
-            speed = 0;
+            speed = currentSpeed * .5f;
 
         //if the player is moving
         if (controls.CarController.Move.ReadValue<float>() != 0)
@@ -163,7 +163,7 @@ public class CarController : MonoBehaviour
     void Steer(int dir, float amount)
     {
         if (currentSpeed > 7.5f || currentSpeed < -5f)
-            rotate = (20f * dir) * amount; //dunno if this movement 30 should be lower
+            rotate = (17f * dir) * amount; //dunno if this movement 30 should be lower
     }
 
     float Remap(float s, float a1, float a2, float b1, float b2)
@@ -201,6 +201,7 @@ public class CarController : MonoBehaviour
             rightDrift.StopParticals();
 
         float v = driftPower > 250 ? 250 : driftPower;
+        v /= 5;
 
         currentSpeed += v;
         cameraFOV = 30;
