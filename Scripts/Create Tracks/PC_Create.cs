@@ -116,7 +116,7 @@ public class PC_Create : MonoBehaviour
 
         //finds out if we're hovering over a node
         Ray ray = Camera.main.ScreenPointToRay(cursorPosition);
-        ray.origin = new Vector3(RoundTo(ray.origin.x, 2.5f * (int)gridSize), RoundTo(ray.origin.y, 1), RoundTo(ray.origin.z, 2.5f * (int)gridSize));
+        ray.origin = new Vector3(RoundTo(ray.origin.x, (15f / 4) * (int)gridSize), RoundTo(ray.origin.y, 1), RoundTo(ray.origin.z, (15f / 4) * (int)gridSize));
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 100f, nodeLayer))
         {
@@ -162,7 +162,7 @@ public class PC_Create : MonoBehaviour
         if (MovingObject)
         {
             Vector3 newPos = Camera.main.ScreenToWorldPoint((Vector3)cursorPosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
-            newPos = new Vector3(RoundTo(newPos.x, 2.5f * (int)gridSize), RoundTo(newPos.y, 1), RoundTo(newPos.z, 2.5f * (int)gridSize));
+            newPos = new Vector3(RoundTo(newPos.x, (15f / 4) * (int)gridSize), RoundTo(newPos.y, 1), RoundTo(newPos.z, (15f / 4) * (int)gridSize));
             //MovingObject.transform.position = newPos;
             NodeManager.instance.UpdateNode(MovingObject.GetComponent<NodePoint>(), newPos);
         }
@@ -197,7 +197,7 @@ public class PC_Create : MonoBehaviour
     {
         //adds a new node point to the Track Generator
         Vector3 newPos = Camera.main.ScreenToWorldPoint((Vector3)cursorPosition + new Vector3(0, 0, Camera.main.transform.position.y - 1));
-        newPos = new Vector3(RoundTo(newPos.x, 2.5f * (int)gridSize), RoundTo(newPos.y,1), RoundTo(newPos.z, 2.5f * (int)gridSize));
+        newPos = new Vector3(RoundTo(newPos.x, (15f / 4) * (int)gridSize), RoundTo(newPos.y, 1), RoundTo(newPos.z, (15f / 4) * (int)gridSize));
         NodeManager.instance.AddNewNode(newPos);
     }
 
@@ -209,5 +209,5 @@ public class PC_Create : MonoBehaviour
     }
 
     //changes the zoom level, needs a lerp to smooth it out!
-    void Zoom() { Camera.main.orthographicSize = (int)ZoomLevel * 10f; } 
+    void Zoom() { Camera.main.orthographicSize = 10 + ((int)ZoomLevel * 10f); } 
 }
