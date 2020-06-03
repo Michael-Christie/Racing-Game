@@ -112,7 +112,7 @@ public class NodeManager : MonoBehaviour
     }
 
     //adds a new node at location 
-    public void AddNewNode(Vector3 pos, bool calculateRotation = true, float rotation = 0)
+    public void AddNewNode(Vector3 pos, bool calculateRotation = true, float rotation = 0, bool generate = true)
     {
         //for each nodes, make sure its x amount away from it?
         foreach (NodePoint n in Nodes)
@@ -168,9 +168,12 @@ public class NodeManager : MonoBehaviour
 
         Nodes.Add(g.GetComponent<NodePoint>());
 
-        ///**THIS SHOULD BE UPDATING ONLY THE NEW MESHES NOT ALL OF THEM
-        TG.DeleteAllSegments();
-        TG.GenerateAllSegments();
+        if (generate)
+        {
+            ///**THIS SHOULD BE UPDATING ONLY THE NEW MESHES NOT ALL OF THEM
+            TG.DeleteAllSegments();
+            TG.GenerateAllSegments();
+        }
     }
 
     public void RemoveNode(int nodeIndex)
