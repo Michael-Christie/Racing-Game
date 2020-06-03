@@ -6,6 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
+    [Header("Title Cards")]
+    public GameObject Hub;
+    public GameObject PNotes;
+
+    [Header("Main Menu")]
     public GameObject GameTitle;
     public GameObject StartGameObj;
     public GameObject CreateTrackObj;
@@ -14,16 +19,25 @@ public class MainMenuManager : MonoBehaviour
     public GameObject Controls;
     public GameObject Credit;
     public GameObject Exit;
-    public GameObject[] SocialMedia; 
+    public GameObject[] SocialMedia;
+
+    [Header("Patch Notes")]
+    public GameObject[] tiles;
+    public GameObject PatchNotesTitle;
 
     public void SinglePlayer() => StartCoroutine("StartSinglePlayer");
     public void MultiPlayer() => SceneManager.LoadScene(1);
     public void TrackCreator() => StartCoroutine("StartTrackCreator");
     //public void Options() => SceneManager.LoadScene(3);
     //public void Credit() => SceneManager.LoadScene(4);
+    public void GoToPatchNotes() => ShowPatchNotes();
+    public void GoToHome() => ShowHomeScreen();
     public void Quit() => Application.Quit();
     public void ItchLink() => StartCoroutine("OpenItchLink");
     public void TwitterLink() => StartCoroutine("OpenTwitterLink");
+    public void YouTubeLink() => StartCoroutine("OpenYouTubeLink");
+
+    bool firstLoad = true;
 
     IEnumerator StartSinglePlayer()
     {
@@ -61,7 +75,19 @@ public class MainMenuManager : MonoBehaviour
 
     public void Awake()
     {
-        LeanTween.moveLocalY(GameTitle, 720, 0);
+        ShowHomeScreen();
+    }
+
+    void ShowHomeScreen()
+    {
+        if (firstLoad)
+        {
+            Hub.SetActive(true);
+            PNotes.SetActive(false);
+        }
+
+        LeanTween.scale(tiles[4], new Vector3(.95f, .95f, .95f), .1f);
+        LeanTween.scale(GameTitle, new Vector3(0, 0, 0), 0);
         LeanTween.scale(StartGameObj, new Vector3(0, 0, 0), 0);
         LeanTween.scale(CreateTrackObj, new Vector3(0, 0, 0), 0);
         LeanTween.scale(PatchNotes, new Vector3(0, 0, 0), 0);
@@ -69,16 +95,19 @@ public class MainMenuManager : MonoBehaviour
         LeanTween.scale(Controls, new Vector3(0, 0, 0), 0);
         LeanTween.scale(Credit, new Vector3(0, 0, 0), 0);
         LeanTween.scale(Exit, new Vector3(0, 0, 0), 0);
-        foreach (GameObject g in SocialMedia)
-            LeanTween.scale(g, new Vector3(0, 0, 0), 0);
+        if(firstLoad)
+            foreach (GameObject g in SocialMedia)
+                LeanTween.scale(g, new Vector3(0, 0, 0), 0);
 
-        StartCoroutine(IntroAnimations());
+        StartCoroutine("IntroAnimations");
     }
 
     IEnumerator IntroAnimations()
     {
-        yield return new WaitForSeconds(.25f);
-        LeanTween.moveLocalY(GameTitle, 540, .5f).setEaseOutBounce();
+        yield return new WaitForSeconds(.2f);
+        Hub.SetActive(true);
+        PNotes.SetActive(false);
+        LeanTween.scale(GameTitle, new Vector3(1, 1, 1), 1f).setEaseOutBounce();
         LeanTween.scale(StartGameObj, new Vector3(1, 1, 1), .15f);
         yield return new WaitForSeconds(.1f);
         LeanTween.scale(CreateTrackObj, new Vector3(1, 1, 1), .15f);
@@ -93,8 +122,38 @@ public class MainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(.1f);
         LeanTween.scale(Exit, new Vector3(1, 1, 1), .15f);
         yield return new WaitForSeconds(.1f);
-        foreach (GameObject g in SocialMedia)
+        if (firstLoad)
+        {
+            foreach (GameObject g in SocialMedia)
+                LeanTween.scale(g, new Vector3(1, 1, 1), .15f);
+            firstLoad = false;
+        }
+    }
+
+    void ShowPatchNotes()
+    {
+        LeanTween.scale(PatchNotes, new Vector3(.95f, .95f, .95f), .1f);
+        LeanTween.scale(PatchNotesTitle, new Vector3(0, 0, 0), 0).setEaseOutBounce();
+        foreach (GameObject g in tiles)
+        {
+            LeanTween.scale(g, new Vector3(0, 0, 0), 0);
+        }
+
+        StartCoroutine("PatchNotesAnimation");
+    }
+
+    IEnumerator PatchNotesAnimation()
+    {
+        yield return new WaitForSeconds(.2f);
+        PNotes.SetActive(true);
+        Hub.SetActive(false);
+        LeanTween.scale(PatchNotesTitle, new Vector3(1, 1, 1), 1f).setEaseOutBounce();
+        foreach(GameObject g in tiles)
+        {
             LeanTween.scale(g, new Vector3(1, 1, 1), .15f);
+            yield return new WaitForSeconds(.1f);
+        }
+
     }
 
 }
