@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MainMenuManager : MonoBehaviour
 {
     [Header("Title Cards")]
     public GameObject Hub;
     public GameObject PNotes;
+    public GameObject LevelSelector;
 
     [Header("Main Menu")]
     public GameObject GameTitle;
@@ -25,7 +27,12 @@ public class MainMenuManager : MonoBehaviour
     public GameObject[] tiles;
     public GameObject PatchNotesTitle;
 
-    public void SinglePlayer() => StartCoroutine("StartSinglePlayer");
+    [Header("Level Selector")]
+    public GameObject[] NavBar;
+    public GameObject[] PreCreatedTiles;
+    public List<GameObject> CustomTiles;
+
+    public void SinglePlayer() => ShowLevelsScreen();
     public void MultiPlayer() => SceneManager.LoadScene(1);
     public void TrackCreator() => StartCoroutine("StartTrackCreator");
     //public void Options() => SceneManager.LoadScene(3);
@@ -78,12 +85,80 @@ public class MainMenuManager : MonoBehaviour
         ShowHomeScreen();
     }
 
+    void ShowLevelsScreen()
+    {
+
+        //tweening
+        foreach (GameObject g in NavBar)
+            LeanTween.scale(g, Vector3.zero, 0);
+
+        foreach (GameObject G in PreCreatedTiles)
+            LeanTween.scale(G, Vector3.zero, 0);
+
+        StartCoroutine("LevelAnimation");
+    }
+
+    IEnumerator LevelAnimation()
+    {
+        yield return new WaitForSeconds(.2f);
+        Hub.SetActive(false);
+        PNotes.SetActive(false);
+        LevelSelector.SetActive(true);
+
+        foreach (GameObject G in PreCreatedTiles)
+        {
+            LeanTween.scale(G, Vector3.one, .2f);
+            yield return new WaitForSeconds(.05f);
+        }
+
+        foreach (GameObject g in NavBar)
+        {
+            LeanTween.scale(g, Vector3.one, .5f).setEaseOutBounce();
+            yield return new WaitForSeconds(.1f);
+        }
+
+    }
+
+    public void BLevels() => StartCoroutine(BuiltLevelAnimations());
+
+    IEnumerator BuiltLevelAnimations()
+    {
+        foreach (GameObject G in PreCreatedTiles)
+        {
+            LeanTween.scale(G, Vector3.zero, 0);
+        }
+
+        Debug.Log("Here");
+        foreach (GameObject G in PreCreatedTiles)
+        {
+            LeanTween.scale(G, Vector3.one, .2f);
+            yield return new WaitForSeconds(.05f);
+        }
+    }
+
+    public void CLevels() => StartCoroutine(CustomLevelsAnimations());
+
+    IEnumerator CustomLevelsAnimations()
+    {
+        foreach (GameObject G in CustomTiles)
+        {
+            LeanTween.scale(G, Vector3.zero, 0);
+        }
+
+        foreach (GameObject G in CustomTiles)
+        {
+            LeanTween.scale(G, Vector3.one, .2f);
+            yield return new WaitForSeconds(.05f);
+        }
+    }
+
     void ShowHomeScreen()
     {
         if (firstLoad)
         {
             Hub.SetActive(true);
             PNotes.SetActive(false);
+            LevelSelector.SetActive(false);
         }
 
         LeanTween.scale(tiles[4], new Vector3(.95f, .95f, .95f), .1f);
@@ -95,7 +170,7 @@ public class MainMenuManager : MonoBehaviour
         LeanTween.scale(Controls, new Vector3(0, 0, 0), 0);
         LeanTween.scale(Credit, new Vector3(0, 0, 0), 0);
         LeanTween.scale(Exit, new Vector3(0, 0, 0), 0);
-        if(firstLoad)
+        if (firstLoad)
             foreach (GameObject g in SocialMedia)
                 LeanTween.scale(g, new Vector3(0, 0, 0), 0);
 
@@ -104,9 +179,15 @@ public class MainMenuManager : MonoBehaviour
 
     IEnumerator IntroAnimations()
     {
+        if(PNotes.activeInHierarchy)
+            EventSystem.current.SetSelectedGameObject(PatchNotes);
+        else
+            EventSystem.current.SetSelectedGameObject(StartGameObj);
+
         yield return new WaitForSeconds(.2f);
         Hub.SetActive(true);
         PNotes.SetActive(false);
+        LevelSelector.SetActive(false);
         LeanTween.scale(GameTitle, new Vector3(1, 1, 1), 1f).setEaseOutBounce();
         LeanTween.scale(StartGameObj, new Vector3(1, 1, 1), .15f);
         yield return new WaitForSeconds(.1f);
@@ -147,12 +228,14 @@ public class MainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(.2f);
         PNotes.SetActive(true);
         Hub.SetActive(false);
+        LevelSelector.SetActive(false);
         LeanTween.scale(PatchNotesTitle, new Vector3(1, 1, 1), 1f).setEaseOutBounce();
-        foreach(GameObject g in tiles)
+        foreach (GameObject g in tiles)
         {
             LeanTween.scale(g, new Vector3(1, 1, 1), .15f);
             yield return new WaitForSeconds(.1f);
         }
+        EventSystem.current.SetSelectedGameObject(tiles[4]);
 
     }
 
