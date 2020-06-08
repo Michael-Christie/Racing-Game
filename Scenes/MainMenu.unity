@@ -427,6 +427,7 @@ MonoBehaviour:
   - {fileID: 1874271166}
   - {fileID: 1187661637}
   CustomTiles: []
+  LD: {fileID: 1346629650658782283, guid: e31af892f4184cc4bb499ade7705195e, type: 3}
 --- !u!4 &13484343
 Transform:
   m_ObjectHideFlags: 0
@@ -2164,7 +2165,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   rows: 2
   columns: 2
-  cellSize: {x: -15, y: -16.666666}
+  cellSize: {x: 226.66667, y: 121.66667}
   spacing: {x: 10, y: 10}
   fitType: 0
   fitX: 1
@@ -4502,6 +4503,36 @@ PrefabInstance:
       propertyPath: m_Text
       value: Michael Christie
       objectReference: {fileID: 0}
+    - target: {fileID: 2708227019648912145, guid: 1f086777cfe726748a14923e616318c7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708227019648912145, guid: 1f086777cfe726748a14923e616318c7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708227019648912145, guid: 1f086777cfe726748a14923e616318c7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708227019648912145, guid: 1f086777cfe726748a14923e616318c7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1405176200}
+    - target: {fileID: 2708227019648912145, guid: 1f086777cfe726748a14923e616318c7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708227019648912145, guid: 1f086777cfe726748a14923e616318c7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f086777cfe726748a14923e616318c7, type: 3}
 --- !u!224 &1211022703 stripped
@@ -5455,6 +5486,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1211022702}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1405176200 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1340039941837849396, guid: 1f086777cfe726748a14923e616318c7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1211022702}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405176199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec284691a7c7e4c419a96e8c843e8ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1459950474
 GameObject:
   m_ObjectHideFlags: 0
@@ -7263,7 +7306,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   rows: 3
   columns: 1
-  cellSize: {x: 0, y: -3.3333333}
+  cellSize: {x: 483.33334, y: 273.33334}
   spacing: {x: 0, y: 5}
   fitType: 3
   fitX: 1
@@ -7847,7 +7890,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}

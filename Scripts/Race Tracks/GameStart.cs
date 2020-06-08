@@ -10,7 +10,10 @@ public class GameStart : MonoBehaviour
 
     private void Start()
     {
-        TrackData d = LoadData.LoadTrack();
+        LevelData LD = FindObjectOfType<LevelData>();
+        TrackData d = LD.d;
+
+        DestroyImmediate(LD.gameObject);
 
         NM.clearNM();
         TG.LoopTrack = d.loop;

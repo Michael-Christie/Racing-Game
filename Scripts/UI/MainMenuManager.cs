@@ -32,6 +32,9 @@ public class MainMenuManager : MonoBehaviour
     public GameObject[] PreCreatedTiles;
     public List<GameObject> CustomTiles;
 
+    [Space]
+    public GameObject LD;
+
     public void SinglePlayer() => ShowLevelsScreen();
     public void MultiPlayer() => SceneManager.LoadScene(1);
     public void TrackCreator() => StartCoroutine("StartTrackCreator");
@@ -200,7 +203,7 @@ public class MainMenuManager : MonoBehaviour
         LeanTween.scale(Controls, new Vector3(1, 1, 1), .15f);
         yield return new WaitForSeconds(.1f);
         LeanTween.scale(Credit, new Vector3(1, 1, 1), .15f);
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.1f);   
         LeanTween.scale(Exit, new Vector3(1, 1, 1), .15f);
         yield return new WaitForSeconds(.1f);
         if (firstLoad)
@@ -237,6 +240,14 @@ public class MainMenuManager : MonoBehaviour
         }
         EventSystem.current.SetSelectedGameObject(tiles[4]);
 
+    }
+
+    public void LoadLevel(TrackData d)
+    {
+        GameObject g = Instantiate(LD);
+        LevelData l = g.GetComponent<LevelData>();
+        l.d = d;
+        SceneManager.LoadScene(1);
     }
 
 }

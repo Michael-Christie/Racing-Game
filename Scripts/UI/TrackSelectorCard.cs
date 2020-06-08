@@ -27,4 +27,9 @@ public class TrackSelectorCard : MonoBehaviour
     {
         UpdateGUI();
     }
+
+    public void LoadLevel()
+    {
+        FindObjectOfType<MainMenuManager>().LoadLevel(d);
+    }
 }
