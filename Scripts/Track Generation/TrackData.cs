@@ -5,11 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public class TrackData 
 {
+    public string trackName = "UnNamed";
+    public string creator = "Me";
     public float[] positions;
     public float[] rotations;
     public bool loop = false;
 
-    public TrackData(List<NodePoint> nodes, bool shouldLoop = false)
+    public TrackData(List<NodePoint> nodes, string tName, string Creator, bool shouldLoop = false)
     {
         if (nodes.Count == 0)
             return;
@@ -27,5 +29,7 @@ public class TrackData
         }
 
         loop = shouldLoop;
+        trackName = tName;
+        creator = Creator;
     }
 }

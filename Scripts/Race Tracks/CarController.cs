@@ -104,7 +104,7 @@ public class CarController : MonoBehaviour
             float powerControl = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, .2f, 1) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 1, .2f);
             Steer(driftDir, control);
 
-            driftPower += powerControl;
+            driftPower += powerControl * Time.deltaTime * 240;
 
             SetColor();
         }

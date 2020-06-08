@@ -4,9 +4,14 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class LoadData
 {
-    public static TrackData LoadTrack()
+    public static TrackData LoadTrack(string FileName = "maps")
     {
-        string path = "../Maps.td";
+        string path;
+
+        if (Application.isEditor)
+            path = Application.dataPath + "/../Build/Maps/" + FileName;
+        else
+            path = Application.dataPath + "/../Maps/" + FileName;
 
         if (File.Exists(path))
         {

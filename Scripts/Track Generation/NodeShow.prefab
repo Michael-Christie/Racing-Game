@@ -47,9 +47,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSelected: 0
+  LockedNode: 0
   Normal: {fileID: 2100000, guid: 9c42b2c0a40774345a754131f0ae8eaf, type: 2}
   Hovered: {fileID: 2100000, guid: c9875dcfdbf02b3418b37037e7753791, type: 2}
   Selected: {fileID: 2100000, guid: 8f75d46facead88409cfc70384c8b6c8, type: 2}
+  Locked: {fileID: 2100000, guid: 5136be4d75a78e54d96d4112abd195d3, type: 2}
 --- !u!135 &5330182377719522454
 SphereCollider:
   m_ObjectHideFlags: 0

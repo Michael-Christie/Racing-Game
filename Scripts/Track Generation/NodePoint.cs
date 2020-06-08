@@ -20,6 +20,7 @@ public class NodePoint : MonoBehaviour
     public Material Normal;
     public Material Hovered;
     public Material Selected;
+    public Material Locked;
 
     //private void OnMouseEnter() { MouseOver = true; }
     //private void OnMouseExit() { MouseOver = false; }
@@ -42,7 +43,7 @@ public class NodePoint : MonoBehaviour
         }
         else
         {
-
+            gameObject.GetComponent<MeshRenderer>().material = Locked;
         }
 
     }
