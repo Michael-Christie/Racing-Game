@@ -113,6 +113,14 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""e84484e0-90e8-4e76-ac10-62655c7c2ed6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -427,7 +435,7 @@ public class @Controlls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""bcf9125c-16fc-40e3-93a5-9a97cae9e258"",
-                    ""path"": ""<Gamepad>/start"",
+                    ""path"": ""<Gamepad>/select"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""JoyPad"",
@@ -465,6 +473,17 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Mouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""963f877a-e838-4f5e-8641-bc1434ddc897"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""JoyPad"",
+                    ""action"": ""Start"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -608,6 +627,71 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""MainMenu"",
+            ""id"": ""0b3f6e61-a10d-4b1a-bf22-61484703e6ae"",
+            ""actions"": [
+                {
+                    ""name"": ""TabLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""da54d3fa-ea22-4981-83bb-c5642b05d6d3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""TabRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""feb2a151-63da-473a-9b73-944883e14dc0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""b078b151-c196-4703-aa3f-01a8e90f83a8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""1b4d155a-a125-46b0-9cf6-cde8b9600107"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""JoyPad"",
+                    ""action"": ""TabLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""819ceca2-be63-4cdb-88df-6dc5d960bc13"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""JoyPad"",
+                    ""action"": ""TabRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dc77ad15-8c54-40f2-a874-9508724279de"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -654,12 +738,18 @@ public class @Controlls : IInputActionCollection, IDisposable
         m_TrackCreating_ToogleLoop = m_TrackCreating.FindAction("ToogleLoop", throwIfNotFound: true);
         m_TrackCreating_Press = m_TrackCreating.FindAction("Press", throwIfNotFound: true);
         m_TrackCreating_Mouse = m_TrackCreating.FindAction("Mouse", throwIfNotFound: true);
+        m_TrackCreating_Start = m_TrackCreating.FindAction("Start", throwIfNotFound: true);
         // CarController
         m_CarController = asset.FindActionMap("CarController", throwIfNotFound: true);
         m_CarController_Move = m_CarController.FindAction("Move", throwIfNotFound: true);
         m_CarController_Accelerate = m_CarController.FindAction("Accelerate", throwIfNotFound: true);
         m_CarController_Drift = m_CarController.FindAction("Drift", throwIfNotFound: true);
         m_CarController_Reverse = m_CarController.FindAction("Reverse", throwIfNotFound: true);
+        // MainMenu
+        m_MainMenu = asset.FindActionMap("MainMenu", throwIfNotFound: true);
+        m_MainMenu_TabLeft = m_MainMenu.FindAction("TabLeft", throwIfNotFound: true);
+        m_MainMenu_TabRight = m_MainMenu.FindAction("TabRight", throwIfNotFound: true);
+        m_MainMenu_Back = m_MainMenu.FindAction("Back", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -721,6 +811,7 @@ public class @Controlls : IInputActionCollection, IDisposable
     private readonly InputAction m_TrackCreating_ToogleLoop;
     private readonly InputAction m_TrackCreating_Press;
     private readonly InputAction m_TrackCreating_Mouse;
+    private readonly InputAction m_TrackCreating_Start;
     public struct TrackCreatingActions
     {
         private @Controlls m_Wrapper;
@@ -737,6 +828,7 @@ public class @Controlls : IInputActionCollection, IDisposable
         public InputAction @ToogleLoop => m_Wrapper.m_TrackCreating_ToogleLoop;
         public InputAction @Press => m_Wrapper.m_TrackCreating_Press;
         public InputAction @Mouse => m_Wrapper.m_TrackCreating_Mouse;
+        public InputAction @Start => m_Wrapper.m_TrackCreating_Start;
         public InputActionMap Get() { return m_Wrapper.m_TrackCreating; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -782,6 +874,9 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @Mouse.started -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnMouse;
                 @Mouse.performed -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnMouse;
                 @Mouse.canceled -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnMouse;
+                @Start.started -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnStart;
+                @Start.performed -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnStart;
+                @Start.canceled -= m_Wrapper.m_TrackCreatingActionsCallbackInterface.OnStart;
             }
             m_Wrapper.m_TrackCreatingActionsCallbackInterface = instance;
             if (instance != null)
@@ -822,6 +917,9 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @Mouse.started += instance.OnMouse;
                 @Mouse.performed += instance.OnMouse;
                 @Mouse.canceled += instance.OnMouse;
+                @Start.started += instance.OnStart;
+                @Start.performed += instance.OnStart;
+                @Start.canceled += instance.OnStart;
             }
         }
     }
@@ -883,6 +981,55 @@ public class @Controlls : IInputActionCollection, IDisposable
         }
     }
     public CarControllerActions @CarController => new CarControllerActions(this);
+
+    // MainMenu
+    private readonly InputActionMap m_MainMenu;
+    private IMainMenuActions m_MainMenuActionsCallbackInterface;
+    private readonly InputAction m_MainMenu_TabLeft;
+    private readonly InputAction m_MainMenu_TabRight;
+    private readonly InputAction m_MainMenu_Back;
+    public struct MainMenuActions
+    {
+        private @Controlls m_Wrapper;
+        public MainMenuActions(@Controlls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @TabLeft => m_Wrapper.m_MainMenu_TabLeft;
+        public InputAction @TabRight => m_Wrapper.m_MainMenu_TabRight;
+        public InputAction @Back => m_Wrapper.m_MainMenu_Back;
+        public InputActionMap Get() { return m_Wrapper.m_MainMenu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MainMenuActions set) { return set.Get(); }
+        public void SetCallbacks(IMainMenuActions instance)
+        {
+            if (m_Wrapper.m_MainMenuActionsCallbackInterface != null)
+            {
+                @TabLeft.started -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnTabLeft;
+                @TabLeft.performed -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnTabLeft;
+                @TabLeft.canceled -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnTabLeft;
+                @TabRight.started -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnTabRight;
+                @TabRight.performed -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnTabRight;
+                @TabRight.canceled -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnTabRight;
+                @Back.started -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnBack;
+                @Back.performed -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnBack;
+                @Back.canceled -= m_Wrapper.m_MainMenuActionsCallbackInterface.OnBack;
+            }
+            m_Wrapper.m_MainMenuActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @TabLeft.started += instance.OnTabLeft;
+                @TabLeft.performed += instance.OnTabLeft;
+                @TabLeft.canceled += instance.OnTabLeft;
+                @TabRight.started += instance.OnTabRight;
+                @TabRight.performed += instance.OnTabRight;
+                @TabRight.canceled += instance.OnTabRight;
+                @Back.started += instance.OnBack;
+                @Back.performed += instance.OnBack;
+                @Back.canceled += instance.OnBack;
+            }
+        }
+    }
+    public MainMenuActions @MainMenu => new MainMenuActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -915,6 +1062,7 @@ public class @Controlls : IInputActionCollection, IDisposable
         void OnToogleLoop(InputAction.CallbackContext context);
         void OnPress(InputAction.CallbackContext context);
         void OnMouse(InputAction.CallbackContext context);
+        void OnStart(InputAction.CallbackContext context);
     }
     public interface ICarControllerActions
     {
@@ -922,5 +1070,11 @@ public class @Controlls : IInputActionCollection, IDisposable
         void OnAccelerate(InputAction.CallbackContext context);
         void OnDrift(InputAction.CallbackContext context);
         void OnReverse(InputAction.CallbackContext context);
+    }
+    public interface IMainMenuActions
+    {
+        void OnTabLeft(InputAction.CallbackContext context);
+        void OnTabRight(InputAction.CallbackContext context);
+        void OnBack(InputAction.CallbackContext context);
     }
 }

@@ -3,15 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class TrackUIManager : MonoBehaviour
 {
     public NodeManager NM;
-    public InputField IF;
+    public InputField TrackName;
+    public InputField CreatorName;
+
+    [Header("Menus")]
+    public GameObject Menu;
+    public GameObject CloseMenu;
+    public GameObject SaveLevel;
+
+    public void ShowMenu()
+    {
+        Menu.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(CloseMenu);
+    }
+
+    public void HideMenu()
+    {
+        Menu.SetActive(false);
+        FindObjectOfType<PC_Create>().inMenu = false;
+    }
+
+    public void ShowSave()
+    {
+        Menu.SetActive(false);
+        SaveLevel.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(TrackName.gameObject);
+    }
 
     public void SaveTrack()
     {
-        string filename = IF.text;
+        string filename = TrackName.text;
+        string creatorName = CreatorName.text;
 
         if (filename.Contains(" "))
         {
@@ -19,7 +46,11 @@ public class TrackUIManager : MonoBehaviour
             return;
         }
         Debug.Log("Saved Data");
-        SaveData.SaveTrackData(NM, filename);
+        SaveData.SaveTrackData(NM, filename, creatorName);
+
+        Menu.SetActive(true);
+        SaveLevel.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(CloseMenu);
     }
 
     public void LoadTrack()

@@ -34,6 +34,7 @@ public class MainMenuManager : MonoBehaviour
 
     [Space]
     public GameObject LD;
+    private Controlls controls = null;
 
     public void SinglePlayer() => ShowLevelsScreen();
     public void MultiPlayer() => SceneManager.LoadScene(1);
@@ -83,6 +84,17 @@ public class MainMenuManager : MonoBehaviour
         LeanTween.scale(SocialMedia[2], new Vector3(1, 1, 1), .1f);
     }
 
+    private void OnEnable()
+    {
+        //sets up the car controller
+        if (controls == null)
+        {
+            controls = new Controlls();
+            //sets up the drifting controlls
+        }
+        controls.MainMenu.Enable();
+    }
+
     public void Awake()
     {
         ShowHomeScreen();
@@ -103,6 +115,7 @@ public class MainMenuManager : MonoBehaviour
 
     IEnumerator LevelAnimation()
     {
+        EventSystem.current.SetSelectedGameObject(PreCreatedTiles[0]);
         yield return new WaitForSeconds(.2f);
         Hub.SetActive(false);
         PNotes.SetActive(false);
@@ -119,6 +132,7 @@ public class MainMenuManager : MonoBehaviour
             LeanTween.scale(g, Vector3.one, .5f).setEaseOutBounce();
             yield return new WaitForSeconds(.1f);
         }
+
 
     }
 
@@ -137,12 +151,15 @@ public class MainMenuManager : MonoBehaviour
             LeanTween.scale(G, Vector3.one, .2f);
             yield return new WaitForSeconds(.05f);
         }
+
+        EventSystem.current.SetSelectedGameObject(PreCreatedTiles[0]);
     }
 
     public void CLevels() => StartCoroutine(CustomLevelsAnimations());
 
     IEnumerator CustomLevelsAnimations()
     {
+        EventSystem.current.SetSelectedGameObject(CustomTiles[0]);
         foreach (GameObject G in CustomTiles)
         {
             LeanTween.scale(G, Vector3.zero, 0);
@@ -153,6 +170,7 @@ public class MainMenuManager : MonoBehaviour
             LeanTween.scale(G, Vector3.one, .2f);
             yield return new WaitForSeconds(.05f);
         }
+
     }
 
     void ShowHomeScreen()
@@ -228,6 +246,7 @@ public class MainMenuManager : MonoBehaviour
 
     IEnumerator PatchNotesAnimation()
     {
+        EventSystem.current.SetSelectedGameObject(tiles[4]);
         yield return new WaitForSeconds(.2f);
         PNotes.SetActive(true);
         Hub.SetActive(false);
@@ -238,7 +257,6 @@ public class MainMenuManager : MonoBehaviour
             LeanTween.scale(g, new Vector3(1, 1, 1), .15f);
             yield return new WaitForSeconds(.1f);
         }
-        EventSystem.current.SetSelectedGameObject(tiles[4]);
 
     }
 
@@ -250,4 +268,20 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    private void Update()
+    {
+        if (LevelSelector.activeInHierarchy)
+        {
+            if (controls.MainMenu.TabLeft.triggered)
+                FindObjectOfType<MapPickerUIManager>().BuiltInMaps();
+
+            if (controls.MainMenu.TabRight.triggered)
+                FindObjectOfType<MapPickerUIManager>().CustomMaps();
+
+            if (controls.MainMenu.Back.triggered)
+            {
+                ShowHomeScreen();
+            }
+        }
+    }
 }
