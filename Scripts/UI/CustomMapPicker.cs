@@ -6,6 +6,7 @@ using System.IO;
 public class CustomMapPicker : MonoBehaviour
 {
     public GameObject CustomCard;
+    public RectTransform rt;
 
     private void OnEnable()
     {
@@ -44,6 +45,10 @@ public class CustomMapPicker : MonoBehaviour
 
                 MMM.CustomTiles.Add(g);
             }
+            float h = (fileInfo.Length / 3) <= 3 ? 3 * 250 : (fileInfo.Length / 3) * 250;
+            rt.sizeDelta = new Vector2(1500, h);
+
+
         }
 
     }
