@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class GameStart : MonoBehaviour
 {
     public NodeManager NM;
     public TrackGenerator TG;
+
+    public GameObject Menu;
+    public GameObject selectedObject;
 
     private void Start()
     {
@@ -26,12 +30,25 @@ public class GameStart : MonoBehaviour
 
         TG.GenerateAllSegments();
 
-       
-
     }
 
     public void EndGame()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void ShowMenu()
+    {
+        Time.timeScale = 0;
+        Menu.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(selectedObject);
+    }
+
+    public void HideMenu()
+    {
+        FindObjectOfType<CarController>().inMenu = false;
+        Time.timeScale = 1;
+        Menu.SetActive(false);
+
     }
 }

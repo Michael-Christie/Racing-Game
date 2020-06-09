@@ -32,6 +32,8 @@ public class CarController : MonoBehaviour
     public float cameraFOV = 0;
     public Camera cam;
 
+    public bool inMenu = false;
+
     float driftPower = 0;
 
     private void OnEnable()
@@ -55,110 +57,128 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //moves the car forward
-        rb.AddForce(transform.forward * currentSpeed, ForceMode.Acceleration);
-        //gravity
-        rb.AddForce(Vector3.down * 20, ForceMode.Acceleration);
-        //rotation
-        transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y + currentRotate, 0), Time.deltaTime * 5f);
+        if (!inMenu)
+        {
+            //moves the car forward
+            rb.AddForce(transform.forward * currentSpeed, ForceMode.Acceleration);
+            //gravity
+            rb.AddForce(Vector3.down * 20, ForceMode.Acceleration);
+            //rotation
+            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y + currentRotate, 0), Time.deltaTime * 5f);
 
-        //rotate the car based upon the floor normal
-        RaycastHit hit;
-        Debug.DrawRay(model.transform.position, Vector3.down, Color.red, 2f);
-        Physics.Raycast(model.transform.position, Vector3.down, out hit, 3, floor);
+            //rotate the car based upon the floor normal
+            RaycastHit hit;
+            Debug.DrawRay(model.transform.position, Vector3.down, Color.red, 2f);
+            Physics.Raycast(model.transform.position, Vector3.down, out hit, 3, floor);
 
-        model.transform.up = Vector3.Lerp(model.transform.up, hit.normal, Time.deltaTime * 8.0f);
-        model.transform.Rotate(0, transform.eulerAngles.y, 0);
+            model.transform.up = Vector3.Lerp(model.transform.up, hit.normal, Time.deltaTime * 8.0f);
+            model.transform.Rotate(0, transform.eulerAngles.y, 0);
+        }
     }
 
     private void Update()
     {
-        speed = currentSpeed * .5f;
-        //put the model at the spheres position
-        model.transform.position = sphere.position - new Vector3(0f, .92f, 0f);
+        if (controls.CarController.Menu.triggered)
+        {
+            inMenu = !inMenu;
 
-        //is the car accellerating
-        if (controls.CarController.Accelerate.ReadValue<float>() > 0)
-            speed = 130f;
+            if (inMenu)
+                FindObjectOfType<GameStart>().ShowMenu();
+            else
+                FindObjectOfType<GameStart>().HideMenu();
+        }
 
-        //if the car is reversing
-        if (controls.CarController.Reverse.ReadValue<float>() > 0)
+
+        if (!inMenu)
+        {
+            speed = currentSpeed * .5f;
+            //put the model at the spheres position
+            model.transform.position = sphere.position - new Vector3(0f, .92f, 0f);
+
+            //is the car accellerating
+            if (controls.CarController.Accelerate.ReadValue<float>() > 0)
+                speed = 130f;
+
+            //if the car is reversing
+            if (controls.CarController.Reverse.ReadValue<float>() > 0)
+                speed = 0;
+
+            //if the player is moving
+            if (controls.CarController.Move.ReadValue<float>() != 0)
+            {
+                //find the direction and steer amount
+                float value = controls.CarController.Move.ReadValue<float>();
+                int dir = value > 0 ? 1 : -1;
+                float amount = Mathf.Abs(value);
+
+                Steer(dir, amount);
+            }
+
+            //if drifting
+            if (drifting)
+            {
+                //remap the input to be weighted more for tighter drifts
+                float control = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 0, 1.5f) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 1.5f, 0);
+                float powerControl = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, .2f, 1) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 1, .2f);
+                Steer(driftDir, control);
+
+                driftPower += powerControl * Time.deltaTime * 240;
+
+                SetColor();
+            }
+
+            //lerp between the old and new possitions
+            currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * 12f);
+            currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * 4f);
+
+            rotate = 0;
             speed = 0;
 
-        //if the player is moving
-        if (controls.CarController.Move.ReadValue<float>() != 0)
-        {
-            //find the direction and steer amount
-            float value = controls.CarController.Move.ReadValue<float>();
-            int dir = value > 0 ? 1 : -1;
-            float amount = Mathf.Abs(value);
-
-            Steer(dir, amount);
-        }
-
-        //if drifting
-        if (drifting)
-        {
-            //remap the input to be weighted more for tighter drifts
-            float control = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 0, 1.5f) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 1.5f, 0);
-            float powerControl = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, .2f, 1) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 1, .2f);
-            Steer(driftDir, control);
-
-            driftPower += powerControl * Time.deltaTime * 240;
-
-            SetColor();
-        }
-
-        //lerp between the old and new possitions
-        currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * 12f);
-        currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * 4f);
-
-        rotate = 0;
-        speed = 0;
-
-        if (drifting)
-        {
-            float value = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, .25f, 1.5f) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 1.5f, .25f);
-            kart.transform.localEulerAngles = new Vector3(0, Mathf.LerpAngle(kart.transform.localEulerAngles.y, driftDir * (value * 15f), .2f), 0);
-        }
-        else
-        {
-            kart.transform.localEulerAngles = new Vector3(0, Mathf.LerpAngle(kart.transform.localEulerAngles.y, 0, .2f), 0);
-        }
-
-        //front wheels
-        //left
-        Wheels[0].transform.localEulerAngles = new Vector3(0, -90 + (controls.CarController.Move.ReadValue<float>() * 25), Wheels[0].transform.localEulerAngles.z - (rb.velocity.magnitude / 2));
-        //right
-        Wheels[1].transform.localEulerAngles = new Vector3(0, 90 + (controls.CarController.Move.ReadValue<float>() * 25), Wheels[1].transform.localEulerAngles.z + (rb.velocity.magnitude / 2));
-        //back wheels
-        Wheels[2].transform.localEulerAngles = new Vector3(0, -90, Wheels[2].transform.localEulerAngles.z - (rb.velocity.magnitude / 2));
-        //right
-        Wheels[3].transform.localEulerAngles = new Vector3(0, 90 , Wheels[3].transform.localEulerAngles.z + (rb.velocity.magnitude / 2));
-
-        SteeringWheel.transform.localEulerAngles = new Vector3(-121.285f, 1.088989f,(-90 + (controls.CarController.Move.ReadValue<float>() * 45)));
-
-        if(rb.velocity.magnitude > 1.5f)
-        {
-            if (!particalsPlaying)
+            if (drifting)
             {
-                rightSmoke.Play();
-                leftSmoke.Play();
-                particalsPlaying = true;
+                float value = (driftDir == 1) ? Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, .25f, 1.5f) : Remap(controls.CarController.Move.ReadValue<float>(), -1, 1, 1.5f, .25f);
+                kart.transform.localEulerAngles = new Vector3(0, Mathf.LerpAngle(kart.transform.localEulerAngles.y, driftDir * (value * 15f), .2f), 0);
             }
-        }
-        else if(particalsPlaying)
-        {
-            rightSmoke.Stop();
-            leftSmoke.Stop();
-            particalsPlaying = false;
-        }
+            else
+            {
+                kart.transform.localEulerAngles = new Vector3(0, Mathf.LerpAngle(kart.transform.localEulerAngles.y, 0, .2f), 0);
+            }
 
-        cam.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60 + cameraFOV, Time.deltaTime * 4f);
-        if (cameraFOV > 0)
-            cameraFOV -= Time.deltaTime * 20f;
-        if (cameraFOV < 0)
-            cameraFOV = 0;
+            //front wheels
+            //left
+            Wheels[0].transform.localEulerAngles = new Vector3(0, -90 + (controls.CarController.Move.ReadValue<float>() * 25), Wheels[0].transform.localEulerAngles.z - (rb.velocity.magnitude / 2));
+            //right
+            Wheels[1].transform.localEulerAngles = new Vector3(0, 90 + (controls.CarController.Move.ReadValue<float>() * 25), Wheels[1].transform.localEulerAngles.z + (rb.velocity.magnitude / 2));
+            //back wheels
+            Wheels[2].transform.localEulerAngles = new Vector3(0, -90, Wheels[2].transform.localEulerAngles.z - (rb.velocity.magnitude / 2));
+            //right
+            Wheels[3].transform.localEulerAngles = new Vector3(0, 90, Wheels[3].transform.localEulerAngles.z + (rb.velocity.magnitude / 2));
+
+            SteeringWheel.transform.localEulerAngles = new Vector3(-121.285f, 1.088989f, (-90 + (controls.CarController.Move.ReadValue<float>() * 45)));
+
+            if (rb.velocity.magnitude > 1.5f)
+            {
+                if (!particalsPlaying)
+                {
+                    rightSmoke.Play();
+                    leftSmoke.Play();
+                    particalsPlaying = true;
+                }
+            }
+            else if (particalsPlaying)
+            {
+                rightSmoke.Stop();
+                leftSmoke.Stop();
+                particalsPlaying = false;
+            }
+
+            cam.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60 + cameraFOV, Time.deltaTime * 4f);
+            if (cameraFOV > 0)
+                cameraFOV -= Time.deltaTime * 20f;
+            if (cameraFOV < 0)
+                cameraFOV = 0;
+
+        }
     }
 
     void Steer(int dir, float amount)

@@ -511,6 +511,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "2ffd6fad-e481-497f-ab62-ba1a02166724",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -610,6 +618,17 @@
                     "processors": "",
                     "groups": "JoyPad",
                     "action": "Reverse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c32e939d-9d83-483e-a7f9-2814378b0dd5",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "JoyPad",
+                    "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

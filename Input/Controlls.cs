@@ -524,6 +524,14 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""2ffd6fad-e481-497f-ab62-ba1a02166724"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -623,6 +631,17 @@ public class @Controlls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""JoyPad"",
                     ""action"": ""Reverse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c32e939d-9d83-483e-a7f9-2814378b0dd5"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""JoyPad"",
+                    ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -745,6 +764,7 @@ public class @Controlls : IInputActionCollection, IDisposable
         m_CarController_Accelerate = m_CarController.FindAction("Accelerate", throwIfNotFound: true);
         m_CarController_Drift = m_CarController.FindAction("Drift", throwIfNotFound: true);
         m_CarController_Reverse = m_CarController.FindAction("Reverse", throwIfNotFound: true);
+        m_CarController_Menu = m_CarController.FindAction("Menu", throwIfNotFound: true);
         // MainMenu
         m_MainMenu = asset.FindActionMap("MainMenu", throwIfNotFound: true);
         m_MainMenu_TabLeft = m_MainMenu.FindAction("TabLeft", throwIfNotFound: true);
@@ -932,6 +952,7 @@ public class @Controlls : IInputActionCollection, IDisposable
     private readonly InputAction m_CarController_Accelerate;
     private readonly InputAction m_CarController_Drift;
     private readonly InputAction m_CarController_Reverse;
+    private readonly InputAction m_CarController_Menu;
     public struct CarControllerActions
     {
         private @Controlls m_Wrapper;
@@ -940,6 +961,7 @@ public class @Controlls : IInputActionCollection, IDisposable
         public InputAction @Accelerate => m_Wrapper.m_CarController_Accelerate;
         public InputAction @Drift => m_Wrapper.m_CarController_Drift;
         public InputAction @Reverse => m_Wrapper.m_CarController_Reverse;
+        public InputAction @Menu => m_Wrapper.m_CarController_Menu;
         public InputActionMap Get() { return m_Wrapper.m_CarController; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -961,6 +983,9 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @Reverse.started -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnReverse;
                 @Reverse.performed -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnReverse;
                 @Reverse.canceled -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnReverse;
+                @Menu.started -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnMenu;
+                @Menu.performed -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnMenu;
+                @Menu.canceled -= m_Wrapper.m_CarControllerActionsCallbackInterface.OnMenu;
             }
             m_Wrapper.m_CarControllerActionsCallbackInterface = instance;
             if (instance != null)
@@ -977,6 +1002,9 @@ public class @Controlls : IInputActionCollection, IDisposable
                 @Reverse.started += instance.OnReverse;
                 @Reverse.performed += instance.OnReverse;
                 @Reverse.canceled += instance.OnReverse;
+                @Menu.started += instance.OnMenu;
+                @Menu.performed += instance.OnMenu;
+                @Menu.canceled += instance.OnMenu;
             }
         }
     }
@@ -1070,6 +1098,7 @@ public class @Controlls : IInputActionCollection, IDisposable
         void OnAccelerate(InputAction.CallbackContext context);
         void OnDrift(InputAction.CallbackContext context);
         void OnReverse(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
     }
     public interface IMainMenuActions
     {
