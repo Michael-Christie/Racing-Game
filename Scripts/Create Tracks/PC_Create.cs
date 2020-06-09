@@ -33,29 +33,32 @@ public class PC_Create : MonoBehaviour
 
     private void OnGUI()
     {
-        Vector2 d = GetCursorPos();
-        // these are not actual positions but the change between last frame and now
-        //float h = 200 * d.x * Time.deltaTime;
-        cursorPosition.x = d.x /*+ Screen.width / 2*/;
-        cursorPosition.y = d.y /*+ Screen.height / 2*/;
-        //float v = 200 * d.y * Time.deltaTime;
+        if (!inMenu)
+        {
+            Vector2 d = GetCursorPos();
+            // these are not actual positions but the change between last frame and now
+            //float h = 200 * d.x * Time.deltaTime;
+            cursorPosition.x += d.x /*+ Screen.width / 2*/;
+            cursorPosition.y += d.y /*+ Screen.height / 2*/;
+            //float v = 200 * d.y * Time.deltaTime;
 
-        if (cursorPosition.x > Screen.width - 10)
-            cursorPosition.x = Screen.width - 10;
-        if (cursorPosition.x < 0)
-            cursorPosition.x = 0;
+            if (cursorPosition.x > Screen.width - 10)
+                cursorPosition.x = Screen.width - 10;
+            if (cursorPosition.x < 0)
+                cursorPosition.x = 0;
 
-        if (cursorPosition.y > Screen.height)
-            cursorPosition.y = Screen.height;
-        if (cursorPosition.y < 10)
-            cursorPosition.y = 10;
+            if (cursorPosition.y > Screen.height)
+                cursorPosition.y = Screen.height;
+            if (cursorPosition.y < 10)
+                cursorPosition.y = 10;
 
 
-        // add the changes to the actual cursor position
-        //if (cursorPosition.x + h < Screen.width - 10 && cursorPosition.x + h > 0)
-        //    cursorPosition.x += h;
-        //if (cursorPosition.y + v < Screen.height && cursorPosition.y + v > 10)
-        //    cursorPosition.y += v;
+            // add the changes to the actual cursor position
+            //if (cursorPosition.x + h < Screen.width - 10 && cursorPosition.x + h > 0)
+            //    cursorPosition.x += h;
+            //if (cursorPosition.y + v < Screen.height && cursorPosition.y + v > 10)
+            //    cursorPosition.y += v;
+        }
 
         GUI.DrawTexture(new Rect(cursorPosition.x, Screen.height - cursorPosition.y, 10, 10), cursorImage);
     }
@@ -107,6 +110,8 @@ public class PC_Create : MonoBehaviour
 
         if (!inMenu)
         {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = false;
             //adds a new road segment
             if (controls.TrackCreating.PlaceNode.triggered && !MovingObject)
             {
@@ -193,6 +198,8 @@ public class PC_Create : MonoBehaviour
         else
         {
             //we're in the menu
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
     }
@@ -211,7 +218,7 @@ public class PC_Create : MonoBehaviour
         }
     }
 
-    Vector3 GetCursorPos() { return controls.TrackCreating.Mouse.ReadValue<Vector2>(); }
+    Vector3 GetCursorPos() { return controls.TrackCreating.Cursor.ReadValue<Vector2>(); }
 
     public void AddPoint()
     {
