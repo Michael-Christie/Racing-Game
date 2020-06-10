@@ -20,36 +20,47 @@ public class CustomMapPicker : MonoBehaviour
 
     void FindAllFiles()
     {
+        Debug.Log("hERE");
         MainMenuManager MMM = FindObjectOfType<MainMenuManager>();
         if (MMM)
-        {
             MMM.CustomTiles = new List<GameObject>();
-            string path;
-            if (Application.isEditor)
-                path = Application.dataPath + "/../Build/Maps/";
-            else
-                path = Application.dataPath + "/../Maps/";
+        else
+            FindObjectOfType<TrackUIManager>().customTiles = new List<GameObject>();
 
-            var info = new DirectoryInfo(path);
-            var fileInfo = info.GetFiles("*.td");
+        string path;
+        if (Application.isEditor)
+            path = Application.dataPath + "/../Build/Maps/";
+        else
+            path = Application.dataPath + "/../Maps/";
 
-            foreach (FileInfo f in fileInfo)
-            {
-                GameObject g = Instantiate(CustomCard, this.transform);
+        var info = new DirectoryInfo(path);
+        var fileInfo = info.GetFiles("*.td");
 
-                Debug.Log(f.Name);
-                TrackData d = LoadData.LoadTrack(f.Name);
+        foreach (FileInfo f in fileInfo)
+        {
+            GameObject g = Instantiate(CustomCard, this.transform);
 
-                TrackSelectorCard c = g.GetComponent<TrackSelectorCard>();
-                c.d = d;
+            Debug.Log(f.Name);
+            TrackData d = LoadData.LoadTrack(f.Name);
 
+            TrackSelectorCard c = g.GetComponent<TrackSelectorCard>();
+            c.d = d;
+
+            //this is super messy
+            if (MMM)
                 MMM.CustomTiles.Add(g);
-            }
-            float h = (fileInfo.Length / 3) <= 3 ? 3 * 250 : (fileInfo.Length / 3) * 250;
-            rt.sizeDelta = new Vector2(1500, h);
+            else
+                FindObjectOfType<TrackUIManager>().customTiles.Add(g);
 
 
         }
+        float h = (fileInfo.Length / 3) <= 3 ? 3 * 250 : (fileInfo.Length / 3) * 250;
+        rt.sizeDelta = new Vector2(1500, h);
 
+        if (!MMM)
+        {
+            StartCoroutine(FindObjectOfType<TrackUIManager>().animateCustomTracks());
+        }
     }
+
 }

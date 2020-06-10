@@ -15,6 +15,9 @@ public class TrackUIManager : MonoBehaviour
     public GameObject Menu;
     public GameObject CloseMenu;
     public GameObject SaveLevel;
+    public GameObject LevelSelector;
+
+    public List<GameObject> customTiles;
 
     public void ShowMenu()
     {
@@ -25,6 +28,8 @@ public class TrackUIManager : MonoBehaviour
     public void HideMenu()
     {
         Menu.SetActive(false);
+        SaveLevel.SetActive(false);
+        LevelSelector.SetActive(false);
         FindObjectOfType<PC_Create>().inMenu = false;
     }
 
@@ -32,6 +37,7 @@ public class TrackUIManager : MonoBehaviour
     {
         Menu.SetActive(false);
         SaveLevel.SetActive(true);
+        LevelSelector.SetActive(false);
         EventSystem.current.SetSelectedGameObject(TrackName.gameObject);
     }
 
@@ -53,22 +59,30 @@ public class TrackUIManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(CloseMenu);
     }
 
-    public void LoadTrack()
+    public void ShowCustomTracks()
     {
-        Debug.Log("Loaded Data");
-        TrackData d = LoadData.LoadTrack();
+        Menu.SetActive(false);
+        SaveLevel.SetActive(false);
+        LevelSelector.SetActive(true);
+    }
 
-        NM.clearNM();
-
-        Debug.Log(d.rotations.Length);
-
-        for (int i = 0; i < d.rotations.Length; i ++)
+    public IEnumerator animateCustomTracks()
+    {
+        foreach (GameObject g in customTiles)
+            LeanTween.scale(g, Vector3.zero, 0);
+        EventSystem.current.SetSelectedGameObject(customTiles[0]);
+        yield return new WaitForSeconds(.2f);
+        foreach (GameObject g in customTiles)
         {
-            Vector3 pos = new Vector3(d.positions[i * 3], d.positions[(i * 3) + 1], d.positions[(i * 3) + 2]);
-            NM.AddNewNode(pos, false, d.rotations[i]);
+            LeanTween.scale(g, Vector3.one, .2f);
+            yield return new WaitForSeconds(.1f);
         }
+    }
 
-        NM.TG.LoopTrack = d.loop;
+    public void LoadTrack(TrackData D)
+    {
+        NM.LoadTrackData(D);
+        HideMenu();
     }
 
     public void ToMenu()

@@ -30,6 +30,12 @@ public class TrackSelectorCard : MonoBehaviour
 
     public void LoadLevel()
     {
-        FindObjectOfType<MainMenuManager>().LoadLevel(d);
+        MainMenuManager m = FindObjectOfType<MainMenuManager>();
+        if (m)
+            m.LoadLevel(d);
+        else
+        {
+            FindObjectOfType<TrackUIManager>().LoadTrack(d);
+        }
     }
 }

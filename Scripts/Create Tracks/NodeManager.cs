@@ -233,4 +233,18 @@ public class NodeManager : MonoBehaviour
         }
     }
 
+
+    public void LoadTrackData(TrackData d)
+    {
+        clearNM();
+        TG.LoopTrack = d.loop;
+
+        for (int i = 0; i < d.rotations.Length; i++)
+        {
+            Vector3 pos = new Vector3(d.positions[i * 3], d.positions[(i * 3) + 1], d.positions[(i * 3) + 2]);
+            AddNewNode(pos, false, d.rotations[i], false);
+        }
+
+        TG.GenerateAllSegments();
+    }
 }

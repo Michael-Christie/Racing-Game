@@ -58,9 +58,10 @@ public class PC_Create : MonoBehaviour
             //    cursorPosition.x += h;
             //if (cursorPosition.y + v < Screen.height && cursorPosition.y + v > 10)
             //    cursorPosition.y += v;
+
+            GUI.DrawTexture(new Rect(cursorPosition.x, Screen.height - cursorPosition.y, 10, 10), cursorImage);
         }
 
-        GUI.DrawTexture(new Rect(cursorPosition.x, Screen.height - cursorPosition.y, 10, 10), cursorImage);
     }
 
    // bool addNode;
@@ -110,7 +111,7 @@ public class PC_Create : MonoBehaviour
 
         if (!inMenu)
         {
-            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             //adds a new road segment
             if (controls.TrackCreating.PlaceNode.triggered && !MovingObject)
