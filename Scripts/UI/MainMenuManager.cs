@@ -18,7 +18,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject StartGameObj;
     public GameObject CreateTrackObj;
     public GameObject PatchNotes;
-    public GameObject Options;
+    public GameObject Optionsbtn;
     public GameObject Controls;
     public GameObject Credit;
     public GameObject Exit;
@@ -37,6 +37,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject optionTitle;
     public GameObject[] OptionsTiles;
     public GameObject OptionSelectableStart;
+    public Dropdown languageDropDown;
 
     [Space]
     public GameObject LD;
@@ -195,7 +196,7 @@ public class MainMenuManager : MonoBehaviour
         LeanTween.scale(StartGameObj, new Vector3(0, 0, 0), 0);
         LeanTween.scale(CreateTrackObj, new Vector3(0, 0, 0), 0);
         LeanTween.scale(PatchNotes, new Vector3(0, 0, 0), 0);
-        LeanTween.scale(Options, new Vector3(0, 0, 0), 0);
+        LeanTween.scale(Optionsbtn, new Vector3(0, 0, 0), 0);
         LeanTween.scale(Controls, new Vector3(0, 0, 0), 0);
         LeanTween.scale(Credit, new Vector3(0, 0, 0), 0);
         LeanTween.scale(Exit, new Vector3(0, 0, 0), 0);
@@ -211,7 +212,7 @@ public class MainMenuManager : MonoBehaviour
         if(PNotes.activeInHierarchy)
             EventSystem.current.SetSelectedGameObject(PatchNotes);
         else if(OptionsCard.activeInHierarchy)
-            EventSystem.current.SetSelectedGameObject(Options);
+            EventSystem.current.SetSelectedGameObject(Optionsbtn);
         else
             EventSystem.current.SetSelectedGameObject(StartGameObj);
 
@@ -227,7 +228,7 @@ public class MainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(.1f);
         LeanTween.scale(PatchNotes, new Vector3(1, 1, 1), .15f);
         yield return new WaitForSeconds(.1f);
-        LeanTween.scale(Options, new Vector3(1, 1, 1), .15f);
+        LeanTween.scale(Optionsbtn, new Vector3(1, 1, 1), .15f);
         yield return new WaitForSeconds(.1f);
         LeanTween.scale(Controls, new Vector3(1, 1, 1), .15f);
         yield return new WaitForSeconds(.1f);
@@ -274,6 +275,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void ShowOptions()
     {
+        languageDropDown.value = (int)Options.current.language;
         LeanTween.scale(optionTitle, Vector3.zero, 0);
         foreach(GameObject g in OptionsTiles)
             LeanTween.scale(g, Vector3.zero, 0);
@@ -320,5 +322,18 @@ public class MainMenuManager : MonoBehaviour
                 ShowHomeScreen();
             }
         }
+    }
+
+    public void changeMusicVolume(float v)
+    {
+        Options.current.changeMusicVolume(v);
+    }
+    public void changeSFXVolume(float v)
+    {
+        Options.current.changeSFXVolume(v);
+    }
+    public void SetLanguage(int v)
+    {
+        Options.current.SetLanguage(v);
     }
 }

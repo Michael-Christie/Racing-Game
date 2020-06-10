@@ -1,10 +1,20 @@
-﻿key,en,fr
-helloWorld,Hello World,Bonjor
-Race,Race,Faire la Course
-PlayGame,Play the Game,Jouer le Jeu
-CreateTrack,Create,Créer
-PatchNotes,Patch Notes,Notes De Mise à Jour
-Options,Options,Options
-Controls,Controls,Contrôles
-Credit,Credit,Crédit
-Exit,Exit,Sortir
+﻿key,en,fr,dev
+helloWorld,Hello World,Bonjor,helloWorld()
+Race,Race,Faire la Course,startRace()
+PlayGame,Play the Game,Jouer le Jeu,//Starts the Game
+CreateTrack,Create,Créer,createTrack()
+PatchNotes,Patch Notes,Notes De Mise à Jour,showPatch()
+Options,Options,Options,LoadPlayerPrefs()
+Controls,Controls,Contrôles,Input()
+Credit,Credit,Remerciements,Credit
+Exit,Exit,Sortir,Application.Quit()
+Sound,Sound,Son,sound
+Music,Music,Musique,music
+Language,Language,Langue,userLanguage
+Accessibility,Accessibility,Accessibilité,accessibility
+BTM,Return to Main Menu,Retourner au Menu Principal,showMenu()
+SaveTrack,Save Track,Sauvegarder,SaveTrack()
+LoadTrack,Load Track,Charger,LoadTrack()
+RTE,Return to Editor,Retour à l'éditeur,CloseMenu()
+RTG,Return to Game,Revenir au Jeu,CloseMenu()
+Restart,Restart,Redémarrer,Restart()

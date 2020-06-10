@@ -13,7 +13,15 @@ public class Options : MonoBehaviour
         if (current == null)
             current = this;
         else
-            Destroy(this);
+            DestroyImmediate(gameObject);
+
+    }
+
+    private void Start()
+    {
+        Init();
+
+        DontDestroyOnLoad(gameObject);
     }
 
     //variables
@@ -24,11 +32,13 @@ public class Options : MonoBehaviour
     public enum Language
     {
         English,
-        French
+        French,
+        Developer
     }
     public Language language = Language.English;
     public Dictionary<string, string> localisedEN;
     public Dictionary<string, string> localisedFR;
+    public Dictionary<string, string> localisedDev;
     public static bool isInit;
 
     public void Init()
@@ -38,6 +48,7 @@ public class Options : MonoBehaviour
 
         localisedEN = csvLoader.GetDictionaryValues("en");
         localisedFR = csvLoader.GetDictionaryValues("fr");
+        localisedDev = csvLoader.GetDictionaryValues("dev");
 
         isInit = true;
     }
@@ -63,6 +74,9 @@ public class Options : MonoBehaviour
             case Language.French:
                 localisedFR.TryGetValue(Key, out value);
                 break;
+            case Language.Developer:
+                localisedDev.TryGetValue(Key, out value);
+                break;
         }
         return value;
     }
@@ -76,4 +90,6 @@ public class Options : MonoBehaviour
     {
         SoundVolume = v;
     }
+
+    
 }
