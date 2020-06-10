@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Options : MonoBehaviour
 {
@@ -42,9 +43,9 @@ public class Options : MonoBehaviour
     }
 
 
-    public void SetLanguage()
+    public void SetLanguage(int v)
     {
-
+        language = (Language)v;
     }
 
     public string ReturnWord(string Key)
@@ -64,5 +65,15 @@ public class Options : MonoBehaviour
                 break;
         }
         return value;
+    }
+
+    public void changeMusicVolume(float v)
+    {
+        MusicVolume = v;
+    }
+
+    public void changeSFXVolume(float v)
+    {
+        SoundVolume = v;
     }
 }

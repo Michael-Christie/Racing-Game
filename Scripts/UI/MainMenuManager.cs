@@ -11,6 +11,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject Hub;
     public GameObject PNotes;
     public GameObject LevelSelector;
+    public GameObject OptionsCard;
 
     [Header("Main Menu")]
     public GameObject GameTitle;
@@ -31,6 +32,11 @@ public class MainMenuManager : MonoBehaviour
     public GameObject[] NavBar;
     public GameObject[] PreCreatedTiles;
     public List<GameObject> CustomTiles;
+
+    [Header("Options")]
+    public GameObject optionTitle;
+    public GameObject[] OptionsTiles;
+    public GameObject OptionSelectableStart;
 
     [Space]
     public GameObject LD;
@@ -119,6 +125,7 @@ public class MainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(.2f);
         Hub.SetActive(false);
         PNotes.SetActive(false);
+        OptionsCard.SetActive(false);
         LevelSelector.SetActive(true);
 
         foreach (GameObject G in PreCreatedTiles)
@@ -180,6 +187,7 @@ public class MainMenuManager : MonoBehaviour
             Hub.SetActive(true);
             PNotes.SetActive(false);
             LevelSelector.SetActive(false);
+            OptionsCard.SetActive(false);
         }
 
         LeanTween.scale(tiles[4], new Vector3(.95f, .95f, .95f), .1f);
@@ -202,6 +210,8 @@ public class MainMenuManager : MonoBehaviour
     {
         if(PNotes.activeInHierarchy)
             EventSystem.current.SetSelectedGameObject(PatchNotes);
+        else if(OptionsCard.activeInHierarchy)
+            EventSystem.current.SetSelectedGameObject(Options);
         else
             EventSystem.current.SetSelectedGameObject(StartGameObj);
 
@@ -209,6 +219,7 @@ public class MainMenuManager : MonoBehaviour
         Hub.SetActive(true);
         PNotes.SetActive(false);
         LevelSelector.SetActive(false);
+        OptionsCard.SetActive(false);
         LeanTween.scale(GameTitle, new Vector3(1, 1, 1), 1f).setEaseOutBounce();
         LeanTween.scale(StartGameObj, new Vector3(1, 1, 1), .15f);
         yield return new WaitForSeconds(.1f);
@@ -251,6 +262,7 @@ public class MainMenuManager : MonoBehaviour
         PNotes.SetActive(true);
         Hub.SetActive(false);
         LevelSelector.SetActive(false);
+        OptionsCard.SetActive(false);
         LeanTween.scale(PatchNotesTitle, new Vector3(1, 1, 1), 1f).setEaseOutBounce();
         foreach (GameObject g in tiles)
         {
@@ -258,6 +270,31 @@ public class MainMenuManager : MonoBehaviour
             yield return new WaitForSeconds(.1f);
         }
 
+    }
+
+    public void ShowOptions()
+    {
+        LeanTween.scale(optionTitle, Vector3.zero, 0);
+        foreach(GameObject g in OptionsTiles)
+            LeanTween.scale(g, Vector3.zero, 0);
+        StartCoroutine("OptionsAnimations");
+    }
+
+    IEnumerator OptionsAnimations()
+    {
+        EventSystem.current.SetSelectedGameObject(OptionSelectableStart);
+        yield return new WaitForSeconds(.2f);
+        OptionsCard.SetActive(true);
+        PNotes.SetActive(false);
+        Hub.SetActive(false);
+        LevelSelector.SetActive(false);
+        LeanTween.scale(optionTitle, Vector3.one, 1).setEaseOutBounce();
+        yield return new WaitForSeconds(.1f);
+        foreach(GameObject g in OptionsTiles)
+        {
+            LeanTween.scale(g, Vector3.one, .2f);
+            yield return new WaitForSeconds(.1f);
+        }
     }
 
     public void LoadLevel(TrackData d)
