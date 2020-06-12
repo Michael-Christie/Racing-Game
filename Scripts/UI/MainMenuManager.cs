@@ -57,6 +57,11 @@ public class MainMenuManager : MonoBehaviour
 
     bool firstLoad = true;
 
+    private void Start()
+    {
+        Time.timeScale = 1;
+    }
+
     IEnumerator StartSinglePlayer()
     {
         LeanTween.scale(StartGameObj, new Vector3(.95f, .95f, .95f), .1f);

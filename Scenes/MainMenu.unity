@@ -346,10 +346,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "These are features that will be coming into the game in the next few weeks...\n\n\u2022Saving
-    of multiple created tracks\n\u2022Loading of multiple custom tracks\n\u2022Procedurally
-    Generated envioment to surround the track\n\u2022Local Mutliplayer\n\u2022Game
-    Localisation (maybe)\n\u2022Options Menu\n\u2022And more...."
+  m_Text: "These are features that will be coming into the game in the next few weeks...\n\n\u2022Procedurally
+    Generated envioment to surround the track\n\u2022Local Mutliplayer\n\u2022More
+    Languages\n\u2022Music and Sound Effects\n\u2022And more....\n"
 --- !u!222 &5987370
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1355,6 +1354,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: Michael Chrisite
       objectReference: {fileID: 0}
+    - target: {fileID: 2708227019648912145, guid: 1f086777cfe726748a14923e616318c7,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f086777cfe726748a14923e616318c7, type: 3}
 --- !u!224 &163861469 stripped
@@ -2051,6 +2055,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: Michael Christie
       objectReference: {fileID: 0}
+    - target: {fileID: 2708227019648912145, guid: 1f086777cfe726748a14923e616318c7,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f086777cfe726748a14923e616318c7, type: 3}
 --- !u!224 &245848417 stripped
@@ -2688,6 +2697,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: Michael Christie
       objectReference: {fileID: 0}
+    - target: {fileID: 2708227019648912145, guid: 1f086777cfe726748a14923e616318c7,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f086777cfe726748a14923e616318c7, type: 3}
 --- !u!224 &392701337 stripped
@@ -3044,7 +3058,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   rows: 2
   columns: 2
-  cellSize: {x: 226.66667, y: 121.66667}
+  cellSize: {x: -15, y: -16.666666}
   spacing: {x: 10, y: 10}
   fitType: 0
   fitX: 1
@@ -3123,12 +3137,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "What is all the new features that have been added in this patch.\n\n\u2022Track
-    Creation - Players can now make and customize a race track.\n\u2022Track Serialization
-    - A single Track can be saved and loaded (multiple tracks saving to come soon)\n\n\u2022Drivable
-    Kart - After creating that new track, while not drive around it!\n\u2022Drifting!
-    - Boost around those corners with Drifting.\n\n\u2022Implemented a Main Menu
-    for navigation\n\u2022Added social media icons"
+  m_Text: "What is all the new features that have been added in this patch.\n\n\u2022A
+    new Track Loading System which loads tracks faster then before.\n\u2022A track
+    selecting system which allows players to select any track that is located in
+    the Maps folder\n\u2022New UI for the track creating and racing scene.\n\u2022Gamepad
+    support has be implemented to the UI for navigation\n\u2022Button hover and clicks
+    have become clearer and darker.\n\u2022Localisation has been added for English
+    and French."
 --- !u!222 &502188939
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4625,7 +4640,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 751729102}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -6234,6 +6249,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: Michael Christie
       objectReference: {fileID: 0}
+    - target: {fileID: 2708227019648912145, guid: 1f086777cfe726748a14923e616318c7,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f086777cfe726748a14923e616318c7, type: 3}
 --- !u!224 &1066746075 stripped
@@ -6743,6 +6763,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: Michael Christie
       objectReference: {fileID: 0}
+    - target: {fileID: 2708227019648912145, guid: 1f086777cfe726748a14923e616318c7,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f086777cfe726748a14923e616318c7, type: 3}
 --- !u!224 &1178893851 stripped
@@ -7090,6 +7115,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Navigation.m_Mode
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708227019648912145, guid: 1f086777cfe726748a14923e616318c7,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f086777cfe726748a14923e616318c7, type: 3}
@@ -8097,6 +8127,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Text
       value: Michael Christie
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708227019648912145, guid: 1f086777cfe726748a14923e616318c7,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f086777cfe726748a14923e616318c7, type: 3}
@@ -11198,9 +11233,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u2022Fixed an issue with the kart rotating too far.\n\u2022Fixed the
-    breaks of the kart to work faster then letting go of the accelerator\n\u2022Fixed
-    a graphical alignment issue of the grid and track node points"
+  m_Text: "\u2022Fixed an issue where the controller wouldn't controll the track
+    pacing UI element.\n\u2022Fixed an issue when loading more then 9 custom maps
+    they wouldn't appear."
 --- !u!222 &1884666610
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11448,6 +11483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Pre: {fileID: 1498022498}
   Custom: {fileID: 1821282897}
+  tempText: {fileID: 1987616247}
 --- !u!4 &1927628437
 Transform:
   m_ObjectHideFlags: 0
@@ -11583,6 +11619,83 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1987616247
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1987616250}
+  - component: {fileID: 1987616249}
+  - component: {fileID: 1987616248}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1987616248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987616247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.8396226, g: 0.20198467, b: 0.20198467, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 116
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 116
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Not Currently Set Up!
+--- !u!222 &1987616249
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987616247}
+  m_CullTransparentMesh: 0
+--- !u!224 &1987616250
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987616247}
+  m_LocalRotation: {x: 0, y: 0, z: 0.2164396, w: 0.97629607}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2098335012}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 25}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 86, y: 4}
+  m_SizeDelta: {x: 1200, y: 225}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1990694192
 GameObject:
   m_ObjectHideFlags: 0
@@ -11960,6 +12073,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Text
       value: Michael Christie
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708227019648912145, guid: 1f086777cfe726748a14923e616318c7,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f086777cfe726748a14923e616318c7, type: 3}
@@ -12580,6 +12698,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: Michael Christie
       objectReference: {fileID: 0}
+    - target: {fileID: 2708227019648912145, guid: 1f086777cfe726748a14923e616318c7,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f086777cfe726748a14923e616318c7, type: 3}
 --- !u!224 &2085294522 stripped
@@ -12620,6 +12743,7 @@ RectTransform:
   m_Children:
   - {fileID: 1498022499}
   - {fileID: 1821282898}
+  - {fileID: 1987616250}
   m_Father: {fileID: 1778391873}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
