@@ -18,7 +18,7 @@ public class Envioment : MonoBehaviour
             Destroy(this);
     }
 
-    public void CreateLandscape(int width, int height)
+    public IEnumerator CreateLandscape(int width, int height)
     {
         map = new bool[width, height];
         heightMap = new float[width, height];
@@ -97,11 +97,13 @@ public class Envioment : MonoBehaviour
                         {
                             average /= num;
 
-                            heightMap[x, z] = average + (Random.value * 2);
+                            heightMap[x, z] = average + ( i < 18 ? (Random.value * 2) : 0);// - .5f; //Mathf.PerlinNoise(x *.05f,z * .05f);
                         }
                     }
                 }
             }
+
+            yield return new WaitForSeconds(.01f);
         }
 
         List<Vector3> verts = new List<Vector3>();
@@ -120,6 +122,7 @@ public class Envioment : MonoBehaviour
                 verts.Add(new Vector3(x * 2, h, z * 2) - (new Vector3(width * 2, 0, height * 2) * .5f));
             }
         }
+        yield return new WaitForSeconds(.01f);
         List<int> tri = new List<int>();
         //tris
         for (int x = 0; x < width - 1; x++)
