@@ -39,6 +39,7 @@ public class GameStart : MonoBehaviour
         GenerateTrack();
         UpdateLapUI();
         LockInput();
+        Envioment.instance.CreateLandscape(250, 250);
         StartCoroutine(CountDown(5));
     }
 

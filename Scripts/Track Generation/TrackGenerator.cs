@@ -51,6 +51,7 @@ public class TrackGenerator : MonoBehaviour
         //sets up the track segment game object
         GameObject newTrack = new GameObject();
         newTrack.transform.parent = tracks.transform;
+        newTrack.layer = LayerMask.NameToLayer("Road");
 
         MeshFilter mFilter = newTrack.AddComponent<MeshFilter>();
         MeshRenderer mRenderer = newTrack.AddComponent<MeshRenderer>();
