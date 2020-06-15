@@ -29,6 +29,11 @@ public class GameStart : MonoBehaviour
     public float currentTime = 0;
     public float fastestLapTime;
 
+    [Space]
+    List<BoxCollider> Tracker = new List<BoxCollider>();
+    int currentTrackerID = 1;
+    int maxID = 1;
+
     private void Start()
     {
         GenerateTrack();
@@ -54,7 +59,23 @@ public class GameStart : MonoBehaviour
             {
                 Vector3 pos = new Vector3(d.positions[i * 3], d.positions[(i * 3) + 1], d.positions[(i * 3) + 2]);
                 NM.AddNewNode(pos, false, d.rotations[i], false);
+
+                GameObject box = new GameObject();
+                box.transform.parent = transform;
+                box.transform.position = pos;
+                box.transform.rotation = Quaternion.Euler(0, d.rotations[i], 0);
+
+                BoxCollider b = box.AddComponent<BoxCollider>();
+
+                b.size = new Vector3(10, 10, 1);
+                b.isTrigger = true;
+
+                Tracker.Add(b);
+
+                box.AddComponent<LapTriggers>().ID = i;
             }
+
+            maxID = d.rotations.Length;
 
             TG.GenerateAllSegments();
         }
@@ -139,9 +160,14 @@ public class GameStart : MonoBehaviour
         playerLap++;
 
         if (playerLap < overallLaps)
+        {
             UpdateLapUI();
+            ResetTimer();
+        }
         else
             Debug.Log("Game Over?");
+
+
     }
 
     public void Update()
@@ -172,5 +198,24 @@ public class GameStart : MonoBehaviour
             fastestLapTime = currentTime;
 
         currentTime = 0;
+    }
+
+    public void boxHit(int ID)
+    {
+        Debug.Log(ID);
+        Debug.Log(currentTrackerID);
+
+        if(ID == 0 && currentTrackerID == 0)
+        {
+            AddLap();
+        }
+
+        if(ID == currentTrackerID)
+        {
+            currentTrackerID++;
+        }
+
+        if (currentTrackerID == maxID)
+            currentTrackerID = 0;
     }
 }
