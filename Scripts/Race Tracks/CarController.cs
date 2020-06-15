@@ -14,6 +14,8 @@ public class CarController : MonoBehaviour
     public bool drifting = false;
     int driftDir = 0;
 
+    bool disabled = false;
+
     [Header("")]
     public LayerMask floor;
 
@@ -55,14 +57,21 @@ public class CarController : MonoBehaviour
         controls.CarController.Disable();
     }
 
+    //this should be changed to stopping the forces being added rather then the controller!!
+    public void Enable() => disabled = false;
+    public void Disable() => disabled = true;
+
+
+
     private void FixedUpdate()
     {
-        if (!inMenu)
+        //gravity
+        rb.AddForce(Vector3.down * 20, ForceMode.Acceleration);
+
+        if (!inMenu && !disabled)
         {
             //moves the car forward
             rb.AddForce(transform.forward * currentSpeed, ForceMode.Acceleration);
-            //gravity
-            rb.AddForce(Vector3.down * 20, ForceMode.Acceleration);
             //rotation
             transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y + currentRotate, 0), Time.deltaTime * 5f);
 

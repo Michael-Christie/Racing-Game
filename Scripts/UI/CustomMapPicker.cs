@@ -54,7 +54,7 @@ public class CustomMapPicker : MonoBehaviour
 
 
         }
-        float h = (fileInfo.Length / 3) <= 3 ? 3 * 250 : (fileInfo.Length / 3) * 250;
+        float h = (fileInfo.Length / 3) <= 2 ? 3 * 250 : ((fileInfo.Length / 3) + (fileInfo.Length % 3 == 0 ? 0 : 1)) * 250;
         rt.sizeDelta = new Vector2(1500, h);
 
         if (!MMM)
