@@ -17,9 +17,22 @@ public class GameStart : MonoBehaviour
     public Text CountdownElement;
     public string[] text;
 
+    [Header("Laps")]
+    public Text currentLap;
+    public Text totalLaps;
+    public int playerLap = 0;
+    public int overallLaps = 3;
+
+    [Header("Timer")]
+    bool ActiveTimer = false;
+    public Text timer;
+    public float currentTime = 0;
+    public float fastestLapTime;
+
     private void Start()
     {
         GenerateTrack();
+        UpdateLapUI();
         LockInput();
         StartCoroutine(CountDown(5));
     }
@@ -70,6 +83,7 @@ public class GameStart : MonoBehaviour
     public IEnumerator CountDown(float totalTime)
     {
         LeanTween.scale(CountdownElement.gameObject, Vector3.zero, 0);
+        LeanTween.scale(timer.gameObject, Vector3.zero, 0);
 
         yield return new WaitForSeconds(2);
 
@@ -86,10 +100,15 @@ public class GameStart : MonoBehaviour
             yield return new WaitForSeconds(sectionTime * .4f);
 
         }
+
+        yield return new WaitForSeconds(.5f);
+        LeanTween.scale(timer.gameObject, Vector3.one, .5f).setEaseOutElastic();
+
     }
 
     public void LockInput()
     {
+        ActiveTimer = false;
         CarController[] controlls = FindObjectsOfType<CarController>();
 
         foreach(CarController c in controlls)
@@ -100,6 +119,7 @@ public class GameStart : MonoBehaviour
 
     public void UnlockInput()
     {
+        ActiveTimer = true;
         CarController[] controlls = FindObjectsOfType<CarController>();
 
         foreach (CarController c in controlls)
@@ -108,5 +128,49 @@ public class GameStart : MonoBehaviour
         }
     }
 
+    void UpdateLapUI()
+    {
+        currentLap.text = (playerLap + 1).ToString();
+        totalLaps.text = overallLaps.ToString();
+    }
 
+    void AddLap()
+    {
+        playerLap++;
+
+        if (playerLap < overallLaps)
+            UpdateLapUI();
+        else
+            Debug.Log("Game Over?");
+    }
+
+    public void Update()
+    {
+        if (ActiveTimer)
+        {
+            currentTime += Time.deltaTime;
+            timer.text = ConvertTime(currentTime);
+        }
+    }
+
+    string ConvertTime(float t)
+    {
+        int minuets;
+        int seconds;
+        int milaseconds;
+
+        minuets = (int)t / 60;
+        seconds = (int)t % 60;
+        milaseconds = (int)((t - (int)t) * 1000);
+
+        return minuets.ToString().PadLeft(2, '0') + ":" + seconds.ToString().PadLeft(2, '0') + ":" + milaseconds.ToString().PadLeft(3,'0');
+    }
+
+    void ResetTimer()
+    {
+        if (currentTime < fastestLapTime)
+            fastestLapTime = currentTime;
+
+        currentTime = 0;
+    }
 }
