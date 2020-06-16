@@ -109,7 +109,8 @@ public class Envioment : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(.01f);
+            yield return new WaitForSeconds(.1f);
+            FindObjectOfType<GameStart>().UpdateLoadingValue(1);
         }
 
         List<Vector3> verts = new List<Vector3>();
@@ -128,7 +129,8 @@ public class Envioment : MonoBehaviour
                 verts.Add(new Vector3(x * 2, h, z * 2) - (new Vector3(width * 2, 0, height * 2) * .5f));
             }
         }
-        yield return new WaitForSeconds(.01f);
+        yield return new WaitForSeconds(.1f);
+        FindObjectOfType<GameStart>().UpdateLoadingValue(1);
         List<int> tri = new List<int>();
         //tris
         for (int x = 0; x < width - 1; x++)
@@ -145,6 +147,8 @@ public class Envioment : MonoBehaviour
             }
         }
 
+        yield return new WaitForSeconds(.1f);
+        FindObjectOfType<GameStart>().UpdateLoadingValue(1);
         Mesh m = new Mesh();
         m.SetVertices(verts.ToArray());
         m.SetTriangles(tri.ToArray(), 0);
@@ -158,6 +162,7 @@ public class Envioment : MonoBehaviour
         gameObject.isStatic = true;
 
         ApplyToMaterial();
+        FindObjectOfType<GameStart>().UpdateLoadingValue(1);
     }
 
     private void OnDrawGizmos()

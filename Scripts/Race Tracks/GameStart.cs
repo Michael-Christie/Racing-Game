@@ -34,13 +34,18 @@ public class GameStart : MonoBehaviour
     int currentTrackerID = 1;
     int maxID = 1;
 
+    [Header("Loading")]
+    public Slider loadingSlider;
+    public int maxValue;
+    public int currentvalue = 0;
+    public CanvasGroup loadingCanvas;
+
     private void Start()
     {
         GenerateTrack();
         UpdateLapUI();
         LockInput();
         StartCoroutine(Envioment.instance.CreateLandscape(250, 250));
-        StartCoroutine(CountDown(5));
     }
 
     void GenerateTrack()
@@ -218,5 +223,18 @@ public class GameStart : MonoBehaviour
 
         if (currentTrackerID == maxID)
             currentTrackerID = 0;
+    }
+
+    public void UpdateLoadingValue(int v)
+    {
+        currentvalue += v;
+        loadingSlider.value = currentvalue / (float)maxValue;
+
+        if(currentvalue == maxValue)
+        {
+            LeanTween.alphaCanvas(loadingCanvas, 0, 1f);
+
+            StartCoroutine(CountDown(5));
+        }
     }
 }
