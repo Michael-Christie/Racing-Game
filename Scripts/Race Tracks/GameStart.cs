@@ -121,6 +121,7 @@ public class GameStart : MonoBehaviour
             if (i == text.Length - 1)
                 UnlockInput();
             LeanTween.scale(CountdownElement.gameObject, Vector3.one, sectionTime * .5f).setEaseOutElastic();
+            FindObjectOfType<StartingLights>().changeOneLight();
             yield return new WaitForSeconds(sectionTime * .6f);
 
             LeanTween.scale(CountdownElement.gameObject, Vector3.zero, sectionTime * .3f);
@@ -171,7 +172,10 @@ public class GameStart : MonoBehaviour
             ResetTimer();
         }
         else
+        {
             Debug.Log("Game Over?");
+            LockInput();
+        }
 
 
     }
@@ -219,6 +223,15 @@ public class GameStart : MonoBehaviour
         if(ID == currentTrackerID)
         {
             currentTrackerID++;
+        }
+        else if(Mathf.Abs(ID - currentTrackerID) < 3)
+        {
+            currentTrackerID += Mathf.Abs(ID - currentTrackerID);
+            if(currentTrackerID > maxID)
+            {
+                currentTrackerID = currentTrackerID % maxID;
+                AddLap();
+            }
         }
 
         if (currentTrackerID == maxID)

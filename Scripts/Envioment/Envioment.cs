@@ -16,6 +16,11 @@ public class Envioment : MonoBehaviour
     bool[,] map;
     float[,] heightMap;
 
+    [Header("Objects")]
+    public GameObject StartingLights;
+    public GameObject EndCover;
+    public GameObject Cones;
+
     private void Awake()
     {
         if (instance == null)
@@ -23,6 +28,35 @@ public class Envioment : MonoBehaviour
         else
             Destroy(this);
     }
+
+    public void AddObjects()
+    {
+        NodeManager NM = FindObjectOfType<NodeManager>();
+
+        NodePoint p = NM.Nodes[0];
+        Instantiate(EndCover, p.Posistion, Quaternion.Euler(p.Rotation), transform);
+
+        p = NM.Nodes[1];
+        Instantiate(StartingLights, p.Posistion, Quaternion.Euler(p.Rotation), transform);
+
+        //cones random
+        //for(int i = 0; i < NM.Nodes.Count * 3; i++)
+        //{
+        //    int x = Random.Range(0, map.GetLength(0));
+        //    int y = Random.Range(0, map.GetLength(1));
+
+        //    if (map[x, y])
+        //    {
+        //        if(Random.value < .8f)
+        //            Instantiate(Cones, new Vector3(x * 2 + Random.value * 2f, 1.2f, y * 2 + Random.value * 2f) - (new Vector3(map.GetLength(0) * 2, 0, map.GetLength(1) * 2) * .5f), Quaternion.identity, transform);
+        //    }
+        //    else
+        //    {
+        //        i--;
+        //    }
+        //}
+    }
+
 
     public IEnumerator CreateLandscape(int width, int height)
     {
@@ -162,6 +196,7 @@ public class Envioment : MonoBehaviour
         gameObject.isStatic = true;
 
         ApplyToMaterial();
+        AddObjects();
         FindObjectOfType<GameStart>().UpdateLoadingValue(1);
     }
 

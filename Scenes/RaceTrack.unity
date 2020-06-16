@@ -1291,6 +1291,11 @@ MonoBehaviour:
   raceMask:
     serializedVersion: 2
     m_Bits: 1024
+  StartingLights: {fileID: 8543516604938098638, guid: 19bb0ed371d66fc45bd6bc3c2442ec42,
+    type: 3}
+  EndCover: {fileID: 7340109894605695558, guid: 0eda9796ce744ff4da8c3c7824f6f506,
+    type: 3}
+  Cones: {fileID: 8445057238464292159, guid: 7801b589b6aefef44afdd855a16ea41b, type: 3}
 --- !u!4 &899220409
 Transform:
   m_ObjectHideFlags: 0
@@ -6775,7 +6780,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.6
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -12562,7 +12567,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!198 &1957304768 stripped
 ParticleSystem:
