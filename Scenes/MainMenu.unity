@@ -3058,7 +3058,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   rows: 2
   columns: 2
-  cellSize: {x: -15, y: -16.666666}
+  cellSize: {x: 226.66667, y: 121.66667}
   spacing: {x: 10, y: 10}
   fitType: 0
   fitX: 1

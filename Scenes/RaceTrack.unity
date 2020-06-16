@@ -1296,6 +1296,10 @@ MonoBehaviour:
   EndCover: {fileID: 7340109894605695558, guid: 0eda9796ce744ff4da8c3c7824f6f506,
     type: 3}
   Cones: {fileID: 8445057238464292159, guid: 7801b589b6aefef44afdd855a16ea41b, type: 3}
+  Tree: {fileID: 439553398060521465, guid: c6b6760fbca363541b163305a732cfce, type: 3}
+  enviomentLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!4 &899220409
 Transform:
   m_ObjectHideFlags: 0

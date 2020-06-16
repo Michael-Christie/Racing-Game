@@ -20,6 +20,8 @@ public class Envioment : MonoBehaviour
     public GameObject StartingLights;
     public GameObject EndCover;
     public GameObject Cones;
+    public GameObject Tree;
+    public LayerMask enviomentLayer;
 
     private void Awake()
     {
@@ -55,6 +57,30 @@ public class Envioment : MonoBehaviour
         //        i--;
         //    }
         //}
+
+        for (int i = 0; i < 500; i++)
+        {
+            int x = Random.Range(0, map.GetLength(0));
+            int y = Random.Range(0, map.GetLength(1));
+
+            if (!map[x, y])
+            {
+                if (Random.value < .8f)
+                {
+                    Vector3 pos = new Vector3(x * 2 + Random.value * 2f, 15, y * 2 + Random.value * 2f) - (new Vector3(map.GetLength(0) * 2, 0, map.GetLength(1) * 2) * .5f);
+                    Ray ray = new Ray(pos, Vector3.down);
+                    RaycastHit hit;
+
+                    Physics.Raycast(ray, out hit, 100, enviomentLayer);
+                    
+                    Instantiate(Tree, hit.point, Quaternion.Euler(hit.normal), transform);
+                }
+            }
+            else
+            {
+                i--;
+            }
+        }
     }
 
 
