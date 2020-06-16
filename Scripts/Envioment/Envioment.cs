@@ -5,6 +5,12 @@ using UnityEngine;
 public class Envioment : MonoBehaviour
 {
     public static Envioment instance;
+    [Header("Colors")]
+    public Material material;
+    public Color[] baseColors;
+    [Range(0,1)]
+    public float[] baseStartHeights;
+    public float[] baseBlends;
 
     public LayerMask raceMask;
     bool[,] map;
@@ -144,12 +150,14 @@ public class Envioment : MonoBehaviour
         m.SetTriangles(tri.ToArray(), 0);
         m.RecalculateNormals();
 
-        gameObject.AddComponent<MeshRenderer>();
+        //gameObject.AddComponent<MeshRenderer>();
         gameObject.AddComponent<MeshFilter>().mesh = m;
+        gameObject.AddComponent<MeshCollider>().sharedMesh = m;
 
         transform.position = new Vector3(0, 1.2f, 0);
         gameObject.isStatic = true;
 
+        ApplyToMaterial();
     }
 
     private void OnDrawGizmos()
@@ -165,5 +173,13 @@ public class Envioment : MonoBehaviour
                 }
             }
         }
+    }
+
+    void ApplyToMaterial()
+    {
+        material.SetInt("baseColorCount", baseColors.Length);
+        material.SetColorArray("baseColors", baseColors);
+        material.SetFloatArray("baseStartHeight", baseStartHeights);
+        material.SetFloatArray("baseBlends", baseBlends);
     }
 }
