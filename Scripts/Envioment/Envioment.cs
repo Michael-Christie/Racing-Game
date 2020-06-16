@@ -58,22 +58,23 @@ public class Envioment : MonoBehaviour
         //    }
         //}
 
-        for (int i = 0; i < 500; i++)
+        for (int i = 0; i < 3000; i++)
         {
             int x = Random.Range(0, map.GetLength(0));
             int y = Random.Range(0, map.GetLength(1));
 
             if (!map[x, y])
             {
-                if (Random.value < .8f)
+                if (Mathf.PerlinNoise(x * 0.0054f, y * 0.00554478f) < .8f)
                 {
-                    Vector3 pos = new Vector3(x * 2 + Random.value * 2f, 15, y * 2 + Random.value * 2f) - (new Vector3(map.GetLength(0) * 2, 0, map.GetLength(1) * 2) * .5f);
+                    Vector3 pos = new Vector3(x * 2 + Random.value, 15, y * 2 + Random.value) - (new Vector3(map.GetLength(0) * 2, 0, map.GetLength(1) * 2) * .5f);
                     Ray ray = new Ray(pos, Vector3.down);
                     RaycastHit hit;
 
-                    Physics.Raycast(ray, out hit, 100, enviomentLayer);
+                    Physics.Raycast(ray, out hit, 14, enviomentLayer);
                     
-                    Instantiate(Tree, hit.point, Quaternion.Euler(hit.normal), transform);
+                    if(hit.collider != null)
+                        Instantiate(Tree, hit.point, Quaternion.Euler(hit.normal), transform);
                 }
             }
             else
