@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -59,6 +60,11 @@ public class MainMenuManager : MonoBehaviour
     public void YouTubeLink() => StartCoroutine("OpenYouTubeLink");
 
     bool firstLoad = true;
+
+    [Header("Specific UI")]
+    public GameObject[] JoypadUIElements;
+    public GameObject[] KeyboardUIElements;
+
 
     private void Start()
     {
@@ -332,6 +338,29 @@ public class MainMenuManager : MonoBehaviour
             if (controls.MainMenu.Back.triggered)
             {
                 ShowHomeScreen();
+            }
+        }
+
+        if(PlayerInput.GetPlayerByIndex(0).currentControlScheme == "JoyPad")
+        {
+            foreach(GameObject g in JoypadUIElements)
+            {
+                g.SetActive(true);
+            }
+            foreach(GameObject g in KeyboardUIElements)
+            {
+                g.SetActive(false);
+            }
+        }
+        else
+        {
+            foreach (GameObject g in JoypadUIElements)
+            {
+                g.SetActive(false);
+            }
+            foreach (GameObject g in KeyboardUIElements)
+            {
+                g.SetActive(true);
             }
         }
     }

@@ -210,6 +210,7 @@ public class GameStart : MonoBehaviour
         }
         else
         {
+            ResetTimer();
             ActiveTimer = false;
             RaceOver();
             Debug.Log("Game Over?");
