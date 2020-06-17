@@ -18,3 +18,5 @@ LoadTrack,Load Track,Charger,LoadTrack()
 RTE,Return to Editor,Retour à l'éditeur,CloseMenu()
 RTG,Return to Game,Revenir au Jeu,CloseMenu()
 Restart,Restart,Redémarrer,Restart()
+Sensitivity,Sensitivity,Sensitivity,sensitivity
+Input,Input,Sensitivity,Input()

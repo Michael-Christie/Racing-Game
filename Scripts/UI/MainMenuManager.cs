@@ -38,6 +38,9 @@ public class MainMenuManager : MonoBehaviour
     public GameObject[] OptionsTiles;
     public GameObject OptionSelectableStart;
     public Dropdown languageDropDown;
+    public Slider MusicSlider;
+    public Slider SoundSlider;
+    public Slider SensSlider;
 
     [Space]
     public GameObject LD;
@@ -280,7 +283,11 @@ public class MainMenuManager : MonoBehaviour
 
     public void ShowOptions()
     {
+        MusicSlider.value = Options.current.GetMusic;
+        SoundSlider.value = Options.current.GetSound;
+        SensSlider.value = Options.current.GetSensitity * 2;
         languageDropDown.value = (int)Options.current.language;
+
         LeanTween.scale(optionTitle, Vector3.zero, 0);
         foreach(GameObject g in OptionsTiles)
             LeanTween.scale(g, Vector3.zero, 0);
@@ -336,6 +343,10 @@ public class MainMenuManager : MonoBehaviour
     public void changeSFXVolume(float v)
     {
         Options.current.changeSFXVolume(v);
+    }
+    public void changeSensitivity(float v)
+    {
+        Options.current.changeSensitivity(v);
     }
     public void SetLanguage(int v)
     {

@@ -27,9 +27,11 @@ public class Options : MonoBehaviour
     //variables
     float MusicVolume = 1;
     float SoundVolume = 1;
-    float Sensitivity = 1;
+    float Sensitivity = 2.5f;
 
     public float GetSensitity => Sensitivity; 
+    public float GetMusic => MusicVolume; 
+    public float GetSound => SoundVolume; 
 
     public enum Language
     {
@@ -95,7 +97,7 @@ public class Options : MonoBehaviour
 
     public void changeSensitivity(float v)
     {
-
+        Sensitivity = v * .5f;
     }
 
     
