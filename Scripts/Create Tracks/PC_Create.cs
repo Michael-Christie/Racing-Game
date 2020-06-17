@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class PC_Create : MonoBehaviour
 {
     public TrackGenerator TG;
@@ -36,8 +37,18 @@ public class PC_Create : MonoBehaviour
         if (!inMenu)
         {
             Vector2 d = GetCursorPos();
+
+            Debug.Log(PlayerInput.GetPlayerByIndex(0).currentControlScheme);
             // these are not actual positions but the change between last frame and now
             //float h = 200 * d.x * Time.deltaTime;
+
+
+            if (PlayerInput.GetPlayerByIndex(0).currentControlScheme == "JoyPad")
+            {
+                d.Normalize();
+            }
+            d *= Options.current.GetSensitity;
+
             cursorPosition.x += d.x /*+ Screen.width / 2*/;
             cursorPosition.y += d.y /*+ Screen.height / 2*/;
             //float v = 200 * d.y * Time.deltaTime;
@@ -64,7 +75,8 @@ public class PC_Create : MonoBehaviour
 
     }
 
-   // bool addNode;
+
+    // bool addNode;
 
     public enum zoomLevel
     {
@@ -100,6 +112,7 @@ public class PC_Create : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (controls.TrackCreating.Start.triggered)
         {
             inMenu = !inMenu;
@@ -212,7 +225,6 @@ public class PC_Create : MonoBehaviour
         if (!inMenu)
         {
             Vector2 pm = controls.TrackCreating.Move.ReadValue<Vector2>();
-            Debug.Log(pm);
             //moves the player around
             Vector3 dir = new Vector3(pm.x, 0, pm.y).normalized;
             if ((dir + transform.position).x <= movementConfineBox.x && (dir + transform.position).x >= -movementConfineBox.x && (dir + transform.position).z <= movementConfineBox.y && (dir + transform.position).z >= -movementConfineBox.y)

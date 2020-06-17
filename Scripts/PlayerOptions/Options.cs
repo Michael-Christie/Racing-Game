@@ -25,9 +25,11 @@ public class Options : MonoBehaviour
     }
 
     //variables
-    float MusicVolume;
-    float SoundVolume;
-    float Sensitivity;
+    float MusicVolume = 1;
+    float SoundVolume = 1;
+    float Sensitivity = 1;
+
+    public float GetSensitity => Sensitivity; 
 
     public enum Language
     {
@@ -89,6 +91,11 @@ public class Options : MonoBehaviour
     public void changeSFXVolume(float v)
     {
         SoundVolume = v;
+    }
+
+    public void changeSensitivity(float v)
+    {
+
     }
 
     

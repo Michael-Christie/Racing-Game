@@ -200,7 +200,18 @@ MonoBehaviour:
       m_Calls: []
   m_ControlsChangedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 150994349}
+        m_MethodName: ControlsChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls: []
@@ -282,8 +293,12 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: b078b151-c196-4703-aa3f-01a8e90f83a8
     m_ActionName: MainMenu/Back[/XInputControllerWindows/buttonEast]
-  m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: Keyboard
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2ffd6fad-e481-497f-ab62-ba1a02166724
+    m_ActionName: CarController/Menu[/XInputControllerWindows/start,/Keyboard/escape]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
   m_DefaultActionMap: TrackCreating
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -1108,6 +1123,7 @@ MonoBehaviour:
   CloseMenu: {fileID: 1287270597}
   SaveLevel: {fileID: 441278797}
   LevelSelector: {fileID: 160525354}
+  customTiles: []
 --- !u!4 &301769959
 Transform:
   m_ObjectHideFlags: 0

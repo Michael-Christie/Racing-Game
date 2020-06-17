@@ -13,6 +13,7 @@ public class GameStart : MonoBehaviour
 
     public GameObject Menu;
     public GameObject selectedObject;
+    public GameObject GameOver;
 
     public GameObject player;
 
@@ -30,12 +31,17 @@ public class GameStart : MonoBehaviour
     bool ActiveTimer = false;
     public TextMeshProUGUI timer;
     public float currentTime = 0;
-    public float fastestLapTime;
+    public float fastestLapTime = Mathf.Infinity;
+    public float overallTime = 0;
 
     [Space]
     List<BoxCollider> Tracker = new List<BoxCollider>();
     int currentTrackerID = 1;
     int maxID = 1;
+
+    [Header("Game Over")]
+    public TextMeshProUGUI fasterTime;
+    public TextMeshProUGUI TotalCourseTime;
 
     [Header("Loading")]
     public Slider loadingSlider;
@@ -117,14 +123,23 @@ public class GameStart : MonoBehaviour
         //updates timer
         ActiveTimer = false;
         currentTime = 0;
-        fastestLapTime = 0;
+        fastestLapTime = Mathf.Infinity;
+        overallTime = 0;
         timer.text = ConvertTime(currentTime);
+        GameOver.SetActive(false);
         //updates laps 
         playerLap = 0;
         UpdateLapUI();
         //fade in
         //countdown
         StartCoroutine(CountDown(5));
+    }
+
+    public void RaceOver()
+    {
+        GameOver.SetActive(true);
+        fasterTime.text = ConvertTime(fastestLapTime);
+        TotalCourseTime.text = ConvertTime(overallTime);
     }
 
     public IEnumerator CountDown(float totalTime = 5)
@@ -187,6 +202,7 @@ public class GameStart : MonoBehaviour
     {
         playerLap++;
 
+        overallTime += currentTime;
         if (playerLap < overallLaps)
         {
             UpdateLapUI();
@@ -194,6 +210,8 @@ public class GameStart : MonoBehaviour
         }
         else
         {
+            ActiveTimer = false;
+            RaceOver();
             Debug.Log("Game Over?");
             LockInput();
         }
