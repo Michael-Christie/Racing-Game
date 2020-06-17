@@ -13,6 +13,8 @@ public class GameStart : MonoBehaviour
     public GameObject Menu;
     public GameObject selectedObject;
 
+    public GameObject player;
+
     [Header("Count Down")]
     public Text CountdownElement;
     public string[] text;
@@ -44,7 +46,6 @@ public class GameStart : MonoBehaviour
     {
         GenerateTrack();
         UpdateLapUI();
-        LockInput();
         StartCoroutine(Envioment.instance.CreateLandscape(250, 250));
     }
 
@@ -107,8 +108,27 @@ public class GameStart : MonoBehaviour
 
     }
 
-    public IEnumerator CountDown(float totalTime)
+    public void ResetCar()
     {
+        //fade out
+        Destroy(FindObjectOfType<CarController>().transform.parent.gameObject);
+        Instantiate(player, new Vector3(0, 2, 3), Quaternion.identity);
+        //updates timer
+        ActiveTimer = false;
+        currentTime = 0;
+        fastestLapTime = 0;
+        timer.text = ConvertTime(currentTime);
+        //updates laps 
+        playerLap = 0;
+        UpdateLapUI();
+        //fade in
+        //countdown
+        StartCoroutine(CountDown(5));
+    }
+
+    public IEnumerator CountDown(float totalTime = 5)
+    {
+        LockInput();
         LeanTween.scale(CountdownElement.gameObject, Vector3.zero, 0);
         LeanTween.scale(timer.gameObject, Vector3.zero, 0);
 
