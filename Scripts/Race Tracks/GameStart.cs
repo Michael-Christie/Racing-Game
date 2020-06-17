@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameStart : MonoBehaviour
 {
@@ -16,18 +17,18 @@ public class GameStart : MonoBehaviour
     public GameObject player;
 
     [Header("Count Down")]
-    public Text CountdownElement;
+    public TextMeshProUGUI CountdownElement;
     public string[] text;
 
     [Header("Laps")]
-    public Text currentLap;
-    public Text totalLaps;
+    public TextMeshProUGUI currentLap;
+    public TextMeshProUGUI totalLaps;
     public int playerLap = 0;
     public int overallLaps = 3;
 
     [Header("Timer")]
     bool ActiveTimer = false;
-    public Text timer;
+    public TextMeshProUGUI timer;
     public float currentTime = 0;
     public float fastestLapTime;
 
