@@ -14,6 +14,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject LevelSelector;
     public GameObject OptionsCard;
     public GameObject CreditsCard;
+    public GameObject ControlsCard;
 
     [Header("Main Menu")]
     public GameObject GameTitle;
@@ -48,6 +49,10 @@ public class MainMenuManager : MonoBehaviour
     public GameObject[] creditsTiles;
     public GameObject creditsHomeBtn;
 
+    [Header("Controls")]
+    public GameObject[] controlTiles;
+    public GameObject controlBackBtn;
+
     [Space]
     public GameObject LD;
     private Controlls controls = null;
@@ -55,8 +60,7 @@ public class MainMenuManager : MonoBehaviour
     public void SinglePlayer() => ShowLevelsScreen();
     public void MultiPlayer() => SceneManager.LoadScene(1);
     public void TrackCreator() => StartCoroutine("StartTrackCreator");
-    //public void Options() => SceneManager.LoadScene(3);
-    //public void Credit() => SceneManager.LoadScene(4);
+
     public void GoToPatchNotes() => ShowPatchNotes();
     public void GoToHome() => ShowHomeScreen();
     public void Quit() => Application.Quit();
@@ -209,6 +213,7 @@ public class MainMenuManager : MonoBehaviour
             LevelSelector.SetActive(false);
             OptionsCard.SetActive(false);
             CreditsCard.SetActive(false);
+            ControlsCard.SetActive(false);
         }
 
         LeanTween.scale(tiles[4], new Vector3(.95f, .95f, .95f), .1f);
@@ -244,6 +249,7 @@ public class MainMenuManager : MonoBehaviour
         LevelSelector.SetActive(false);
         OptionsCard.SetActive(false);
         CreditsCard.SetActive(false);
+        ControlsCard.SetActive(false);
 
         LeanTween.scale(GameTitle, new Vector3(1, 1, 1), 1f).setEaseOutBounce();
         LeanTween.scale(StartGameObj, new Vector3(1, 1, 1), .15f);
@@ -295,6 +301,32 @@ public class MainMenuManager : MonoBehaviour
             yield return new WaitForSeconds(.1f);
         }
 
+    }
+
+    public void ShowControls()
+    {
+        foreach (GameObject g in controlTiles)
+        {
+            LeanTween.scale(g, Vector3.zero, 0);
+        }
+
+        StartCoroutine(ControlsAnimations());
+    }
+
+    IEnumerator ControlsAnimations()
+    {
+        EventSystem.current.SetSelectedGameObject(controlBackBtn);
+        yield return new WaitForSeconds(.2f);
+        OptionsCard.SetActive(false);
+        PNotes.SetActive(false);
+        Hub.SetActive(false);
+        LevelSelector.SetActive(false);
+        ControlsCard.SetActive(true);
+        foreach (GameObject g in controlTiles)
+        {
+            LeanTween.scale(g, new Vector3(1, 1, 1), .15f);
+            yield return new WaitForSeconds(.1f);
+        }
     }
 
     public void ShowOptions()
