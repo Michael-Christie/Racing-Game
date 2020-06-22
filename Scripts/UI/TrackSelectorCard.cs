@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TrackSelectorCard : MonoBehaviour
 {
     [Header("Automatic Cards")]
     public Image image;
-    public Text trackTitle;
-    public Text creator;
+    public TextMeshProUGUI trackTitle;
+    public TextMeshProUGUI creator;
     public TrackData d;
 
     [Header("Manual Cards")]

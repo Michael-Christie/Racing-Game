@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class LocalisedText : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class LocalisedText : MonoBehaviour
 
     void UpdateText()
     {
-        gameObject.GetComponent<Text>().text = Options.current.ReturnWord(Text_ID);
+        gameObject.GetComponent<TextMeshProUGUI>().text = Options.current.ReturnWord(Text_ID);
     }
 
     private void Update()
