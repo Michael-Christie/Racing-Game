@@ -53,6 +53,8 @@ public class GameStart : MonoBehaviour
     {
         GenerateTrack();
         UpdateLapUI();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         StartCoroutine(Envioment.instance.CreateLandscape(250, 250));
     }
 
@@ -102,16 +104,26 @@ public class GameStart : MonoBehaviour
 
     public void ShowMenu()
     {
-        Time.timeScale = 0;
-        Menu.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(selectedObject);
+        if (GameOver.activeInHierarchy == false)
+        {
+            Time.timeScale = 0;
+            Menu.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(selectedObject);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 
     public void HideMenu()
     {
-        FindObjectOfType<CarController>().inMenu = false;
-        Time.timeScale = 1;
-        Menu.SetActive(false);
+        if (GameOver.activeInHierarchy == false)
+        {
+            FindObjectOfType<CarController>().inMenu = false;
+            Time.timeScale = 1;
+            Menu.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
 
     }
 
@@ -130,6 +142,8 @@ public class GameStart : MonoBehaviour
         //updates laps 
         playerLap = 0;
         UpdateLapUI();
+        FindObjectOfType<StartingLights>().ResetColors();
+
         //fade in
         //countdown
         StartCoroutine(CountDown(5));
@@ -137,6 +151,8 @@ public class GameStart : MonoBehaviour
 
     public void RaceOver()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         GameOver.SetActive(true);
         fasterTime.text = ConvertTime(fastestLapTime);
         TotalCourseTime.text = ConvertTime(overallTime);

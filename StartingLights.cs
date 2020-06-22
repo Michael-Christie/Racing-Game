@@ -32,4 +32,14 @@ public class StartingLights : MonoBehaviour
         currentCounter++;
     }
 
+    public void ResetColors()
+    {
+        currentCounter = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            Lights[i].color = Red;
+        }
+
+    }
+
 }

@@ -13,6 +13,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject PNotes;
     public GameObject LevelSelector;
     public GameObject OptionsCard;
+    public GameObject CreditsCard;
 
     [Header("Main Menu")]
     public GameObject GameTitle;
@@ -42,6 +43,10 @@ public class MainMenuManager : MonoBehaviour
     public Slider MusicSlider;
     public Slider SoundSlider;
     public Slider SensSlider;
+
+    [Header("Credits")]
+    public GameObject[] creditsTiles;
+    public GameObject creditsHomeBtn;
 
     [Space]
     public GameObject LD;
@@ -203,6 +208,7 @@ public class MainMenuManager : MonoBehaviour
             PNotes.SetActive(false);
             LevelSelector.SetActive(false);
             OptionsCard.SetActive(false);
+            CreditsCard.SetActive(false);
         }
 
         LeanTween.scale(tiles[4], new Vector3(.95f, .95f, .95f), .1f);
@@ -223,10 +229,12 @@ public class MainMenuManager : MonoBehaviour
 
     IEnumerator IntroAnimations()
     {
-        if(PNotes.activeInHierarchy)
+        if (PNotes.activeInHierarchy)
             EventSystem.current.SetSelectedGameObject(PatchNotes);
-        else if(OptionsCard.activeInHierarchy)
+        else if (OptionsCard.activeInHierarchy)
             EventSystem.current.SetSelectedGameObject(Optionsbtn);
+        else if (CreditsCard.activeInHierarchy)
+            EventSystem.current.SetSelectedGameObject(Credit);
         else
             EventSystem.current.SetSelectedGameObject(StartGameObj);
 
@@ -235,6 +243,8 @@ public class MainMenuManager : MonoBehaviour
         PNotes.SetActive(false);
         LevelSelector.SetActive(false);
         OptionsCard.SetActive(false);
+        CreditsCard.SetActive(false);
+
         LeanTween.scale(GameTitle, new Vector3(1, 1, 1), 1f).setEaseOutBounce();
         LeanTween.scale(StartGameObj, new Vector3(1, 1, 1), .15f);
         yield return new WaitForSeconds(.1f);
@@ -311,6 +321,30 @@ public class MainMenuManager : MonoBehaviour
         LeanTween.scale(optionTitle, Vector3.one, 1).setEaseOutBounce();
         yield return new WaitForSeconds(.1f);
         foreach(GameObject g in OptionsTiles)
+        {
+            LeanTween.scale(g, Vector3.one, .2f);
+            yield return new WaitForSeconds(.1f);
+        }
+    }
+
+    public void ShowCredits()
+    {
+        foreach (GameObject g in creditsTiles)
+            LeanTween.scale(g, Vector3.zero, 0);
+        StartCoroutine(CreditsAnimation());
+    }
+
+    IEnumerator CreditsAnimation()
+    {
+        EventSystem.current.SetSelectedGameObject(creditsHomeBtn);
+        yield return new WaitForSeconds(.2f);
+        OptionsCard.SetActive(false);
+        PNotes.SetActive(false);
+        Hub.SetActive(false);
+        LevelSelector.SetActive(false);
+        CreditsCard.SetActive(true);
+
+        foreach(GameObject g in creditsTiles)
         {
             LeanTween.scale(g, Vector3.one, .2f);
             yield return new WaitForSeconds(.1f);
