@@ -17,6 +17,7 @@ public class InputUISwitch : MonoBehaviour
             foreach (GameObject g in JoypadUIElements)
             {
                 g.SetActive(true);
+
             }
             foreach (GameObject g in KeyboardUIElements)
             {

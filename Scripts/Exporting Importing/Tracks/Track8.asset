@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48da691205380474293f0a6d626c34d7, type: 3}
+  m_Name: Track8
+  m_EditorClassIdentifier: 
+  trackInfo:
+    trackName: Twist_Challange_2
+    creator: Michael
+    positions:
+    - 0
+    - 1
+    - 0
+    - 0
+    - 1
+    - 15
+    - -15
+    - 1
+    - 30
+    - -30
+    - 1
+    - 45
+    - -15
+    - 1
+    - 60
+    - 0
+    - 1
+    - 60
+    - 0
+    - 1
+    - 75
+    - -30
+    - 1
+    - 75
+    - -45
+    - 1
+    - 90
+    - -60
+    - 1
+    - 90
+    - -60
+    - 1
+    - 75
+    - -75
+    - 1
+    - 60
+    - -90
+    - 1
+    - 45
+    - -75
+    - 1
+    - 30
+    - -60
+    - 1
+    - 15
+    - -60
+    - 1
+    - -15
+    - -41.25
+    - 1
+    - -15
+    - -41.25
+    - 1
+    - 0
+    - -18.75
+    - 1
+    - 0
+    - -18.75
+    - 1
+    - -15
+    - 0
+    - 1
+    - -15
+    rotations:
+    - 0
+    - -0.00004386902
+    - 270
+    - -0.00004386902
+    - 90
+    - 90
+    - 270
+    - 270
+    - -0.00004196167
+    - 179.99998
+    - 179.99998
+    - 270
+    - 180
+    - 90
+    - 180
+    - 180
+    - 0.0000038146973
+    - 0
+    - 180
+    - 180
+    - 0.0000038146973
+    loop: 1
