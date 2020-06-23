@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class TakePhoto : MonoBehaviour
 {
+    public string fileName;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +17,7 @@ public class TakePhoto : MonoBehaviour
     {
         if (Keyboard.current.yKey.wasPressedThisFrame)
         {
-            ScreenCapture.CaptureScreenshot("CoverImage5.png");
+            ScreenCapture.CaptureScreenshot(fileName + ".png");
         }
     }
 }

@@ -14,12 +14,19 @@ public class TrackSelectorCard : MonoBehaviour
 
     [Header("Manual Cards")]
     public bool CreateManually = false;
+    public StaticTracks TD;
+
+    private void Start()
+    {
+        if (CreateManually && TD)
+            d = TD.trackInfo;
+    }
 
     void UpdateGUI()
     {
-        
-        if (d.trackName == "" || CreateManually)
+        if (d.trackName == "")
             return;
+
         trackTitle.text = d.trackName;
         creator.text = d.creator;
     }

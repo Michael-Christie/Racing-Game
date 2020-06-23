@@ -6,7 +6,7 @@ public class MapPickerUIManager : MonoBehaviour
 {
     public GameObject Pre;
     public GameObject Custom;
-    public GameObject tempText;
+    ///public GameObject tempText;
 
     public void BuiltInMaps()
     {
@@ -14,7 +14,7 @@ public class MapPickerUIManager : MonoBehaviour
             return;
         Custom.SetActive(false);
         Pre.SetActive(true);
-        tempText.SetActive(true);
+        //tempText.SetActive(true);
 
         FindObjectOfType<MainMenuManager>().BLevels();
     }
@@ -24,7 +24,7 @@ public class MapPickerUIManager : MonoBehaviour
         if (Custom.activeInHierarchy)
             return;
         Pre.SetActive(false);
-        tempText.SetActive(false);
+        //tempText.SetActive(false);
         Custom.SetActive(true);
 
         FindObjectOfType<MainMenuManager>().CLevels();
