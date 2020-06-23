@@ -42,6 +42,7 @@ public class GameStart : MonoBehaviour
     [Header("Game Over")]
     public TextMeshProUGUI fasterTime;
     public TextMeshProUGUI TotalCourseTime;
+    public GameObject backBtn;
 
     [Header("Loading")]
     public Slider loadingSlider;
@@ -52,7 +53,7 @@ public class GameStart : MonoBehaviour
     private void Start()
     {
         GenerateTrack();
-        UpdateLapUI();
+        StartCoroutine(UpdateLapUI());
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         StartCoroutine(Envioment.instance.CreateLandscape(250, 250));
@@ -141,7 +142,8 @@ public class GameStart : MonoBehaviour
         GameOver.SetActive(false);
         //updates laps 
         playerLap = 0;
-        UpdateLapUI();
+        currentTrackerID = 1;
+        StartCoroutine(UpdateLapUI());
         FindObjectOfType<StartingLights>().ResetColors();
 
         //fade in
@@ -153,9 +155,12 @@ public class GameStart : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        LeanTween.scale(GameOver, Vector3.zero, 0);
         GameOver.SetActive(true);
         fasterTime.text = ConvertTime(fastestLapTime);
         TotalCourseTime.text = ConvertTime(overallTime);
+        LeanTween.scale(GameOver, Vector3.one, .2f);
+        EventSystem.current.SetSelectedGameObject(backBtn);
     }
 
     public IEnumerator CountDown(float totalTime = 5)
@@ -208,10 +213,14 @@ public class GameStart : MonoBehaviour
         }
     }
 
-    void UpdateLapUI()
+    IEnumerator UpdateLapUI()
     {
         currentLap.text = (playerLap + 1).ToString();
         totalLaps.text = overallLaps.ToString();
+        LeanTween.scale(currentLap.gameObject, new Vector3(1.2f,1.2f,1.2f), .2f).setEaseOutBack();
+        yield return new WaitForSeconds(.1f);
+        LeanTween.scale(currentLap.gameObject, Vector3.one, .2f);
+
     }
 
     void AddLap()
@@ -221,12 +230,12 @@ public class GameStart : MonoBehaviour
         overallTime += currentTime;
         if (playerLap < overallLaps)
         {
-            UpdateLapUI();
-            ResetTimer();
+            StartCoroutine(UpdateLapUI());
+            StartCoroutine(ResetTimer());
         }
         else
         {
-            ResetTimer();
+            StartCoroutine(ResetTimer());
             ActiveTimer = false;
             RaceOver();
             Debug.Log("Game Over?");
@@ -258,12 +267,16 @@ public class GameStart : MonoBehaviour
         return minuets.ToString().PadLeft(2, '0') + ":" + seconds.ToString().PadLeft(2, '0') + ":" + milaseconds.ToString().PadLeft(3,'0');
     }
 
-    void ResetTimer()
+    IEnumerator ResetTimer()
     {
         if (currentTime < fastestLapTime)
             fastestLapTime = currentTime;
 
         currentTime = 0;
+
+        LeanTween.scale(timer.gameObject, new Vector3(1.2f, 1.2f, 1.2f), .2f).setEaseOutBack();
+        yield return new WaitForSeconds(.1f);
+        LeanTween.scale(timer.gameObject, Vector3.one, .2f);
     }
 
     public void boxHit(int ID)
