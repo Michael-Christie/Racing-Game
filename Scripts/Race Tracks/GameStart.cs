@@ -50,6 +50,10 @@ public class GameStart : MonoBehaviour
     public int currentvalue = 0;
     public CanvasGroup loadingCanvas;
 
+    [Header("Audio")]
+    public AudioSource StartingBong;
+    public AudioSource BackgroundMusic;
+
     private void Start()
     {
         GenerateTrack();
@@ -145,6 +149,7 @@ public class GameStart : MonoBehaviour
         currentTrackerID = 1;
         StartCoroutine(UpdateLapUI());
         FindObjectOfType<StartingLights>().ResetColors();
+        BackgroundMusic.GetComponent<AudioComponent>().fadeOut(.2f);
 
         //fade in
         //countdown
@@ -161,6 +166,7 @@ public class GameStart : MonoBehaviour
         TotalCourseTime.text = ConvertTime(overallTime);
         LeanTween.scale(GameOver, Vector3.one, .2f);
         EventSystem.current.SetSelectedGameObject(backBtn);
+        BackgroundMusic.GetComponent<AudioComponent>().fadeOut(2);
     }
 
     public IEnumerator CountDown(float totalTime = 5)
@@ -179,14 +185,18 @@ public class GameStart : MonoBehaviour
                 UnlockInput();
             LeanTween.scale(CountdownElement.gameObject, Vector3.one, sectionTime * .5f).setEaseOutElastic();
             FindObjectOfType<StartingLights>().changeOneLight();
+            StartingBong.Play();
             yield return new WaitForSeconds(sectionTime * .6f);
 
             LeanTween.scale(CountdownElement.gameObject, Vector3.zero, sectionTime * .3f);
             yield return new WaitForSeconds(sectionTime * .4f);
 
         }
-
         yield return new WaitForSeconds(.5f);
+
+        BackgroundMusic.Play();
+        BackgroundMusic.GetComponent<AudioComponent>().StartFade(2);
+        
         LeanTween.scale(timer.gameObject, Vector3.one, .5f).setEaseOutElastic();
 
     }

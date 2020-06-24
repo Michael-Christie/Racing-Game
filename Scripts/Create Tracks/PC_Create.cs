@@ -19,8 +19,15 @@ public class PC_Create : MonoBehaviour
 
     public bool inMenu = false;
 
+    [Header("Audio")]
+    public AudioClip placeNode;
+    public AudioClip deleteNode;
+    AudioSource AS;
+
+
     private void Start()
     {
+        AS = GetComponent<AudioSource>();
         //Cursor.visible = false;
 
         // optional place it in the center on start
@@ -86,6 +93,7 @@ public class PC_Create : MonoBehaviour
         x4,
     }
 
+    [Space]
     public zoomLevel ZoomLevel;
 
     public enum GridSize{
@@ -131,6 +139,7 @@ public class PC_Create : MonoBehaviour
             {
                 AddPoint();
                 //addNode = false;
+                AS.PlayOneShot(placeNode);
             }
 
             //zooms in and out
@@ -185,6 +194,7 @@ public class PC_Create : MonoBehaviour
                 if (controls.TrackCreating.Delete.triggered)
                 {
                     NodeManager.instance.RemoveNode(p.GetComponent<NodePoint>());
+                    AS.PlayOneShot(deleteNode);
                 }
 
             }

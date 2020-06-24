@@ -38,6 +38,12 @@ public class CarController : MonoBehaviour
 
     float driftPower = 0;
 
+    [Header("Sounds")]
+    public AudioSource AS;
+    public AudioClip Starting;
+    public AudioClip breaking;
+    public AudioClip driftig;
+
     private void OnEnable()
     {
         //sets up the car controller
@@ -136,6 +142,24 @@ public class CarController : MonoBehaviour
                 SetColor();
             }
 
+            if (!disabled && !drifting)
+            {
+                if (!AS.isPlaying)
+                {
+
+                    if (controls.CarController.Accelerate.ReadValue<float>() > 0)
+                    {
+                        AS.clip = Starting;
+                        AS.Play();
+                    }else if (controls.CarController.Reverse.ReadValue<float>() > 0)
+                    {
+                        AS.clip = breaking;
+                        AS.Play();
+                    }
+                }
+            }
+            
+
             //lerp between the old and new possitions
             currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * 12f);
             currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * 4f);
@@ -220,6 +244,11 @@ public class CarController : MonoBehaviour
             leftDrift.PlayParticals();
         else
             rightDrift.PlayParticals();
+
+        AS.Stop();
+        AS.clip = driftig;
+        AS.loop = true;
+        AS.Play();
     }
 
     void StopDrifting()
@@ -238,5 +267,9 @@ public class CarController : MonoBehaviour
 
         driftDir = 0;
         driftPower = 0;
+
+        AS.Stop();
+        AS.clip = null;
+        AS.loop = false;
     }
 }

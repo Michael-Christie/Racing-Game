@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 1340039941837849397}
   - component: {fileID: 2708227019648912145}
   - component: {fileID: 1340039941837849396}
+  - component: {fileID: 8671418884729130486}
   m_Layer: 5
   m_Name: CustomMapCard
   m_TagString: Untagged
@@ -339,6 +340,19 @@ MonoBehaviour:
     loop: 0
   CreateManually: 0
   TD: {fileID: 0}
+--- !u!114 &8671418884729130486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340039941837849393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7543f7f6e0420a489d2e7a1c8ea1491, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPress: {fileID: 8300000, guid: 978d8269772abb44ea7f9eb5a65f8067, type: 3}
 --- !u!1 &1340039942932709555
 GameObject:
   m_ObjectHideFlags: 0
