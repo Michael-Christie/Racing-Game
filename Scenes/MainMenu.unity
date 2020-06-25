@@ -157,8 +157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 241.66667, y: -240}
-  m_SizeDelta: {x: 483.33334, y: 180}
+  m_AnchoredPosition: {x: 803.85, y: -242}
+  m_SizeDelta: {x: 1607.7, y: 188}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1661604
 MonoBehaviour:
@@ -441,9 +441,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "These are features that will be coming into the game in the next few weeks...\n\n\u2022Music
-    and Sound Effects\n\u2022Polishing of partical effects\n\u2022Control Menu /
-    Controls in game UI\n\u2022Credits page\n\n"
+  m_Text: 'The game project is complet to a reasonable degree.
+
+    There are some
+    inconsistancies around music and sound effects that I might come back to a few
+    months down the line, but the main issue is due to searching for free music and
+    sound effects for the project.
+
+'
 --- !u!222 &5987370
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1004,8 +1009,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 241.66667, y: -70}
-  m_SizeDelta: {x: 483.33334, y: 140}
+  m_AnchoredPosition: {x: 803.85, y: -74}
+  m_SizeDelta: {x: 1607.7, y: 148}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &14680993
 MonoBehaviour:
@@ -1282,7 +1287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4200,8 +4205,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 241.66667, y: -795}
-  m_SizeDelta: {x: 483.33334, y: 70}
+  m_AnchoredPosition: {x: 803.85, y: -791}
+  m_SizeDelta: {x: 300, y: 78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &295721937
 MonoBehaviour:
@@ -5744,79 +5749,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonPress: {fileID: 8300000, guid: 978d8269772abb44ea7f9eb5a65f8067, type: 3}
---- !u!1 &412984676
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 412984677}
-  - component: {fileID: 412984679}
-  - component: {fileID: 412984678}
-  m_Layer: 5
-  m_Name: Empty
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &412984677
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 412984676}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2050516508}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 251.66667, y: -425}
-  m_SizeDelta: {x: 483.33334, y: 830}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &412984678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 412984676}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.8039216, g: 0.91764706, b: 0.7529412, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f2d1db67f26a74f13bb10147155953dd, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.8
---- !u!222 &412984679
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 412984676}
-  m_CullTransparentMesh: 0
 --- !u!1 &416491139
 GameObject:
   m_ObjectHideFlags: 0
@@ -6097,11 +6029,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music and Sound By
+  m_text: 'Localisation
 
-    ~Name 1~
-
-    ~Name 2~'
+    ~Polyglot Gamedev Project~'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 443e247d1b6b9c94f984c373548cf78c, type: 2}
@@ -6170,12 +6100,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 464990332}
-    characterCount: 36
+    characterCount: 39
     spriteCount: 0
-    spaceCount: 7
-    wordCount: 8
+    spaceCount: 3
+    wordCount: 4
     linkCount: 0
-    lineCount: 3
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -6275,11 +6205,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "What is all the new features that have been added in this patch.\n\n\u2022Added
-    procedurally generated envioments around the tracks when you race on them\n\u2022Added
-    starting lights\n\u2022Lowered the light of the main scene and removed blooming
-    post processing\n\n\u2022Added the main game racing mechanic\n\u2022Player restart
-    racing\n\n\u2022Added a fastest and overall lap timer\n\n"
+  m_Text: "What is all the new features that have been added in this patch.\n\n\u20229
+    new In-built maps for you to play straight out of the box\n\n\u2022In Game sound
+    effects for moving and drifting.\n\u2022Linked game sounds to the options sounds\n\u2022Button
+    clicking sound effects.\n\n\u2022Tidying up of UI elements and Tweening\n\n"
 --- !u!222 &502188939
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12553,7 +12482,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 2e5be5e62a83c8b4ba7f5ef54845014e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13975,8 +13904,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 241.66667, y: -430}
-  m_SizeDelta: {x: 483.33334, y: 180}
+  m_AnchoredPosition: {x: 803.85, y: -430}
+  m_SizeDelta: {x: 1607.7, y: 188}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1391535103
 MonoBehaviour:
@@ -17214,6 +17143,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1721269809}
+  - component: {fileID: 1721269812}
+  - component: {fileID: 1721269811}
   - component: {fileID: 1721269810}
   m_Layer: 5
   m_Name: Center
@@ -17239,12 +17170,12 @@ RectTransform:
   - {fileID: 2052224462}
   - {fileID: 295721936}
   m_Father: {fileID: 2050516508}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 750, y: -425}
-  m_SizeDelta: {x: 483.33334, y: 830}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1607.7, y: 830}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1721269810
 MonoBehaviour:
@@ -17263,14 +17194,50 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 10
+  m_ChildAlignment: 1
+  m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
-  m_ChildControlHeight: 1
+  m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!114 &1721269811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721269808}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1721269812
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721269808}
+  m_CullTransparentMesh: 0
 --- !u!1 &1724594767 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1340039941837849393, guid: 1f086777cfe726748a14923e616318c7,
@@ -17327,7 +17294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -17345,7 +17312,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Version 0.5
+  m_Text: Version 1.0
 --- !u!222 &1729542889
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17810,7 +17777,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Version 0.5
+  m_text: Version 1.0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 443e247d1b6b9c94f984c373548cf78c, type: 2}
@@ -18938,9 +18905,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u2022Fixed an issue where the controller wouldn't controll the track
-    pacing UI element.\n\u2022Fixed an issue when loading more then 9 custom maps
-    they wouldn't appear."
+  m_Text: "\u2022Added collision boxes to trees.\n\u2022Added collision boxes to
+    the starting line.\n\n\u2022Fixed a UI focus issue not allowing players to click
+    some buttons with a joypad."
 --- !u!222 &1884666610
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20222,67 +20189,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonPress: {fileID: 8300000, guid: 978d8269772abb44ea7f9eb5a65f8067, type: 3}
---- !u!1 &1973846630
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1973846631}
-  - component: {fileID: 1973846632}
-  m_Layer: 5
-  m_Name: Empty
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1973846631
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1973846630}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2050516508}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1248.3334, y: -425}
-  m_SizeDelta: {x: 483.33334, y: 830}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1973846632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1973846630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ff5d4af28826eb42962432c729f57cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  rows: 2
-  columns: 0
-  cellSize: {x: NaN, y: 405}
-  spacing: {x: 0, y: 10}
-  fitType: 3
-  fitX: 1
-  fitY: 1
 --- !u!1 &1990694192
 GameObject:
   m_ObjectHideFlags: 0
@@ -21358,7 +21264,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2050516508}
-  - component: {fileID: 2050516509}
   m_Layer: 5
   m_Name: Credits
   m_TagString: Untagged
@@ -21377,9 +21282,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 412984677}
   - {fileID: 1721269809}
-  - {fileID: 1973846631}
   m_Father: {fileID: 1270975787}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -21388,31 +21291,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2050516509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2050516507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ff5d4af28826eb42962432c729f57cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 10
-    m_Right: 10
-    m_Top: 10
-    m_Bottom: 10
-  m_ChildAlignment: 0
-  rows: 1
-  columns: 3
-  cellSize: {x: 483.33334, y: 830}
-  spacing: {x: 15, y: 0}
-  fitType: 4
-  fitX: 1
-  fitY: 1
 --- !u!1 &2052224461
 GameObject:
   m_ObjectHideFlags: 0
@@ -21449,8 +21327,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 241.66667, y: -640}
-  m_SizeDelta: {x: 483.33334, y: 220}
+  m_AnchoredPosition: {x: 803.85, y: -638}
+  m_SizeDelta: {x: 1607.7, y: 228}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2052224463
 MonoBehaviour:
